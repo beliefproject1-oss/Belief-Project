@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#F3F9FF">
 <link rel="icon" type="image/webp" href="assets/img/bear-badge.webp">
 <link rel="preload" href="assets/fonts/Aeonik-Medium.ttf" as="font" type="font/ttf" crossorigin>
-<link rel="stylesheet" href="css/styles.css?v=a78ae8fa">
+<link rel="stylesheet" href="css/styles.css?v=4ff46a03">
 <script>document.documentElement.classList.add('js')</script>
 </head>
 <body class="flow-page order-page">
@@ -79,13 +79,13 @@
         <legend class="o-legend"><span class="o-step">03</span> Where it goes</legend>
         <div class="o-grid">
           <div class="o-field">
-            <label for="oWilaya">Wilaya <span class="o-req" aria-hidden="true">*</span></label>
-            <div class="o-select"><select id="oWilaya" name="wilaya" required><option value="">Choose your wilaya</option></select></div>
+            <label for="oWilaya">Wilaya · <span lang="ar">الولاية</span> <span class="o-req" aria-hidden="true">*</span></label>
+            <div class="o-combo"><input id="oWilaya" type="text" placeholder="Search your wilaya" aria-required="true"><input type="hidden" name="wilaya"></div>
             <p class="o-msg"></p>
           </div>
           <div class="o-field">
-            <label for="oCommune">Commune <span class="o-req" aria-hidden="true">*</span></label>
-            <input id="oCommune" name="commune" type="text" autocomplete="address-level2" required maxlength="80">
+            <label for="oCommune">Commune · <span lang="ar">البلدية</span> <span class="o-req" aria-hidden="true">*</span></label>
+            <div class="o-combo"><input id="oCommune" type="text" placeholder="Choose your wilaya first" aria-required="true"><input type="hidden" name="commune"></div>
             <p class="o-msg"></p>
           </div>
           <div class="o-field o-wide" role="radiogroup" aria-labelledby="oMethodLabel" id="oMethodField">
@@ -131,12 +131,14 @@
   </aside>
 </main>
 
-<script src="content.js?v=162b4785"></script>
+<script src="content.js?v=9d31ee62"></script>
 <script src="assets/designs/designs.js?v=dc721f41"></script>
-<script src="js/main.js?v=a119304f"></script>
+<script src="js/main.js?v=685f499e"></script>
 <script src="js/flow.js?v=85587a0e"></script>
 <script src="js/garment.js?v=058e3812"></script>
+<script src="assets/data/places.js?v=f18eccac"></script>
+<script src="js/places.js?v=39821e81"></script>
 <script src="js/orders.js?v=1077f199"></script>
-<script src="js/order.js?v=7a377a2a"></script>
+<script src="js/order.js?v=15104d08"></script>
 </body>
 </html>

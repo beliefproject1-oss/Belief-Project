@@ -178,10 +178,15 @@
     if (C.hero?.poster) video.poster = C.hero.poster;
     if (src) video.src = src;
 
-    // No controls: the video loops for as long as it is on screen. It only rests while
-    // nobody can see it, and picks itself up again if the browser pauses it.
+    // No controls and nothing to tap: the video plays, muted, in a loop for as long as it is on screen. It only
+    // rests while nobody can see it, and whatever pauses it while it is in view (a tap that gets through, a media
+    // key, the system) is undone at once.
+    video.muted = true;
+    video.controls = false;
     let inView = true;
     const play = () => { if (inView && !document.hidden) video.play().catch(() => {}); };
+    video.addEventListener('pause', () => { if (inView && !document.hidden) setTimeout(play, 0); });
+    video.addEventListener('contextmenu', e => e.preventDefault());
     new IntersectionObserver(([entry]) => {
       inView = entry.isIntersecting;
       if (inView) play();

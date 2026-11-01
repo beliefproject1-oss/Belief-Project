@@ -40,13 +40,15 @@
     if (product.design) g.show(product.design, { pull: false });
   } else $('.o-shirt').hidden = true;
 
-  /* ---------- the wilayas ---------- */
-  const select = $('#oWilaya');
-  Flow.wilayas().forEach(w => {
-    const opt = el('option', '', `${String(w.code).padStart(2, '0')} — ${w.name}`);
-    opt.value = String(w.code);
-    select.append(opt);
+  /* ---------- where it goes: the wilaya, then one of its communes (js/places.js) ---------- */
+  const places = window.BeliefPlaces.pickers({
+    wilaya: { input: $('#oWilaya'), hidden: form.elements.wilaya },
+    commune: { input: $('#oCommune'), hidden: form.elements.commune },
   });
+  // the wilaya as the order names it: "16 — Alger (الجزائر)"
+  const placeLabel = code => { const w = window.BeliefPlaces.wilaya(code); return w ? `${String(w.code).padStart(2, '0')} — ${w.name}${w.nameAr ? ' (' + w.nameAr + ')' : ''}` : ''; };
+  // the field the customer sees: the search box of a picker, or the field itself
+  const shown = name => ({ wilaya: $('#oWilaya'), commune: $('#oCommune') })[name] || form.elements[name];
   const M = Flow.methods();
   const methodInputs = $$('input[name="method"]', form);
 
@@ -67,7 +69,7 @@
     phone2: v => (!v || phoneOk(v) ? '' : 'Enter an Algerian number, or leave this empty.'),
     email: v => (!v || emailOk(v) ? '' : 'Enter a valid email address, or leave this empty.'),
     wilaya: v => (v ? '' : 'Choose your wilaya.'),
-    commune: v => (v.length >= 2 ? '' : 'Enter your commune.'),
+    commune: v => (v ? '' : val('wilaya') ? 'Choose your commune.' : 'Choose your wilaya first.'),
     method: v => (v ? '' : 'Choose home delivery or stop desk.'),
     address: v => (v.length >= 5 ? '' : 'Enter the delivery address.'),
     instructions: () => '',
@@ -84,7 +86,7 @@
       if (box) box.textContent = err;
       const wrap = name === 'method' ? $('#oMethodField') : field(name)?.closest('.o-field');
       wrap?.classList.toggle('is-wrong', !!err);
-      if (name !== 'method') { if (err) field(name).setAttribute('aria-invalid', 'true'); else field(name).removeAttribute('aria-invalid'); }
+      if (name !== 'method') { if (err) shown(name).setAttribute('aria-invalid', 'true'); else shown(name).removeAttribute('aria-invalid'); }
     }
     return !err;
   }
@@ -134,7 +136,8 @@
     row(sum, 'Size', d.size || '—', editLink(Flow.nextHref('size.html', d), 'Size'));
     row(sum, 'Customisation', product.design ? 'Back print, cut out' : 'None');
     row(sum, 'Packaging', packaging ? packaging.name : '—', editLink(Flow.nextHref('packaging.html', d), 'Packaging'));
-    row(sum, 'Shipping', s.method ? `${M[s.method]}${s.w ? ', ' + s.w.name : ''}` : 'Choose below');
+    const where = window.BeliefPlaces.wilaya(val('wilaya'));
+    row(sum, 'Shipping', s.method ? `${M[s.method]}${where ? ', ' + where.name : ''}` : 'Choose below');
 
     const t = totals();
     const tot = $('#orderTotals');
@@ -176,8 +179,11 @@
   const saved = keep.get(DETAILS) || {};
   Object.entries(saved).forEach(([k, v]) => {
     if (k === 'method') { const r = methodInputs.find(i => i.value === v); if (r) r.checked = true; return; }
+    if (k === 'wilaya' || k === 'commune') return; // the pickers put these back, below
     if (field(k) && typeof v === 'string') field(k).value = v;
   });
+  // the address comes back only if it still names a real wilaya and one of its communes
+  places.restore(saved.wilaya || Flow.read?.().wilaya || '', saved.commune || '');
   const remember = () => {
     const out = {};
     ['firstName', 'familyName', 'phone', 'phone2', 'email', 'wilaya', 'commune', 'address', 'instructions'].forEach(k => { out[k] = val(k); });
@@ -215,7 +221,7 @@
       if (gaps.length) say('Your order is missing a step: ' + gaps.map(g => g[0].toLowerCase()).join(', ') + '.', 'error');
       else say('Please check the highlighted fields.', 'error');
       const first = names.find(n => !check(n, { show: false }));
-      if (first) (first === 'method' ? methodInputs[0] : field(first)).focus();
+      if (first) (first === 'method' ? methodInputs[0] : shown(first)).focus();
       return;
     }
     sending = true;
@@ -236,7 +242,7 @@
       customer: {
         firstName: val('firstName'), familyName: val('familyName'),
         phone: val('phone'), phone2: val('phone2'), email: val('email'),
-        wilaya: s.w ? `${String(s.w.code).padStart(2, '0')} — ${s.w.name}` : '', wilayaCode: s.w ? s.w.code : '',
+        wilaya: placeLabel(val('wilaya')), wilayaCode: s.w ? s.w.code : '',
         commune: val('commune'), address: val('address'), instructions: val('instructions'),
       },
       items: [{

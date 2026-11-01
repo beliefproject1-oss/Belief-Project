@@ -7,9 +7,9 @@ window.BELIEF = {
   marquee: "Belief Project",
 
   hero: {
-    video: "assets/video/hero-placeholder.mp4?v=96516aea", // wide video for desktop and tablet
-    videoMobile: "",                            // optional 9:16 video for phones
-    poster: "",                                 // optional still image shown while the video loads
+    video: "assets/video/hero.mp4?v=5e3e2512",             // wide video for desktop and tablet (1080p)
+    videoMobile: "assets/video/hero-720.mp4?v=53814207",   // lighter copy for phones held upright
+    poster: "assets/video/hero-poster.jpg?v=968bc0ec",     // still image shown while the video loads
     shopLabel: "Shop Now",
     shopUrl: "shop.html",                       // the colour selection page
     captionLeft: "Est. 2026 — Alger",
@@ -154,7 +154,7 @@ window.BELIEF = {
     // "image" is the large picture, "imageSmall" an optional lighter one for phones. The zipper bag picture is made by
     // tools/prepare-packaging.js from the photographs of the bag and the shirt.
     options: [
-      { id: "zipper-bag", name: "Zipper Bag", status: "available", note: "Frosted zipper bag printed with the Belief Project bear, your shirt folded inside.", image: "assets/img/pack-zipper-bag.webp?v=ff663f77", imageSmall: "assets/img/pack-zipper-bag-sm.webp?v=9931b13a", imageAlt: "Two frosted Belief Project zipper bags lying on stone, an Ice Blue and a Midnight shirt folded inside, the wordmark and the bear printed on the bags", statusLabel: "Available" },
+      { id: "zipper-bag", name: "Zipper Bag", status: "available", note: "Frosted zipper bag printed with the Belief Project bear, your shirt folded inside.", image: "assets/img/pack-zipper-bag-photo.webp?v=30b6927a", imageSmall: "assets/img/pack-zipper-bag-photo-sm.webp?v=3a1a9d3c", imageAlt: "A Midnight and an Ice Blue Belief Project T-shirt, each folded in its frosted zipper bag printed with the Belief Project wordmark and the bear, beside the two shirts folded with their neck labels showing", statusLabel: "Available" },
       { id: "luxury-box", name: "Luxury Box", status: "unavailable", note: "Rigid Midnight box with the Belief Project wordmark.", image: "assets/img/pack-luxury-box.webp?v=dd95fd31", imageAlt: "The Midnight Belief Project luxury box", statusLabel: "Unavailable", unavailableLabel: "Unavailable for now", unavailableMessage: "The Luxury Box isn't available yet. It's coming soon." },
     ],
   },

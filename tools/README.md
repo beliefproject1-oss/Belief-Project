@@ -21,7 +21,7 @@ the print area on it, and the view the page frames by default (head to hips).
 ```
 node tools/prepare-garment.js       # the photographs the page loads, and the fabric measurements
 node tools/prepare-designs.js       # every design printed on every model
-node tools/prepare-packaging.js     # the zipper-bag picture on the packaging page
+node tools/prepare-places.js        # the wilayas and communes for the order page
 node tools/stamp-assets.js          # before every push: version tags on CSS/JS links, so the CDN never serves old copies
 ```
 
@@ -67,11 +67,15 @@ and the print on each model.
 
 ## The zipper bag
 
-`tools/prepare-packaging.js` makes `assets/img/pack-zipper-bag.webp` (and a 900 px copy) from photographs only:
-two of the real bag (`_reference/packaging/zipper-bag-hanging.jpg`) lying on stone in daylight, a product flat lay:
-its proportions, print, zip, pull and vent holes kept as they are, an Ice Blue and a Midnight T-shirt folded inside
-(fabric, collar, woven label and hang tag from `_reference/garment/flat/`), seen through the frosted film. The bag is
-never redrawn, stretched or recoloured. The scene (which shirt, where, at what angle) is `LAYOUT` at the top.
+The packaging page shows the photograph supplied, `_reference/packaging/zipper-bag-photo.webp`, as
+`assets/img/pack-zipper-bag-photo.webp` (1448 px wide) and `-sm.webp` (900 px). To change it, replace both with the new
+photograph at those widths and run `node tools/stamp-assets.js`.
+
+## Wilayas and communes
+
+`node tools/prepare-places.js` writes `assets/data/places.js`, the 58 wilayas and their 1,541 communes in French and
+Arabic, from `_reference/data/algeria-cities.json` (the open dataset github.com/othmanus/algeria-cities). The order
+page's pickers (`js/places.js`) read it.
 
 ## Drawn artwork (archived)
 
