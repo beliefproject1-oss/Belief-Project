@@ -23,16 +23,33 @@
       const v = get(el.dataset.href);
       if (v) el.setAttribute('href', v);
     });
+    // amounts in dinars: [data-price="plain"] shows prices.plain as "3,900 DA"
+    $$('[data-price]').forEach(el => {
+      const v = C.prices?.[el.dataset.price];
+      if (typeof v === 'number') el.textContent = v.toLocaleString('en-US') + ' ' + (C.prices.currency || 'DA');
+    });
+    // WhatsApp and email, wherever the page names them
+    $$('[data-contact]').forEach(el => {
+      const href = contactHref(el.dataset.contact);
+      if (!href) return;
+      el.href = href;
+      if (/^https?:/i.test(href)) { el.target = '_blank'; el.rel = 'noopener'; }
+    });
     $$('[data-rows]').forEach(list => {
       (get(list.dataset.rows) || []).forEach(item => {
         const li = document.createElement('li');
         if (item.id) li.id = item.id;
         const external = /^https?:/i.test(item.url || '');
-        const row = document.createElement(item.url ? 'a' : 'div');
+        // a row with an action opens a window on this page (js/panels.js); one with a url is a link
+        const row = document.createElement(item.url ? 'a' : item.action ? 'button' : 'div');
         row.className = 'row';
         if (item.url) {
           row.href = item.url;
           if (external) { row.target = '_blank'; row.rel = 'noopener'; }
+        } else if (item.action) {
+          row.type = 'button';
+          row.dataset.panel = item.action;
+          row.setAttribute('aria-haspopup', 'dialog');
         }
         const name = document.createElement('span');
         name.className = 'row-name';
@@ -68,8 +85,17 @@
       const photo = $('#customImage');
       photo.alt = C.custom.imageAlt || '';
       photo.src = C.custom.image;
+      if (C.custom.focus) photo.style.objectPosition = C.custom.focus;
       picture.hidden = false;
     }
+
+    // Shipping Prices, Size Guide: floating windows over the page
+    document.addEventListener('click', e => {
+      const t = e.target.closest('[data-panel]');
+      if (!t || !window.BeliefPanels) return;
+      e.preventDefault();
+      window.BeliefPanels.open(t.dataset.panel);
+    });
 
     const socials = $('#socials');
     (C.socials || []).forEach(item => {
@@ -90,6 +116,14 @@
       li.append(el);
       socials.append(li);
     });
+  }
+
+  // "whatsapp" → the chat link, "email" → a new email to the shop, with its subject
+  function contactHref(kind) {
+    const K = C.contact || {};
+    if (kind === 'whatsapp') return K.whatsapp || '';
+    if (kind === 'email' && K.email) return 'mailto:' + K.email + (K.emailSubject ? '?subject=' + encodeURIComponent(K.emailSubject) : '');
+    return '';
   }
 
   const ICONS = {
@@ -476,16 +510,25 @@
       else t.removeAttribute('aria-current');
     });
 
+    // on a phone held upright the halves are stacked, wider than tall: the wide photographs fit them
+    const stacked = matchMedia('(max-width: 700px) and (orientation: portrait)');
     tones.forEach(tone => {
       const id = tone.dataset.color;
       const data = (C.shop?.colors || []).find(c => c.id === id) || {};
       const photo = $('img', tone);
-      if (data.focus) tone.style.setProperty('--focus', data.focus);
       if (data.label) $('.tone-name', tone).textContent = data.label;
+      const frame = () => {
+        const wide = stacked.matches && data.imageWide;
+        const focus = (wide && data.focusWide) || data.focus;
+        if (focus) tone.style.setProperty('--focus', focus);
+        const src = wide ? data.imageWide : data.image;
+        if (photo && src && photo.getAttribute('src') !== src) photo.src = src;
+      };
       if (photo && data.image) {
         photo.alt = data.imageAlt || '';
-        photo.src = data.image;
+        frame();
         photo.hidden = false;
+        stacked.addEventListener?.('change', frame);
       }
       if (next) tone.href = next + (next.includes('?') ? '&' : '?') + 'color=' + encodeURIComponent(id);
 
@@ -541,40 +584,54 @@
     const input = $('#nlEmail', form);
     const button = $('.nl-submit', form);
     const status = $('#nlStatus', form);
-    const endpoint = C.newsletter?.endpoint;
+    const N = C.newsletter || {};
+    // the sign-up is saved by the same Google script as the orders (backend/order-email), which writes it to Notion
+    const endpoint = N.endpoint || '';
+    const say = (text, kind) => {
+      status.textContent = text;
+      form.dataset.state = kind || '';
+    };
 
-    input.addEventListener('input', () => { input.removeAttribute('aria-invalid'); status.textContent = ''; });
+    input.addEventListener('input', () => { input.removeAttribute('aria-invalid'); if (form.dataset.state !== 'done') say(''); });
     form.addEventListener('submit', async e => {
       e.preventDefault();
       const email = input.value.trim();
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
         input.setAttribute('aria-invalid', 'true');
-        status.textContent = 'Enter a valid email address.';
+        say('Enter a valid email address.', 'error');
         input.focus();
         return;
       }
+      // nothing is shown as saved unless the service says it was saved
+      if (!endpoint) {
+        say(N.notConnected || 'Sign-ups open soon: we can’t save your email just yet.', 'error');
+        return;
+      }
+      button.disabled = true;
+      form.classList.add('is-sending');
       try {
-        if (endpoint) {
-          button.disabled = true;
-          const res = await fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({ email }),
-          });
-          if (!res.ok) throw new Error('Subscribe failed: ' + res.status);
-        }
+        const abort = new AbortController();
+        const timer = setTimeout(() => abort.abort(), 20000);
+        // sent as plain text so the browser needs no permission round-trip with Google
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({ kind: 'subscribe', email, source: 'Website newsletter', website: $('#nlWebsite', form)?.value || '' }),
+          redirect: 'follow',
+          signal: abort.signal,
+        });
+        clearTimeout(timer);
+        const answer = res.ok ? await res.json() : null;
+        if (!answer || answer.ok !== true || answer.saved !== true) throw new Error((answer && answer.error) || 'not_saved');
         form.classList.add('is-done');
-        status.textContent = C.newsletter?.success || "You're on the list.";
-        if (!endpoint) {
-          const preview = document.createElement('small');
-          preview.textContent = 'Preview only: emails are not being saved yet.';
-          status.append(preview);
-        }
+        say(answer.duplicate ? (N.already || "You're already on the list.") : (N.success || "You're on the list."), 'done');
+        input.value = '';
       } catch (err) {
         console.error(err);
-        status.textContent = 'Something went wrong. Please try again.';
+        say(N.failed || 'We couldn’t save your email. Please try again in a moment.', 'error');
       } finally {
         button.disabled = false;
+        form.classList.remove('is-sending');
       }
     });
   }

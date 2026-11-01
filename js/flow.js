@@ -1,11 +1,12 @@
 /* Belief Project — the order as it is put together, step by step.
-   Colour → plain or printed → design (studio.html) → fit (size.html) → packaging (packaging.html) → order details.
-   Each step saves what was chosen into one draft, kept for the visit (sessionStorage, key "belief.order"):
+   Colour → plain or printed → design (studio.html) → fit (size.html) → packaging (packaging.html) → details (order.html)
+   → confirmation (confirmation.html). Each step saves what was chosen into one draft, kept for the visit
+   (sessionStorage, key "belief.order"):
 
-     { color, design, background, height, weight, size, packaging }
+     { color, design, height, weight, size, packaging, delivery, wilaya }
 
-   The order page reads it with BeliefFlow.read() and turns it into the item BeliefOrders.submit() sends with
-   BeliefFlow.orderItem(), so the height, weight and recommended size travel with the order.
+   Prices come from content.js: the shirt (prices.plain without a design, prices.printed with one) and the delivery
+   (shipping.wilayas: home delivery and stop desk, per wilaya). BeliefFlow.money() writes an amount the site's way.
    Also here: the light that follows the pointer across the liquid-glass controls of these steps (BeliefFlow.glass). */
 window.BeliefFlow = (() => {
   'use strict';
@@ -23,8 +24,11 @@ window.BeliefFlow = (() => {
     try { sessionStorage.setItem(KEY, JSON.stringify(next)); } catch (err) { /* private browsing: the steps still pass it along in the address */ }
     return next;
   }
+  function clear() {
+    try { sessionStorage.removeItem(KEY); } catch (err) { /* nothing kept */ }
+  }
 
-  // the colour, design and background chosen so far, from the address first (a shared link), then the draft
+  // the colour and design chosen so far, from the address first (a shared link), then the draft
   function current() {
     const p = new URLSearchParams(location.search);
     const d = read();
@@ -32,8 +36,7 @@ window.BeliefFlow = (() => {
     let color = p.get('color') || d.color || '';
     if (colors.length && !colors.includes(color)) color = d.color && colors.includes(d.color) ? d.color : '';
     const design = p.has('design') ? p.get('design') : (d.design || '');
-    const background = ['with', 'without'].includes(p.get('bg')) ? p.get('bg') : (d.background || '');
-    return { ...d, color, design, background };
+    return { ...d, color, design };
   }
 
   const withParams = (href, extra) => {
@@ -44,7 +47,7 @@ window.BeliefFlow = (() => {
     return path + (q ? '?' + q : '');
   };
   // the address of the next step, carrying the choices made so far
-  const nextHref = (href, d = current()) => withParams(href, { color: d.color, design: d.design, bg: d.design ? d.background : '' });
+  const nextHref = (href, d = current()) => withParams(href, { color: d.color, design: d.design });
 
   const colorLabel = id => ((C.shop?.colors || []).find(c => c.id === id) || {}).label || id || '';
   function designOf(key) {
@@ -55,20 +58,32 @@ window.BeliefFlow = (() => {
     return d ? { ...d, key: dir + '/' + id, direction: named ? named.name : dir } : null;
   }
 
-  // The line the order email shows for the shirt: product, colour, size, and the rest as named details.
-  function orderItem(d = read()) {
+  /* ---------- prices ---------- */
+  const currency = () => C.prices?.currency || 'DA';
+  // 3900 → "3,900 DA"; text is left as it is
+  function money(v) {
+    if (v == null || v === '') return '';
+    if (typeof v !== 'number') return String(v);
+    return v.toLocaleString('en-US') + ' ' + currency();
+  }
+  // the shirt: plain, or with the design printed on its back
+  function product(d = current()) {
     const design = designOf(d.design);
-    const pack = (C.packaging?.options || []).find(o => o.id === d.packaging);
-    const details = {};
-    if (design) {
-      details.design = `${design.title} (${design.direction})`;
-      details.artworkBackground = d.background === 'with' ? 'With background' : 'Without background';
-    } else details.design = 'Plain — no artwork';
-    if (d.height) details.height = d.height + ' cm';
-    if (d.weight) details.weight = d.weight + ' kg';
-    if (d.size) details.recommendedSize = d.size;
-    if (pack) details.packaging = pack.name;
-    return { product: 'T-shirt', color: d.color, size: d.size || '', quantity: 1, customization: details };
+    const P = C.prices || {};
+    return design
+      ? { kind: 'printed', label: P.printedLabel || 'With design', price: P.printed, design }
+      : { kind: 'plain', label: P.plainLabel || 'Without design', price: P.plain, design: null };
+  }
+  // the wilayas, each with its two delivery prices (null where the price list gives none)
+  const wilayas = () => (C.shipping?.wilayas || []).map(([code, name, home, desk]) => ({ code, name, home: home ?? null, desk: desk ?? null }));
+  const wilaya = code => wilayas().find(w => w.code === Number(code)) || null;
+  const methods = () => C.shipping?.methods || { home: 'Home delivery', desk: 'Stop desk' };
+  // the delivery price for a wilaya and a method, or null when it is not listed
+  function shippingPrice(code, method) {
+    const w = wilaya(code);
+    if (!w || !method) return null;
+    const v = w[method];
+    return typeof v === 'number' ? v : null;
   }
 
   /* ---------- liquid glass: the light follows the pointer and a press sends a ripple across ---------- */
@@ -99,12 +114,12 @@ window.BeliefFlow = (() => {
     });
   }
 
-  /* ---------- the shirt so far, as a small card: fabric swatch with the artwork, design, colour, background ---------- */
+  /* ---------- the shirt so far, as a small card: fabric swatch with the artwork, design, colour, size ---------- */
   function summary(host, d = current(), { size = false } = {}) {
     if (!host) return;
-    const S = C.studio || {};
     const make = (tag, cls, text) => { const n = document.createElement(tag); n.className = cls; if (text) n.textContent = text; return n; };
-    const design = designOf(d.design);
+    const p = product(d);
+    const design = p.design;
     host.textContent = '';
     const swatch = make('span', 'sum-swatch');
     swatch.setAttribute('aria-hidden', 'true');
@@ -113,16 +128,15 @@ window.BeliefFlow = (() => {
       const im = new Image();
       im.alt = ''; im.decoding = 'async'; im.src = design.thumb;
       swatch.append(im);
-      swatch.classList.toggle('has-paper', d.background === 'with');
     }
     const lines = make('span', 'sum-lines');
     lines.append(
       make('span', 'sum-kicker', design ? design.direction : (C.customize?.plainLabel || 'Keep it plain')),
       make('span', 'sum-title', design ? design.title : 'Plain shirt'),
-      make('span', 'sum-meta', [colorLabel(d.color), design ? (d.background === 'with' ? S.bgWith || 'With background' : S.bgWithout || 'Without background') : '', size && d.size ? 'Size ' + d.size : ''].filter(Boolean).join(' · ')),
+      make('span', 'sum-meta', [colorLabel(d.color), size && d.size ? 'Size ' + d.size : '', money(p.price)].filter(Boolean).join(' · ')),
     );
     host.append(swatch, lines);
   }
 
-  return { read, save, current, nextHref, withParams, colorLabel, designOf, orderItem, glass, summary };
+  return { read, save, clear, current, nextHref, withParams, colorLabel, designOf, money, product, wilayas, wilaya, methods, shippingPrice, glass, summary };
 })();

@@ -39,10 +39,17 @@
 
   <div class="lab-grid">
     <form class="lab-form" id="form" novalidate>
-      <label>Full name <input name="name" value="Yasmine Benali" autocomplete="off"></label>
+      <div class="lab-pair">
+        <label>First name <input name="firstName" value="Yasmine" autocomplete="off"></label>
+        <label>Family name <input name="familyName" value="Benali" autocomplete="off"></label>
+      </div>
       <label>Email <input name="email" type="email" value="yasmine@example.com" autocomplete="off"></label>
-      <label>Phone <input name="phone" value="+213 555 12 34 56" autocomplete="off"></label>
-      <label>City <input name="city" value="Algiers" autocomplete="off"></label>
+      <label>Phone <input name="phone" value="0555 12 34 56" autocomplete="off"></label>
+      <div class="lab-pair">
+        <label>Wilaya <input name="wilaya" value="16 — Alger" autocomplete="off"></label>
+        <label>Commune <input name="commune" value="Alger Centre" autocomplete="off"></label>
+      </div>
+      <label>Address <input name="address" value="12 rue Didouche Mourad" autocomplete="off"></label>
       <div class="lab-pair">
         <label>Colour
           <select name="color">
@@ -56,7 +63,7 @@
       </div>
       <div class="lab-pair">
         <label>Quantity <input name="quantity" type="number" min="1" max="50" value="1"></label>
-        <label>Customisation <input name="custom" value="Name on the back: YASMINE" autocomplete="off"></label>
+        <label>Design <input name="design" value="Don’t Be Crabby" autocomplete="off"></label>
       </div>
       <button class="lab-send" id="send" type="submit">Send test order</button>
       <p class="lab-status" id="status" role="status" aria-live="polite"></p>
@@ -89,9 +96,13 @@
   function read() {
     const f = new FormData(form);
     return {
-      customer: { name: f.get('name'), email: f.get('email'), phone: f.get('phone'), city: f.get('city') },
-      items: [{ product: 'T-shirt', color: f.get('color'), size: f.get('size'), quantity: f.get('quantity'), customization: f.get('custom') }],
-      notes: 'Test order sent from the preview page.',
+      kind: 'order',
+      clientRef: 'lab-' + Date.now(),
+      customer: { firstName: f.get('firstName'), familyName: f.get('familyName'), email: f.get('email'), phone: f.get('phone'), wilaya: f.get('wilaya'), commune: f.get('commune'), address: f.get('address'), instructions: 'Test order sent from the preview page.' },
+      items: [{ product: 'T-shirt', color: f.get('color'), size: f.get('size'), quantity: f.get('quantity'), design: f.get('design'), direction: 'Riso Print', customization: 'Back print, cut out (no background)' }],
+      packaging: 'Zipper Bag',
+      delivery: { method: 'home', methodLabel: 'Home delivery', price: 350 },
+      pricing: { currency: 'DA', product: 4900, shipping: 350, total: 5250 },
     };
   }
 
@@ -126,7 +137,7 @@
     say('Sending…');
     try {
       const { orderNumber } = await BeliefOrders.submit(read());
-      say('Email sent. Order ' + orderNumber + ' should now be in the orders inbox and in the Orders sheet.', 'good');
+      say('Saved. Order ' + orderNumber + ' should now be in Notion, in the Orders sheet and in the orders inbox.', 'good');
     } catch (err) {
       say((err.orderNumber ? 'Order ' + err.orderNumber + ' was saved, but: ' : '') + err.message + ' (' + (err.code || 'error') + ')', 'bad');
     } finally {

@@ -1,20 +1,20 @@
 /* Belief Project — sending an order.
 
-   BeliefOrders.submit(order) posts an order to the order service named in content.js
-   (orders.endpoint). It resolves only when the service confirms that the notification email
-   has left, and it throws when anything else happens, so a checkout page can show
-   "order confirmed" on success and nothing but success.
+   BeliefOrders.submit(order) posts an order to the order service named in content.js (orders.endpoint): the Google
+   script in backend/order-email, which saves it in the Notion orders database (and its Google Sheet) and emails it.
+   It resolves only when the service confirms that the order is saved, and it throws when anything else happens,
+   so the checkout shows "order confirmed" on success and nothing but success.
 
      try {
        const { orderNumber } = await BeliefOrders.submit({
-         customer: { name, email, phone, city },   // extra fields are passed through
-         items: [{ product: 'T-shirt', color: 'ice-blue', size: 'M', quantity: 1, customization: { … } }],
-         notes: '',
+         kind: 'order', clientRef,
+         customer: { firstName, familyName, phone, phone2, email, wilaya, commune, address, instructions },
+         items: [{ product: 'T-shirt', color: 'ice-blue', size: 'M', quantity: 1, design, customization }],
+         packaging, delivery: { method, methodLabel, price }, pricing: { product, shipping, total },
        });
-       // confirmed: show orderNumber
+       // saved: show orderNumber
      } catch (err) {
-       // err.code says why; err.orderNumber is set when the order was saved but not emailed.
-       // Calling submit again with the same order object retries without creating a second order.
+       // err.code says why. Calling submit again with the same clientRef retries without creating a second order.
      }
 */
 window.BeliefOrders = (() => {
@@ -90,7 +90,7 @@ window.BeliefOrders = (() => {
       clearTimeout(timer);
     }
 
-    if (answer && answer.ok === true && answer.emailSent === true && answer.orderNumber) return { orderNumber: answer.orderNumber };
+    if (answer && answer.ok === true && answer.saved === true && answer.orderNumber) return { orderNumber: answer.orderNumber, emailSent: answer.emailSent === true };
     throw new OrderError(answer?.error || 'refused', answer?.message || 'The order could not be confirmed.', answer?.orderNumber);
   }
 

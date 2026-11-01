@@ -1,17 +1,19 @@
-/* Belief Project — studio garment.
-   Turns the photograph of the back of the shirt (_reference/garment/midnight-back.heic) into the two
-   garments the studio shows: the shirt cut out of the wall and the hanger, in Midnight and in Ice Blue.
-   Both are built from the same photograph, so the print sits on exactly the same fabric in either colour.
+/* Belief Project — studio garment: the models.
+   The studio shows each colour on its own model, photographed from behind in the real shirt
+   (studio.config.js, stages). For every stage this script:
+     1. writes the photograph the page shows, at the frame's shape, in a few widths:
+        assets/studio/model-<colour>-<width>.webp,
+     2. measures the shirt's fabric on the back panel — how bright it is from place to place (its light, its folds,
+        its knit) — and saves it in tools/.cache/stage-<colour>.bin for prepare-designs.js, which prints the artwork
+        onto that fabric so it is lit and textured like the shirt in the photograph.
 
      node tools/prepare-garment.js [--debug <folder>]
 
-   Writes assets/studio/shirt-<colour>-<width>.webp, assets/studio/shirt-shadow.webp and the fabric data
-   tools/.cache/fabric.bin that prepare-designs.js uses to print the artwork onto the shirt. */
+   Run it, then prepare-designs.js, whenever a model photograph or a stage's settings change. */
 'use strict';
 const fs = require('fs');
 const path = require('path');
 const sharp = require('sharp');
-const heic = require('heic-convert');
 const P = require('./lib/pixels');
 const S = require('./studio.config');
 
@@ -19,206 +21,67 @@ const ROOT = path.resolve(__dirname, '..');
 const debugDir = (i => (i > 0 ? process.argv[i + 1] : ''))(process.argv.indexOf('--debug'));
 if (debugDir) fs.mkdirSync(debugDir, { recursive: true });
 
-async function loadFrame() {
-  const src = path.join(ROOT, S.garment.source);
-  let buf = fs.readFileSync(src);
-  if (/\.hei[cf]$/i.test(src)) buf = Buffer.from(await heic({ buffer: buf, format: 'JPEG', quality: 0.97 }));
-  const { w, h } = S.frame;
-  const { data } = await sharp(buf).rotate().resize(w, h, { fit: 'cover', kernel: 'lanczos3' }).removeAlpha().raw().toBuffer({ resolveWithObject: true });
-  return data;
+// 1 inside the polygon, 0 outside (even-odd scanline fill)
+function polygonMask(pts, w, h) {
+  const m = new Uint8Array(w * h);
+  for (let y = 0; y < h; y++) {
+    const yc = y + 0.5, xs = [];
+    for (let i = 0; i < pts.length; i++) {
+      const [x0, y0] = pts[i], [x1, y1] = pts[(i + 1) % pts.length];
+      if ((y0 <= yc && y1 > yc) || (y1 <= yc && y0 > yc)) xs.push(x0 + (yc - y0) / (y1 - y0) * (x1 - x0));
+    }
+    xs.sort((a, b) => a - b);
+    for (let k = 0; k + 1 < xs.length; k += 2) for (let x = Math.max(0, Math.ceil(xs[k] - 0.5)); x < Math.min(w, xs[k + 1] - 0.5); x++) m[y * w + x] = 1;
+  }
+  return m;
 }
 
-async function dbg(name, w, h, channels, data) {
-  if (!debugDir) return;
-  fs.mkdirSync(debugDir, { recursive: true });
-  await sharp(Buffer.from(data), { raw: { width: w, height: h, channels } }).png().toFile(path.join(debugDir, name));
-}
-
-(async () => {
+async function stage(st) {
   const { w, h } = S.frame;
-  const N = w * h;
-  const rgb = await loadFrame();
-
-  // linear luminance and how warm (wall, hanger) or cool (the navy shirt) each pixel is
-  const L = new Float32Array(N);
-  const warm = new Float32Array(N);
-  for (let i = 0; i < N; i++) {
-    const r = rgb[i * 3], g = rgb[i * 3 + 1], b = rgb[i * 3 + 2];
-    L[i] = 0.2126 * P.LIN[r] + 0.7152 * P.LIN[g] + 0.0722 * P.LIN[b];
-    warm[i] = r - b;
+  const src = path.join(ROOT, st.source);
+  // the photograph at the frame's shape: what the page shows, and what the print is measured against
+  const frame = await sharp(src).rotate().resize(w, h, { fit: 'cover', kernel: 'lanczos3' }).removeAlpha();
+  const outDir = path.join(ROOT, S.out.dir);
+  fs.mkdirSync(outDir, { recursive: true });
+  for (const width of S.widths) {
+    await frame.clone().resize({ width, kernel: 'lanczos3' }).webp({ quality: 84, effort: 6, smartSubsample: true })
+      .toFile(path.join(outDir, `model-${st.id}-${width}.webp`));
   }
+  const { data: rgb } = await frame.clone().raw().toBuffer({ resolveWithObject: true });
 
-  // ---- the shirt: everything the wall cannot reach from the edge of the photo ----
-  // wall and hanger are warm and lighter than the shirt; the shirt is dark and neutral to cool
-  const G = S.garment.matte;
-  const pass = new Uint8Array(N);
-  for (let i = 0; i < N; i++) pass[i] = (warm[i] > G.warmMin && L[i] > G.warmLumMin) || L[i] > G.brightMin ? 1 : 0;
-  const bg = P.flood(pass, w, h, P.borderSeeds(w, h));
-  let shirt = new Uint8Array(N);
-  for (let i = 0; i < N; i++) shirt[i] = bg[i] ? 0 : 1;
-  // wall seen through the hole in the hanger is shut in by the hanger's dark rim: warm enclosed patches are wall too
-  {
-    const enclosed = new Uint8Array(N);
-    for (let i = 0; i < N; i++) enclosed[i] = shirt[i] && pass[i] ? 1 : 0;
-    const ec = P.components(enclosed, w, h);
-    const sum = new Float64Array(ec.sizes.length);
-    for (let i = 0; i < N; i++) if (ec.labels[i]) sum[ec.labels[i]] += warm[i];
-    for (let i = 0; i < N; i++) { const k = ec.labels[i]; if (k && sum[k] / ec.sizes[k] > G.wallWarm) shirt[i] = 0; }
-  }
-  // keep the shirt itself (the largest piece), not specks of the socket on the wall
-  const cc = P.components(shirt, w, h);
-  let best = 1;
-  for (let k = 2; k < cc.sizes.length; k++) if (cc.sizes[k] > cc.sizes[best]) best = k;
-  for (let i = 0; i < N; i++) shirt[i] = cc.labels[i] === best ? 1 : 0;
-  // open the outline: anything thinner than the fabric (the rim of the hanger above the collar) falls away
-  {
-    const r = G.open;
-    const out0 = shirt.map(v => 1 - v);
-    const inner = P.distanceTo(out0, w, h, r + 1).map(d => (d > r ? 1 : 0));
-    const back = P.distanceTo(inner, w, h, r + 1);
-    for (let i = 0; i < N; i++) shirt[i] = shirt[i] && back[i] <= r ? 1 : 0;
-    const again = P.components(shirt, w, h);
-    let top = 1;
-    for (let k = 2; k < again.sizes.length; k++) if (again.sizes[k] > again.sizes[top]) top = k;
-    for (let i = 0; i < N; i++) shirt[i] = again.labels[i] === top ? 1 : 0;
-    // and smooth it: blur and re-threshold
-    const f = P.blur(Float32Array.from(shirt), w, h, 1.6);
-    for (let i = 0; i < N; i++) shirt[i] = f[i] > 0.5 ? 1 : 0;
-  }
-  const alpha = P.blur(Float32Array.from(shirt), w, h, 0.75);
-
-  // distance inwards from the outline, so edge pixels can take their colour from the fabric next to them
-  const outside = new Uint8Array(N);
-  for (let i = 0; i < N; i++) outside[i] = shirt[i] ? 0 : 1;
-  const depth = P.distanceTo(outside, w, h, 6);
-  const core = new Float32Array(N);
-  for (let i = 0; i < N; i++) core[i] = depth[i] >= 3 ? 1 : 0;
-  const coreL = P.blur(L.map((v, i) => v * core[i]), w, h, 2.5);
-  const coreW = P.blur(core, w, h, 2.5);
-  const Lf = new Float32Array(N);
-  for (let i = 0; i < N; i++) Lf[i] = depth[i] >= 3 || coreW[i] < 1e-4 ? L[i] : coreL[i] / coreW[i];
-
-  // ---- the embroidered logo on the cuff: much brighter than the fabric around it ----
-  // the fabric's own brightness nearby, ignoring anything bright (the logo itself)
-  const fabricPx = core.map((v, i) => (v && Lf[i] < 0.15 ? 1 : 0));
-  const local = P.blur(Lf.map((v, i) => v * fabricPx[i]), w, h, 9);
-  const localW = P.blur(fabricPx, w, h, 9);
-  const logo = new Float32Array(N);
-  const Lb = S.garment.logoBox;
-  for (let y = Lb.y0; y < Lb.y1; y++) for (let x = Lb.x0; x < Lb.x1; x++) {
-    const i = y * w + x;
-    if (!shirt[i]) continue;
-    const ref = local[i] / Math.max(localW[i], 1e-4);
-    logo[i] = Math.min(1, Math.max(0, (Lf[i] / ref - 2.2) / 1.8));
-  }
-  // the light catching the sleeve's edge is long and thin; letters are not
-  {
-    const m = logo.map(v => (v > 0.15 ? 1 : 0));
-    const lc = P.components(m, w, h);
-    const box = lc.sizes.map(() => [w, h, 0, 0]);
-    for (let i = 0; i < N; i++) {
-      const k = lc.labels[i];
-      if (!k) continue;
-      const x = i % w, y = (i - x) / w, b = box[k];
-      b[0] = Math.min(b[0], x); b[1] = Math.min(b[1], y); b[2] = Math.max(b[2], x); b[3] = Math.max(b[3], y);
-    }
-    for (let i = 0; i < N; i++) {
-      const k = lc.labels[i];
-      if (!k) continue;
-      const b = box[k], bw = b[2] - b[0] + 1, bh = b[3] - b[1] + 1;
-      if (depth[i] < 2 || bh > 3.5 * bw || lc.sizes[k] < 6) logo[i] = 0;
-    }
-  }
-  const logoSoft = P.blur(logo, w, h, 0.6);
-
-  // ---- shading: how lit each point of the fabric is, relative to the body of the shirt ----
-  const body = [];
-  const B = S.garment.bodyBox;
-  for (let y = B.y0; y < B.y1; y += 2) for (let x = B.x0; x < B.x1; x += 2) { const i = y * w + x; if (shirt[i]) body.push(Lf[i]); }
-  const Lref = P.median(body);
+  // brightness of the fabric, in linear light, relative to the back panel's typical brightness
+  const N = w * h, lum = new Float32Array(N);
+  for (let i = 0; i < N; i++) lum[i] = 0.2126 * P.LIN[rgb[i * 3]] + 0.7152 * P.LIN[rgb[i * 3 + 1]] + 0.0722 * P.LIN[rgb[i * 3 + 2]];
+  const body = polygonMask(st.body, w, h);
+  const inside = [];
+  for (let i = 0; i < N; i++) if (body[i]) inside.push(lum[i]);
+  const ref = Math.max(1e-4, P.median(inside));
+  // a touch of smoothing takes the camera's noise out of the dark fabric, but keeps the knit
+  const soft = P.blur(lum, w, h, 0.8);
   const shade = new Float32Array(N);
-  for (let i = 0; i < N; i++) shade[i] = shirt[i] || alpha[i] > 0 ? Lf[i] / Lref : 1;
-  // a lightly denoised copy: the photo is of dark fabric, so its grain is strong once brightened
-  const shadeD = P.blur(shade, w, h, 0.55);
-  // broad light (folds, the shadow across the back) and fine relief (the ribs), so each colour can soften them separately
-  const logS = shadeD.map(v => Math.log(Math.max(v, 0.02)));
-  const logLow = P.blur(logS, w, h, 9);
+  for (let i = 0; i < N; i++) shade[i] = Math.min(4, Math.max(0.02, soft[i] / ref));
 
-  // ---- the two colours ----
-  const rollOff = (s, max) => (s <= 1 ? s : 1 + (max - 1) * Math.tanh((s - 1) / (max - 1)));
-  for (const tone of S.garment.colors) {
-    const t = P.hexToLin(tone.fabric);
-    const thread = P.hexToLin(tone.thread);
-    const max = Math.min(tone.maxLift, 0.985 / Math.max(...t));
-    const out = Buffer.alloc(N * 4);
-    for (let i = 0; i < N; i++) {
-      const a = alpha[i];
-      if (a <= 0.002) continue;
-      const s = rollOff(Math.exp(logLow[i] * tone.light + (logS[i] - logLow[i]) * tone.relief), max);
-      const k = logoSoft[i];
-      for (let c = 0; c < 3; c++) {
-        const fabric = t[c] * s;
-        // the thread is lit like the fabric around it, a little brighter
-        const lit = thread[c] * Math.min(1.6, Math.max(0.55, Math.pow(local[i] / Math.max(localW[i], 1e-4) / Lref, 0.8)));
-        out[i * 4 + c] = P.toSrgb(fabric * (1 - k) + lit * k);
-      }
-      out[i * 4 + 3] = Math.round(Math.min(1, a) * 255);
-    }
-    const crop = S.garment.crop;
-    const img = sharp(out, { raw: { width: w, height: h, channels: 4 } }).extract({ left: crop.x, top: crop.y, width: crop.w, height: crop.h });
-    const png = await img.png().toBuffer();
-    for (const width of S.garment.widths) {
-      const file = path.join(ROOT, S.out.dir, `shirt-${tone.id}-${width}.webp`);
-      fs.mkdirSync(path.dirname(file), { recursive: true });
-      await sharp(png).resize({ width, kernel: 'lanczos3' }).webp({ quality: tone.quality, alphaQuality: 90, effort: 6, smartSubsample: true }).toFile(file);
-      console.log('wrote', path.relative(ROOT, file), (fs.statSync(file).size / 1024).toFixed(0) + ' KB');
-    }
-    if (debugDir) await sharp(png).resize({ width: 900 }).flatten({ background: '#F3F9FF' }).jpeg({ quality: 90 }).toFile(path.join(debugDir, `shirt-${tone.id}.jpg`));
-  }
-
-  // ---- a soft contact shadow, small (it is scaled up and blurred anyway) ----
-  {
-    const crop = S.garment.crop;
-    const sw = Math.round(crop.w / 6), sh = Math.round(crop.h / 6);
-    const m = Buffer.alloc(N);
-    for (let i = 0; i < N; i++) m[i] = shirt[i] ? 255 : 0;
-    const small = await sharp(m, { raw: { width: w, height: h, channels: 1 } }).extract({ left: crop.x, top: crop.y, width: crop.w, height: crop.h }).resize(sw, sh).blur(6).raw().toBuffer({ resolveWithObject: true });
-    const rgba = Buffer.alloc(sw * sh * 4);
-    const ch = small.info.channels;
-    for (let i = 0; i < sw * sh; i++) { rgba[i * 4] = 1; rgba[i * 4 + 1] = 13; rgba[i * 4 + 2] = 44; rgba[i * 4 + 3] = Math.round(small.data[i * ch] * 0.55); }
-    const file = path.join(ROOT, S.out.dir, 'shirt-shadow.webp');
-    await sharp(rgba, { raw: { width: sw, height: sh, channels: 4 } }).webp({ quality: 80, alphaQuality: 80 }).toFile(file);
-    console.log('wrote', path.relative(ROOT, file));
-  }
-
-  // ---- fabric data for printing: shading across the print area (frame pixels) ----
-  fs.mkdirSync(path.join(__dirname, '.cache'), { recursive: true });
-  const header = new Float32Array([w, h, Lref]);
-  fs.writeFileSync(path.join(__dirname, '.cache', 'fabric.bin'), Buffer.concat([Buffer.from(header.buffer), Buffer.from(shade.buffer), Buffer.from(Uint8Array.from(shirt).buffer)]));
-  console.log('fabric cached; body luminance', Lref.toFixed(4));
+  // tools/.cache/stage-<id>.bin: width, height, then the shade (float32) and the back panel (uint8)
+  const cache = path.join(__dirname, '.cache');
+  fs.mkdirSync(cache, { recursive: true });
+  const head = Buffer.from(new Float32Array([w, h, ref]).buffer);
+  fs.writeFileSync(path.join(cache, `stage-${st.id}.bin`), Buffer.concat([head, Buffer.from(shade.buffer), Buffer.from(body)]));
+  console.log(`${st.id}: back panel ${inside.length} px, fabric brightness ${ref.toFixed(4)} (linear)`);
 
   if (debugDir) {
-    const vis = Buffer.alloc(N * 3);
-    for (let i = 0; i < N; i++) { vis[i * 3] = shirt[i] * 200; vis[i * 3 + 1] = pass[i] * 120; vis[i * 3 + 2] = Math.round(logo[i] * 255); }
-    await dbg('mask.png', w, h, 3, vis);
-    // rib direction across the back, for placing the print (degrees from vertical; + leans right going down)
-    const g = P.blur(L, w, h, 1.2);
-    const rows = [];
-    for (let cy = 250; cy <= 1250; cy += 125) {
-      const row = [];
-      for (let cx = 450; cx <= 1050; cx += 100) {
-        let xx = 0, yy = 0, xy = 0;
-        for (let y = cy - 60; y < cy + 60; y++) for (let x = cx - 60; x < cx + 60; x++) {
-          const i = y * w + x;
-          const gx = (g[i + 1] - g[i - 1]) / 2, gy = (g[i + w] - g[i - w]) / 2;
-          xx += gx * gx; yy += gy * gy; xy += gx * gy;
-        }
-        const th = 0.5 * Math.atan2(2 * xy, xx - yy); // dominant gradient direction
-        const coh = Math.sqrt((xx - yy) ** 2 + 4 * xy * xy) / (xx + yy);
-        row.push(`${(th * 180 / Math.PI).toFixed(1).padStart(5)}°/${coh.toFixed(2)}`);
-      }
-      rows.push(`y${cy}: ` + row.join('  '));
-    }
-    console.log('rib gradient angle (0 = ribs vertical) / coherence at x=450..1050:\n' + rows.join('\n'));
+    // the photograph with the back panel and the print area marked
+    const pr = st.print;
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}">` +
+      `<polygon points="${st.body.map(p => p.join(',')).join(' ')}" fill="rgba(255,0,255,.18)" stroke="#f0f" stroke-width="2"/>` +
+      `<rect x="${pr.centerX - pr.width / 2}" y="${pr.top}" width="${pr.width}" height="${pr.height}" fill="none" stroke="#0f0" stroke-width="2" stroke-dasharray="8 6"/>` +
+      `<rect x="${st.view.x}" y="${st.view.y}" width="${st.view.w}" height="${st.view.h}" fill="none" stroke="#ff0" stroke-width="2"/></svg>`;
+    await frame.clone().composite([{ input: Buffer.from(svg) }]).jpeg({ quality: 85 }).toFile(path.join(debugDir, `stage-${st.id}.jpg`));
   }
-})().catch(e => { console.error(e); process.exit(1); });
+}
+
+async function main() {
+  for (const st of S.stages) await stage(st);
+}
+
+if (require.main === module) main().catch(e => { console.error(e); process.exit(1); });
+module.exports = { polygonMask };

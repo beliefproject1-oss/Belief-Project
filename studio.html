@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Design studio — Belief Project</title>
-<meta name="description" content="Belief Project — explore six creative directions and preview your design printed large on the back of the shirt, with or without its background.">
+<meta name="description" content="Belief Project — explore six creative directions and preview your design printed on the back of the shirt, worn by our models in Ice Blue and Midnight.">
 <meta name="theme-color" content="#F3F9FF">
 <link rel="icon" type="image/webp" href="assets/img/bear-badge.webp">
 <link rel="preload" href="assets/fonts/Aeonik-Medium.ttf" as="font" type="font/ttf" crossorigin>
@@ -28,7 +28,6 @@
     <div class="stage-room" id="stageRoom">
       <div class="rig" id="rig">
         <div class="hang" id="hang">
-          <span class="hang-line" aria-hidden="true"></span>
           <span class="garment" data-garment id="garment"></span>
         </div>
       </div>
@@ -70,16 +69,6 @@
       </div>
     </div>
     <div class="atelier-foot">
-      <!-- the artwork printed with the background of its image, or cut out on its own -->
-      <div class="bgmode is-off" id="bgMode" role="group" aria-labelledby="bgModeLabel" data-mode="without">
-        <span class="bgmode-label" id="bgModeLabel" data-bind="studio.bgLabel">Artwork background</span>
-        <div class="bgmode-track">
-          <span class="bgmode-thumb" aria-hidden="true"></span>
-          <button class="bgmode-btn" type="button" data-bg="with" aria-pressed="false" disabled><span class="bgmode-icon bgmode-with" aria-hidden="true"></span><span data-bind="studio.bgWith">With background</span></button>
-          <button class="bgmode-btn" type="button" data-bg="without" aria-pressed="false" disabled><span class="bgmode-icon bgmode-without" aria-hidden="true"></span><span data-bind="studio.bgWithout">Without background</span></button>
-        </div>
-        <p class="bgmode-note" id="bgNote" hidden></p>
-      </div>
       <div class="keep">
         <span class="keep-swatch" aria-hidden="true"></span>
         <span class="keep-text"><span class="keep-line" id="keepLine"></span><strong class="keep-design" id="keepDesign" data-bind="studio.empty">Choose a design</strong></span>
@@ -95,6 +84,7 @@
 <script src="assets/designs/designs.js"></script>
 <script src="js/main.js"></script>
 <script src="js/flow.js"></script>
+<script src="js/garment.js"></script>
 <script src="js/studio.js"></script>
 </body>
 </html>

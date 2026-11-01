@@ -1,18 +1,27 @@
 /** @OnlyCurrentDoc */
 
-/* Belief Project — order notifications (Google Apps Script).
+/* Belief Project — orders and newsletter sign-ups (Google Apps Script).
 
-   This file runs on Google's servers under the Google account that receives the orders, so
-   no password or key ever sits in the website. The website posts each order to this script,
-   which gives the order its serial number, saves it in the "Orders" sheet, emails it to
-   NOTIFY_TO and answers the website with whether that email really left.
+   This file runs on Google's servers under the Google account that receives the orders, so no password or key ever
+   sits in the website. The website posts two kinds of message to this script:
+
+     an order        → it gets its order number, is saved in the Notion orders database (and, as a backup, in the
+                       "Orders" sheet), is emailed to NOTIFY_TO, and the website is told it was saved;
+     a sign-up       → the email address is saved in the Notion newsletter database, once.
+
+   The website shows "saved" only when this script answers that it was. The Notion key and the two database IDs are
+   kept in the script's own settings (Project Settings → Script Properties), never in this file or the website:
+     NOTION_TOKEN           the secret of the Belief Project integration (notion.so/profile/integrations)
+     NOTION_PARENT_PAGE     the link (or ID) of the Notion page the databases live in, shared with the integration
+     NOTION_ORDERS_DB       } written by setupNotion() — run it once
+     NOTION_NEWSLETTER_DB   }
 
    Setup and updating: SETUP.md in this folder. */
 
 const CONFIG = {
   NOTIFY_TO: 'ybelhandouz8@gmail.com', // every order is emailed here
   BRAND: 'Belief Project',
-  PREFIX: 'BP',                        // order numbers look like BP-261010-0042
+  PREFIX: 'BP',                        // order numbers look like BP-261101-0042
   TIMEZONE: 'Africa/Algiers',
   TIMEZONE_NAME: 'Algiers time',       // written next to every date
   SHEET: 'Orders',
@@ -24,6 +33,9 @@ const CONFIG = {
   MAX_ITEMS: 20,
   MAX_QUANTITY: 50,
   MAX_PHOTO_BYTES: 400 * 1024,
+  NOTION_VERSION: '2022-06-28',
+  REQUIRE_NOTION: true,                // an order counts as saved only once it is in Notion (false: the sheet is enough)
+  ORDER_STATUSES: ['Pending', 'Confirmed', 'Shipped', 'Delivered', 'Cancelled'],
 };
 
 const HEADERS = ['Order number', 'Received', 'Name', 'Email', 'Phone', 'Other details', 'Items', 'Pieces', 'Summary', 'Notes', 'Notification email'];
@@ -33,86 +45,120 @@ const EMAIL_STATUS_COLUMN = HEADERS.length;
 
 // Opening the web-app address in a browser shows that the script is deployed and reachable.
 function doGet() {
-  return json_({ ok: true, service: CONFIG.BRAND + ' orders' });
+  return json_({ ok: true, service: CONFIG.BRAND + ' orders', notion: notionReady_() });
 }
 
-// One order in, one answer out. "ok" is true only when the notification email has left.
+// One message in, one answer out.
 function doPost(e) {
+  let data;
+  try {
+    data = readJson_(e);
+  } catch (err) {
+    return json_({ ok: false, saved: false, error: err.code || 'unreadable', message: err.code ? err.message : 'The message could not be read.' });
+  }
+  if (data && data.kind === 'subscribe') return json_(subscribe_(data));
+
   let order;
   try {
-    order = readOrder_(e);
+    order = cleanOrder_(data);
   } catch (err) {
-    return json_({ ok: false, error: err.code || 'invalid_order', message: err.code ? err.message : 'The order could not be read.' });
+    return json_({ ok: false, saved: false, error: err.code || 'invalid_order', message: err.code ? err.message : 'The order could not be read.' });
   }
-
+  if (CONFIG.REQUIRE_NOTION && !notionReady_()) {
+    return json_({ ok: false, saved: false, error: 'not_configured', message: 'Orders are not connected to Notion yet.' });
+  }
   // one order at a time, so two orders can never share a number
   const lock = LockService.getScriptLock();
   try {
     lock.waitLock(25000);
   } catch (err) {
-    return json_({ ok: false, error: 'busy', message: 'The order service is busy. Please try again.' });
+    return json_({ ok: false, saved: false, error: 'busy', message: 'The order service is busy. Please try again.' });
   }
   try {
     return json_(handle_(order));
   } catch (err) {
     console.error(err);
-    return json_({ ok: false, error: 'not_saved', message: 'The order could not be saved. Please try again.' });
+    return json_({ ok: false, saved: false, error: 'not_saved', message: 'The order could not be saved. Please try again.' });
   } finally {
     lock.releaseLock();
   }
 }
 
 function handle_(order) {
-  // The same submission arriving twice (a double tap, a retry on a slow connection) keeps its
-  // first number and its first row; only an email that failed is attempted again.
+  // The same submission arriving twice (a double tap, a retry on a slow connection) keeps its first number and its
+  // first record; only what failed (saving, the email) is attempted again.
   const cache = CacheService.getScriptCache();
   const key = order.clientRef ? 'order:' + order.clientRef : '';
   let entry = key ? JSON.parse(cache.get(key) || 'null') : null;
-  const isNew = !entry;
-  if (isNew) {
+  if (!entry && order.clientRef && notionReady_()) {
+    // the cache forgets after six hours; Notion remembers
+    const found = notionFindOrder_(order.clientRef);
+    if (found) entry = { number: found.number, received: found.received, page: found.id, saved: true, sent: found.sent };
+  }
+  if (!entry) {
     entry = {
       number: nextNumber_(),
       received: Utilities.formatDate(new Date(), CONFIG.TIMEZONE, 'd MMM yyyy, HH:mm'),
+      iso: new Date().toISOString(),
+      saved: false,
       sent: false,
     };
   }
   order.number = entry.number;
   order.received = entry.received;
-  if (isNew) entry.row = saveOrder_(order);
+  order.iso = entry.iso || new Date().toISOString();
 
+  // 1. saved: in Notion when it is set up (that is what counts), and in the sheet as a backup
+  if (!entry.saved) {
+    if (notionReady_()) {
+      entry.page = notionSaveOrder_(order);
+      entry.saved = true;
+      try { entry.row = saveOrder_(order); } catch (err) { console.error('sheet backup: ' + err); }
+    } else {
+      entry.row = saveOrder_(order);
+      entry.saved = true;
+    }
+    if (key) cache.put(key, JSON.stringify(entry), 21600);
+  }
+
+  // 2. emailed: a failed email never undoes a saved order; it is marked so it can be followed up
   if (!entry.sent) {
     try {
       sendOrderEmail_(order);
       entry.sent = true;
-      markEmail_(entry.row, 'Sent');
+      if (entry.row) markEmail_(entry.row, 'Sent');
+      if (entry.page) notionMarkEmail_(entry.page, true);
     } catch (err) {
       console.error(err);
-      markEmail_(entry.row, 'NOT SENT: ' + err.message);
+      if (entry.row) markEmail_(entry.row, 'NOT SENT: ' + err.message);
+      if (entry.page) notionMarkEmail_(entry.page, false);
     }
   }
   if (key) cache.put(key, JSON.stringify(entry), 21600);
-
-  return entry.sent
-    ? { ok: true, orderNumber: entry.number, emailSent: true }
-    : { ok: false, error: 'email_failed', orderNumber: entry.number, emailSent: false, message: 'The order was saved, but its notification email could not be sent.' };
+  return { ok: true, saved: true, orderNumber: entry.number, emailSent: entry.sent, notion: !!entry.page };
 }
 
-// Run this once from the editor (choose sendTestOrder, then Run). Google asks for permission
-// the first time; after that a sample order arrives at NOTIFY_TO and appears in the sheet.
+// Run this once from the editor (choose sendTestOrder, then Run). Google asks for permission the first time; after
+// that a sample order arrives at NOTIFY_TO and appears in Notion (and in the sheet).
 function sendTestOrder() {
   const answer = doPost({
     postData: {
       contents: JSON.stringify({
-        customer: { name: 'Test Customer', email: CONFIG.NOTIFY_TO, phone: '+213 555 00 00 00', city: 'Algiers' },
-        items: [{ product: 'T-shirt', color: 'ice-blue', size: 'M', quantity: 1, customization: { Note: 'Sample order sent from the script editor' } }],
-        notes: 'This is a test. No real order was placed.',
+        kind: 'order',
+        clientRef: 'test-' + Date.now(),
+        customer: { firstName: 'Test', familyName: 'Customer', phone: '0555 00 00 00', email: CONFIG.NOTIFY_TO, wilaya: '16 — Alger', commune: 'Alger Centre', address: '1 rue de l’Exemple', instructions: 'This is a test. No real order was placed.' },
+        items: [{ product: 'T-shirt', color: 'ice-blue', size: 'M', quantity: 1, design: 'Don’t Be Crabby', direction: 'Riso Print', customization: 'Back print, cut out (no background)' }],
+        packaging: 'Zipper Bag',
+        delivery: { method: 'home', methodLabel: 'Home delivery', price: 350 },
+        pricing: { currency: 'DA', product: 4900, shipping: 350, total: 5250 },
+        measurements: { weight: 72, height: 178 },
       }),
     },
   });
   console.log(answer.getContent());
 }
 
-/* ---------- reading and checking an order ---------- */
+/* ---------- reading and checking ---------- */
 
 function refusal_(code, message) {
   const err = new Error(message);
@@ -120,17 +166,15 @@ function refusal_(code, message) {
   return err;
 }
 
-function readOrder_(e) {
+function readJson_(e) {
   const raw = e && e.postData && e.postData.contents;
-  if (!raw) throw refusal_('empty', 'No order was received.');
-  if (raw.length > 4 * 1024 * 1024) throw refusal_('too_large', 'The order is too large.');
-  let data;
+  if (!raw) throw refusal_('empty', 'Nothing was received.');
+  if (raw.length > 4 * 1024 * 1024) throw refusal_('too_large', 'The message is too large.');
   try {
-    data = JSON.parse(raw);
+    return JSON.parse(raw);
   } catch (err) {
-    throw refusal_('unreadable', 'The order could not be read.');
+    throw refusal_('unreadable', 'The message could not be read.');
   }
-  return cleanOrder_(data);
 }
 
 // Everything the website sends is treated as untrusted text: trimmed, shortened and checked here.
@@ -140,22 +184,60 @@ function cleanOrder_(data) {
   if (text_(data.website, 200)) throw refusal_('rejected', 'The order was not accepted.');
 
   const given = data.customer && typeof data.customer === 'object' ? data.customer : {};
-  const customer = { name: text_(given.name, 120), email: text_(given.email, 160), phone: text_(given.phone, 40), details: [] };
-  if (!customer.name) throw refusal_('missing_name', 'The customer name is missing.');
-  if (!customer.email && !customer.phone) throw refusal_('missing_contact', 'An email address or a phone number is needed.');
-  if (customer.email && !/^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]{2,}$/.test(customer.email)) throw refusal_('bad_email', 'The email address is not valid.');
-  // anything else collected at checkout (address, city, …) is carried through as it is
-  customer.details = pairs_(given, ['name', 'email', 'phone']);
+  const raw = {
+    firstName: text_(given.firstName, 60), familyName: text_(given.familyName, 60),
+    phone: text_(given.phone, 30), phone2: text_(given.phone2, 30), email: text_(given.email, 160),
+    wilaya: text_(given.wilaya, 80), commune: text_(given.commune, 80),
+    address: text_(given.address, 300), instructions: text_(given.instructions, 500),
+  };
+  if (!raw.firstName || !raw.familyName) throw refusal_('missing_name', 'The customer’s first and family names are needed.');
+  if (!/^(?:\+?213|0)(?:[5-7]\d{8}|[2-4]\d{7,8})$/.test(raw.phone.replace(/[\s.\-()]/g, ''))) throw refusal_('bad_phone', 'The phone number is not valid.');
+  if (raw.email && !/^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]{2,}$/.test(raw.email)) throw refusal_('bad_email', 'The email address is not valid.');
+  if (!raw.wilaya || !raw.commune || !raw.address) throw refusal_('missing_address', 'The delivery address is incomplete.');
+
+  const delivery = data.delivery && typeof data.delivery === 'object' ? data.delivery : {};
+  const pricing = data.pricing && typeof data.pricing === 'object' ? data.pricing : {};
+  const measures = data.measurements && typeof data.measurements === 'object' ? data.measurements : {};
+  raw.method = text_(delivery.methodLabel, 40) || text_(delivery.method, 40);
+  if (!raw.method) throw refusal_('missing_delivery', 'The delivery method is missing.');
+  raw.packaging = text_(data.packaging, 80);
+  raw.currency = text_(pricing.currency, 8) || 'DA';
+  raw.productPrice = amount_(pricing.product);
+  raw.shippingPrice = amount_(pricing.shipping);
+  raw.total = amount_(pricing.total);
+  raw.onRequest = raw.shippingPrice === null;
+  raw.weight = amount_(measures.weight);
+  raw.height = amount_(measures.height);
 
   const items = (Array.isArray(data.items) ? data.items : []).slice(0, CONFIG.MAX_ITEMS).map(cleanItem_);
   if (!items.length) throw refusal_('no_items', 'The order has no items.');
+  const first = items[0];
+  raw.color = first.color; raw.size = first.size; raw.design = first.design; raw.direction = first.direction; raw.customization = first.customization;
+
+  const money = function (v) { return v === null ? '' : v.toLocaleString('en-US') + ' ' + raw.currency; };
+  const customer = {
+    name: raw.firstName + ' ' + raw.familyName,
+    email: raw.email,
+    phone: raw.phone,
+    details: [['Second phone', raw.phone2], ['Wilaya', raw.wilaya], ['Commune', raw.commune], ['Address', raw.address], ['Delivery instructions', raw.instructions]].filter(function (p) { return p[1]; }),
+  };
+  const summary = [
+    ['Packaging', raw.packaging],
+    ['Delivery', raw.method],
+    ['Shipping price', raw.onRequest ? 'On request (confirm by phone)' : money(raw.shippingPrice)],
+    ['T-shirt price', money(raw.productPrice)],
+    ['Total', raw.total === null ? money(raw.productPrice) + ' + shipping' : money(raw.total)],
+    ['Weight', raw.weight === null ? '' : raw.weight + ' kg'],
+    ['Height', raw.height === null ? '' : raw.height + ' cm'],
+  ].filter(function (p) { return p[1]; });
 
   return {
     clientRef: text_(data.clientRef, 64).replace(/[^A-Za-z0-9_-]/g, ''),
     customer: customer,
     items: items,
-    summary: pairs_(data.summary, []),
-    notes: text_(data.notes, 1000),
+    summary: summary,
+    notes: raw.instructions,
+    raw: raw,
   };
 }
 
@@ -167,18 +249,30 @@ function cleanItem_(item, index) {
   if (!size) throw refusal_('missing_size', 'A size is missing.');
   const quantity = Math.floor(Number(item.quantity));
   if (!(quantity >= 1 && quantity <= CONFIG.MAX_QUANTITY)) throw refusal_('bad_quantity', 'A quantity is not valid.');
-  const custom = typeof item.customization === 'string'
-    ? (text_(item.customization, 400) ? [['Customisation', text_(item.customization, 400)]] : [])
-    : pairs_(item.customization, []);
+  const design = text_(item.design, 160), direction = text_(item.direction, 80);
+  const customization = typeof item.customization === 'string' ? text_(item.customization, 400) : '';
+  const custom = [['Design', design ? design + (direction ? ' (' + direction + ')' : '') : 'Plain, no design'], ['Customisation', customization]]
+    .concat(typeof item.customization === 'object' ? pairs_(item.customization, []) : [])
+    .filter(function (p) { return p[1]; });
   return {
     product: text_(item.product, 120) || 'T-shirt',
     color: color.label,
     hex: color.hex,
     size: size,
     quantity: quantity,
+    design: design,
+    direction: direction,
+    customization: customization,
     custom: custom,
     photo: index < 8 ? photo_(item.photo) : null,
   };
+}
+
+// a price or a measurement: a plain number, or null when there is none
+function amount_(value) {
+  if (value === null || value === undefined || value === '') return null;
+  const n = Number(value);
+  return isFinite(n) && n >= 0 && n < 1e7 ? Math.round(n * 100) / 100 : null;
 }
 
 // The product photograph arrives from the order page as a small JPEG or PNG. A photo that is
@@ -211,7 +305,220 @@ function text_(value, max) {
   return String(value).replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '').trim().slice(0, max);
 }
 
-/* ---------- serial number and the Orders sheet ---------- */
+/* ---------- newsletter sign-ups ---------- */
+
+function subscribe_(data) {
+  const email = text_(data && data.email, 160).toLowerCase();
+  if (text_(data && data.website, 200)) return { ok: false, saved: false, error: 'rejected', message: 'The sign-up was not accepted.' };
+  if (!/^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]{2,}$/.test(email)) return { ok: false, saved: false, error: 'bad_email', message: 'The email address is not valid.' };
+  if (!notionReady_('NOTION_NEWSLETTER_DB')) return { ok: false, saved: false, error: 'not_configured', message: 'Sign-ups are not connected yet.' };
+  const lock = LockService.getScriptLock();
+  try {
+    lock.waitLock(20000);
+  } catch (err) {
+    return { ok: false, saved: false, error: 'busy', message: 'Please try again in a moment.' };
+  }
+  try {
+    const db = prop_('NOTION_NEWSLETTER_DB');
+    // one entry per address
+    const found = notion_('post', '/databases/' + db + '/query', { filter: { property: 'Email', title: { equals: email } }, page_size: 1 });
+    if (found.results && found.results.length) return { ok: true, saved: true, duplicate: true };
+    notion_('post', '/pages', {
+      parent: { database_id: db },
+      properties: {
+        'Email': { title: [{ text: { content: email } }] },
+        'Subscribed': { date: { start: new Date().toISOString() } },
+        'Source': { select: { name: text_(data.source, 60) || 'Website' } },
+        'Status': { select: { name: 'Subscribed' } },
+      },
+    });
+    return { ok: true, saved: true, duplicate: false };
+  } catch (err) {
+    console.error(err);
+    return { ok: false, saved: false, error: 'not_saved', message: 'The sign-up could not be saved.' };
+  } finally {
+    lock.releaseLock();
+  }
+}
+
+/* ---------- Notion ---------- */
+
+function prop_(name) {
+  return PropertiesService.getScriptProperties().getProperty(name) || '';
+}
+function notionReady_(db) {
+  return !!(prop_('NOTION_TOKEN') && prop_(db || 'NOTION_ORDERS_DB'));
+}
+
+// one call to the Notion API; anything but success throws, with Notion's own message
+function notion_(method, path, body) {
+  const res = UrlFetchApp.fetch('https://api.notion.com/v1' + path, {
+    method: method,
+    contentType: 'application/json',
+    headers: { Authorization: 'Bearer ' + prop_('NOTION_TOKEN'), 'Notion-Version': CONFIG.NOTION_VERSION },
+    payload: body ? JSON.stringify(body) : undefined,
+    muteHttpExceptions: true,
+  });
+  const code = res.getResponseCode();
+  const answer = JSON.parse(res.getContentText() || '{}');
+  if (code < 200 || code >= 300) throw new Error('Notion ' + code + ': ' + (answer.message || res.getContentText()).slice(0, 300));
+  return answer;
+}
+
+const rt_ = function (value) { return { rich_text: value ? [{ text: { content: String(value).slice(0, 1900) } }] : [] }; };
+const sel_ = function (value) { return { select: value ? { name: String(value).replace(/,/g, ' ').slice(0, 95) } : null }; };
+const num_ = function (value) { return { number: value === null || value === undefined ? null : value }; };
+
+function notionSaveOrder_(order) {
+  const r = order.raw;
+  const props = {
+    'Order': { title: [{ text: { content: order.number } }] },
+    'Status': sel_('Pending'),
+    'Order date': { date: { start: order.iso } },
+    'First name': rt_(r.firstName),
+    'Family name': rt_(r.familyName),
+    'Phone': { phone_number: r.phone || null },
+    'Second phone': { phone_number: r.phone2 || null },
+    'Email': { email: r.email || null },
+    'Wilaya': sel_(r.wilaya),
+    'Commune': rt_(r.commune),
+    'Address': rt_(r.address),
+    'Instructions': rt_(r.instructions),
+    'Colour': sel_(r.color),
+    'Size': sel_(r.size),
+    'Design': rt_(r.design || 'Plain, no design'),
+    'Direction': sel_(r.direction || 'Plain'),
+    'Customisation': rt_(r.customization),
+    'Packaging': sel_(r.packaging),
+    'Shipping method': sel_(r.method),
+    'Shipping price': num_(r.shippingPrice),
+    'Shipping on request': { checkbox: !!r.onRequest },
+    'Product price': num_(r.productPrice),
+    'Total': num_(r.total),
+    'Weight (kg)': num_(r.weight),
+    'Height (cm)': num_(r.height),
+    'Client ref': rt_(order.clientRef),
+  };
+  // a field the customer left empty is left out, so Notion shows it empty
+  Object.keys(props).forEach(function (name) { if (empty_(props[name])) delete props[name]; });
+  const page = notion_('post', '/pages', { parent: { database_id: prop_('NOTION_ORDERS_DB') }, properties: props });
+  return page.id;
+}
+
+function empty_(prop) {
+  const value = prop[Object.keys(prop)[0]];
+  return value === null || value === '' || (Array.isArray(value) && !value.length);
+}
+
+// A Notion page link (https://www.notion.so/…/Orders-0123…cdef?pvs=4), or its ID with or without dashes → the ID.
+function notionId_(value) {
+  const ids = String(value || '').split(/[?#]/)[0].replace(/-/g, '').match(/[0-9a-f]{32}/gi);
+  return ids ? ids[ids.length - 1].toLowerCase() : '';
+}
+
+function notionFindOrder_(clientRef) {
+  const found = notion_('post', '/databases/' + prop_('NOTION_ORDERS_DB') + '/query', { filter: { property: 'Client ref', rich_text: { equals: clientRef } }, page_size: 1 });
+  const page = found.results && found.results[0];
+  if (!page) return null;
+  const p = page.properties || {};
+  const title = (p['Order'] && p['Order'].title || []).map(function (t) { return t.plain_text; }).join('');
+  const date = p['Order date'] && p['Order date'].date && p['Order date'].date.start;
+  return {
+    id: page.id, number: title,
+    received: date ? Utilities.formatDate(new Date(date), CONFIG.TIMEZONE, 'd MMM yyyy, HH:mm') : '',
+    sent: !!(p['Email sent'] && p['Email sent'].checkbox),
+  };
+}
+
+function notionMarkEmail_(pageId, sent) {
+  try { notion_('patch', '/pages/' + pageId, { properties: { 'Email sent': { checkbox: !!sent } } }); } catch (err) { console.error(err); }
+}
+
+// Run once, after NOTION_TOKEN and NOTION_PARENT_PAGE are set: creates the two databases in that page and keeps their IDs.
+function setupNotion() {
+  const parent = notionId_(prop_('NOTION_PARENT_PAGE'));
+  if (!prop_('NOTION_TOKEN') || !parent) throw new Error('Set NOTION_TOKEN and NOTION_PARENT_PAGE in Project Settings → Script Properties first.');
+  // the page must be shared with the integration (••• → Connections), or Notion answers 404
+  notion_('get', '/pages/' + parent);
+  const options = function (names) { return { select: { options: names.map(function (n) { return { name: n }; }) } }; };
+  const money = { number: { format: 'number_with_commas' } };
+  const props = PropertiesService.getScriptProperties();
+  if (!prop_('NOTION_ORDERS_DB')) {
+    const orders = notion_('post', '/databases', {
+      parent: { type: 'page_id', page_id: parent },
+      title: [{ text: { content: CONFIG.BRAND + ' — Orders' } }],
+      properties: {
+        'Order': { title: {} },
+        'Status': options(CONFIG.ORDER_STATUSES),
+        'Order date': { date: {} },
+        'First name': { rich_text: {} },
+        'Family name': { rich_text: {} },
+        'Phone': { phone_number: {} },
+        'Second phone': { phone_number: {} },
+        'Email': { email: {} },
+        'Wilaya': { select: {} },
+        'Commune': { rich_text: {} },
+        'Address': { rich_text: {} },
+        'Instructions': { rich_text: {} },
+        'Colour': options(['Ice Blue', 'Midnight']),
+        'Size': options(['M', 'L', 'XL']),
+        'Design': { rich_text: {} },
+        'Direction': { select: {} },
+        'Customisation': { rich_text: {} },
+        'Packaging': { select: {} },
+        'Shipping method': options(['Home delivery', 'Stop desk']),
+        'Shipping price': money,
+        'Shipping on request': { checkbox: {} },
+        'Product price': money,
+        'Total': money,
+        'Weight (kg)': { number: {} },
+        'Height (cm)': { number: {} },
+        'Email sent': { checkbox: {} },
+        'Client ref': { rich_text: {} },
+      },
+    });
+    props.setProperty('NOTION_ORDERS_DB', orders.id);
+    console.log('Orders database: ' + orders.url);
+  }
+  if (!prop_('NOTION_NEWSLETTER_DB')) {
+    const news = notion_('post', '/databases', {
+      parent: { type: 'page_id', page_id: parent },
+      title: [{ text: { content: CONFIG.BRAND + ' — Newsletter' } }],
+      properties: {
+        'Email': { title: {} },
+        'Subscribed': { date: {} },
+        'Source': { select: {} },
+        'Status': options(['Subscribed', 'Unsubscribed']),
+      },
+    });
+    props.setProperty('NOTION_NEWSLETTER_DB', news.id);
+    console.log('Newsletter database: ' + news.url);
+  }
+  console.log('Notion is ready.');
+}
+
+// Run from the editor any time: says whether the key works and both databases can be reached, and what is missing.
+function checkNotion() {
+  if (!prop_('NOTION_TOKEN')) return console.log('NOTION_TOKEN is not set (Project Settings → Script Properties).');
+  const me = notion_('get', '/users/me');
+  console.log('Key works: integration "' + (me.name || me.id) + '".');
+  [['NOTION_ORDERS_DB', 'Orders'], ['NOTION_NEWSLETTER_DB', 'Newsletter']].forEach(function (pair) {
+    if (!prop_(pair[0])) return console.log(pair[1] + ' database: not set up yet — run setupNotion.');
+    try {
+      const db = notion_('get', '/databases/' + prop_(pair[0]));
+      console.log(pair[1] + ' database reachable: ' + db.url + ' (' + Object.keys(db.properties).length + ' properties)');
+    } catch (err) {
+      console.log(pair[1] + ' database NOT reachable: ' + err.message);
+    }
+  });
+}
+
+// Run from the editor to try the newsletter end to end: a test address is saved once (a second run finds it).
+function testNewsletter() {
+  console.log(JSON.stringify(subscribe_({ email: 'newsletter-test@example.com', source: 'Script editor test' })));
+}
+
+/* ---------- serial number and the Orders sheet (the backup) ---------- */
 
 // A counter that only ever goes up, so no two orders share a number: BP-<yymmdd>-<count>.
 function nextNumber_() {

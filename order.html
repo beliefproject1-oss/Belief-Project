@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Order details — Belief Project</title>
+<meta name="description" content="Belief Project — your delivery details and a last look at your order before you confirm it.">
+<meta name="theme-color" content="#F3F9FF">
+<link rel="icon" type="image/webp" href="assets/img/bear-badge.webp">
+<link rel="preload" href="assets/fonts/Aeonik-Medium.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="flow-page order-page">
+<a class="skip" href="#orderForm">Skip to your details</a>
+<header class="flow-bar">
+  <a class="glass-btn flow-back" id="flowBack" href="packaging.html"><span aria-hidden="true">←</span> <span>Packaging</span></a>
+  <a class="pick-home flow-home" href="index.html" aria-label="Belief Project, home">
+    <span class="mark mark-badge" aria-hidden="true"></span>
+  </a>
+  <div class="flow-end">
+  <ol class="flow-steps" aria-label="Your order">
+    <li class="is-done">Colour</li>
+    <li class="is-done">Design</li>
+    <li class="is-done">Fit</li>
+    <li class="is-done">Packaging</li>
+    <li aria-current="step" data-of="5 / 5">Details</li>
+  </ol>
+  </div>
+</header>
+
+<!-- The details on the left, the order on the right. Text, prices and the wilayas come from content.js
+     (order, prices, shipping); js/order.js does the rest and sends the order (js/orders.js). -->
+<main class="order" id="order">
+  <section class="order-main" aria-labelledby="orderTitle">
+    <p class="eyebrow" data-bind="order.eyebrow">Order details</p>
+    <h1 class="order-title" id="orderTitle"><span data-bind="order.title">Your</span> <span class="serif" data-bind="order.titleSerif">details</span></h1>
+    <p class="order-lede" data-bind="order.intro"></p>
+
+    <form class="order-form" id="orderForm" novalidate>
+      <fieldset class="o-group">
+        <legend class="o-legend"><span class="o-step">01</span> Who it's for</legend>
+        <div class="o-grid">
+          <div class="o-field">
+            <label for="oFirst">First name <span class="o-req" aria-hidden="true">*</span></label>
+            <input id="oFirst" name="firstName" type="text" autocomplete="given-name" required maxlength="60">
+            <p class="o-msg"></p>
+          </div>
+          <div class="o-field">
+            <label for="oFamily">Family name <span class="o-req" aria-hidden="true">*</span></label>
+            <input id="oFamily" name="familyName" type="text" autocomplete="family-name" required maxlength="60">
+            <p class="o-msg"></p>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="o-group">
+        <legend class="o-legend"><span class="o-step">02</span> How to reach you</legend>
+        <div class="o-grid">
+          <div class="o-field">
+            <label for="oPhone">Phone number <span class="o-req" aria-hidden="true">*</span></label>
+            <input id="oPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel-national" placeholder="05 55 12 34 56" required maxlength="20">
+            <p class="o-msg"></p>
+          </div>
+          <div class="o-field">
+            <label for="oPhone2">Second phone number <span class="o-opt">Optional</span></label>
+            <input id="oPhone2" name="phone2" type="tel" inputmode="tel" autocomplete="off" maxlength="20">
+            <p class="o-msg"></p>
+          </div>
+          <div class="o-field o-wide">
+            <label for="oEmail">Email address <span class="o-opt">Optional</span></label>
+            <input id="oEmail" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" maxlength="160">
+            <p class="o-msg"></p>
+          </div>
+        </div>
+      </fieldset>
+
+      <fieldset class="o-group">
+        <legend class="o-legend"><span class="o-step">03</span> Where it goes</legend>
+        <div class="o-grid">
+          <div class="o-field">
+            <label for="oWilaya">Wilaya <span class="o-req" aria-hidden="true">*</span></label>
+            <div class="o-select"><select id="oWilaya" name="wilaya" required><option value="">Choose your wilaya</option></select></div>
+            <p class="o-msg"></p>
+          </div>
+          <div class="o-field">
+            <label for="oCommune">Commune <span class="o-req" aria-hidden="true">*</span></label>
+            <input id="oCommune" name="commune" type="text" autocomplete="address-level2" required maxlength="80">
+            <p class="o-msg"></p>
+          </div>
+          <div class="o-field o-wide" role="radiogroup" aria-labelledby="oMethodLabel" id="oMethodField">
+            <p class="o-label" id="oMethodLabel">Delivery <span class="o-req" aria-hidden="true">*</span></p>
+            <div class="o-methods" id="oMethods">
+              <label class="o-method">
+                <input type="radio" name="method" value="home">
+                <span class="o-method-body"><span class="o-method-name" data-bind="shipping.methods.home">Home delivery</span><span class="o-method-note">To your door</span><span class="o-method-price" data-method-price="home">—</span></span>
+              </label>
+              <label class="o-method">
+                <input type="radio" name="method" value="desk">
+                <span class="o-method-body"><span class="o-method-name" data-bind="shipping.methods.desk">Stop desk</span><span class="o-method-note">Collect at the delivery office</span><span class="o-method-price" data-method-price="desk">—</span></span>
+              </label>
+            </div>
+            <p class="o-msg"></p>
+          </div>
+          <div class="o-field o-wide">
+            <label for="oAddress">Address <span class="o-req" aria-hidden="true">*</span></label>
+            <textarea id="oAddress" name="address" rows="2" autocomplete="street-address" required maxlength="300" placeholder="Street, building, floor"></textarea>
+            <p class="o-msg"></p>
+          </div>
+          <div class="o-field o-wide">
+            <label for="oNotes">Delivery instructions <span class="o-opt">Optional</span></label>
+            <textarea id="oNotes" name="instructions" rows="2" maxlength="500" placeholder="A landmark, the best time to call…"></textarea>
+            <p class="o-msg"></p>
+          </div>
+        </div>
+      </fieldset>
+      <input class="nl-trap" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
+    </form>
+  </section>
+
+  <aside class="order-side" aria-label="Your order">
+    <div class="o-card">
+      <div class="o-shirt"><span class="garment" id="orderGarment"></span></div>
+      <p class="o-missing" id="orderMissing" hidden></p>
+      <dl class="o-sum" id="orderSum"></dl>
+      <dl class="o-totals" id="orderTotals"></dl>
+      <button class="lg-btn o-confirm" id="orderConfirm" type="button"><span class="o-confirm-label" data-bind="order.confirmLabel">Confirm order</span> <span class="lg-btn-arrow" aria-hidden="true">→</span></button>
+      <p class="o-status" id="orderStatus" role="status" aria-live="polite"></p>
+      <p class="o-fine">We call you to confirm before anything ships.</p>
+    </div>
+  </aside>
+</main>
+
+<script src="content.js"></script>
+<script src="assets/designs/designs.js"></script>
+<script src="js/main.js"></script>
+<script src="js/flow.js"></script>
+<script src="js/garment.js"></script>
+<script src="js/orders.js"></script>
+<script src="js/order.js"></script>
+</body>
+</html>

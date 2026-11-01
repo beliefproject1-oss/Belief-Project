@@ -24,6 +24,7 @@ const ROOT = path.resolve(__dirname, '..');
 const arg = name => (i => (i > 0 ? process.argv[i + 1] : ''))(process.argv.indexOf(name));
 const debugDir = arg('--debug');
 const only = arg('--only');
+const reuse = process.argv.includes('--reuse-cutouts');
 if (debugDir) fs.mkdirSync(debugDir, { recursive: true });
 
 const slug = s => s.normalize('NFKD').replace(/[^\w\s-]/g, '').trim().toLowerCase().replace(/[\s_-]+/g, '-').replace(/^-|-$/g, '').slice(0, 48) || 'design';
@@ -158,6 +159,8 @@ async function isolate(file, opt) {
   // what else is left of the paper: specks away from the artwork, and film that never turns into solid ink
   if (opt.stray !== false) clearStray(alpha, w, h, opt, cleared);
   clearFilm(alpha, w, h, cleared);
+  const tinted = bg[0] >= 80 && Math.hypot(bg[1], bg[2]) >= 3;
+  const glints = tinted ? clearGlints(alpha, Lc, bg[0], w, h, up, cleared) : null;
 
   // colour of half-covered edge pixels: take the paper back out of them
   const core = alpha.map(v => (v >= 0.999 ? 1 : 0));
@@ -193,7 +196,7 @@ async function isolate(file, opt) {
     out.copy(trimmed, y * tw * 4, ((y + y0) * w + x0) * 4, ((y + y0) * w + x1 + 1) * 4);
     for (let x = 0; x < tw; x++) gone[y * tw + x] = cleared[(y + y0) * w + x + x0] ? 255 : 0;
   }
-  return { w: tw, h: th, rgba: trimmed, cleared: gone, trim: { x: x0, y: y0, w, h }, tol, spread, bgHex: linToHex(bgLin), original };
+  return { w: tw, h: th, rgba: trimmed, cleared: gone, trim: { x: x0, y: y0, w, h }, tol, spread, glints: glints ? glints.reduce((n, v) => n + v, 0) : 0, glintMask: glints, bgHex: linToHex(bgLin), original };
 }
 
 // Which paper-coloured holes inside the artwork to clear. 'remove': all; a number: those smaller than that many
@@ -307,6 +310,37 @@ function clearFilm(alpha, w, h, cleared) {
   }
 }
 
+// On cream or tinted paper, marks LIGHTER than the paper are not ink: the bright ring a JPEG leaves along a line, or
+// white grain. They print as white specks on a dark shirt. They are small or thin, and sit on the edge of the artwork,
+// against the paper taken away. A white area that belongs to the design (a white top, a white flower) is bigger and
+// thicker, and stays. On white or grey paper nothing is lighter than the paper but white artwork, so it is left alone.
+// Returns the pixels that went.
+function clearGlints(alpha, Lc, paperL, w, h, up, cleared) {
+  const N = w * h;
+  const light = new Uint8Array(N);
+  for (let i = 0; i < N; i++) light[i] = alpha[i] > 0 && Lc[i] >= paperL - 3 ? 1 : 0;
+  const cc = P.components(light, w, h);
+  const n = cc.sizes.length;
+  const depth = P.distanceTo(light.map(v => 1 - v), w, h, 2 * up + 2);
+  const deep = new Uint8Array(n), rim = new Uint32Array(n), open = new Uint32Array(n);
+  for (let i = 0; i < N; i++) {
+    const k = cc.labels[i]; if (!k) continue;
+    if (depth[i] > deep[k]) deep[k] = depth[i];
+    const x = i % w;
+    for (const j of [x > 0 ? i - 1 : -1, x < w - 1 ? i + 1 : -1, i - w, i + w]) {
+      if (j < 0 || j >= N || light[j]) continue;
+      rim[k]++;
+      if (alpha[j] <= 0) open[k]++;
+    }
+  }
+  const small = 16 * up * up, thin = up + 1;
+  const glint = new Uint8Array(n);
+  for (let k = 1; k < n; k++) glint[k] = (cc.sizes[k] <= small || deep[k] <= thin) && open[k] >= rim[k] * 0.25 ? 1 : 0;
+  const gone = new Uint8Array(N);
+  for (let i = 0; i < N; i++) if (glint[cc.labels[i]]) { alpha[i] = 0; cleared[i] = 1; gone[i] = 1; }
+  return gone;
+}
+
 function labToLin([L, a, b]) {
   const fy = (L + 16) / 116, fx = fy + a / 500, fz = fy - b / 200;
   const inv = t => (t ** 3 > 0.008856 ? t ** 3 : (t - 16 / 116) / 7.787);
@@ -314,9 +348,9 @@ function labToLin([L, a, b]) {
   return [3.2406 * X - 1.5372 * Y - 0.4986 * Z, -0.9689 * X + 1.8758 * Y + 0.0415 * Z, 0.0557 * X - 0.204 * Y + 1.057 * Z].map(v => Math.min(1, Math.max(0, v)));
 }
 const linToHex = lin => '#' + lin.map(v => P.toSrgb(v).toString(16).padStart(2, '0')).join('');
-/* ---------- 2. the fabric ---------- */
-function loadFabric() {
-  const file = path.join(__dirname, '.cache', 'fabric.bin');
+/* ---------- 2. the fabric: one stage per colour, measured by prepare-garment.js ---------- */
+function loadStage(st) {
+  const file = path.join(__dirname, '.cache', `stage-${st.id}.bin`);
   if (!fs.existsSync(file)) throw new Error('run tools/prepare-garment.js first');
   const buf = fs.readFileSync(file);
   const head = new Float32Array(buf.buffer, buf.byteOffset, 3);
@@ -325,38 +359,16 @@ function loadFabric() {
   const shirt = new Uint8Array(buf.buffer.slice(buf.byteOffset + 12 + N * 4, buf.byteOffset + 12 + N * 5));
   const logS = shade.map(v => Math.log(Math.max(v, 0.02)));
   const logLow = P.blur(logS, w, h, 9);
-  const height = P.blur(logS, w, h, S.print.foldScale);
-  // which way the ribs run across the print area: fit dx/dy = a + b(x - xc) + c(y - yc) to the measured directions
-  const g = P.blur(shade, w, h, 1.2);
-  const B = S.print.ribArea, rows = [];
-  for (let cy = B.y0; cy <= B.y1; cy += 50) for (let cx = B.x0; cx <= B.x1; cx += 50) {
-    let xx = 0, yy = 0, xy = 0;
-    for (let y = cy - 40; y < cy + 40; y++) for (let x = cx - 40; x < cx + 40; x++) {
-      const i = y * w + x;
-      const gx = (g[i + 1] - g[i - 1]) / 2, gy = (g[i + w] - g[i - w]) / 2;
-      xx += gx * gx; yy += gy * gy; xy += gx * gy;
-    }
-    const th = 0.5 * Math.atan2(2 * xy, xx - yy);
-    const coh = Math.sqrt((xx - yy) ** 2 + 4 * xy * xy) / (xx + yy + 1e-9);
-    if (Math.abs(th) < 0.26 && coh > 0.6) rows.push([cx, cy, -Math.tan(th), coh * coh]);
-  }
-  const xc = (B.x0 + B.x1) / 2, yc = (B.y0 + B.y1) / 2;
-  const lean = fitPlane(rows, xc, yc);
-  lean.a *= S.print.leanFollow; lean.b *= S.print.ribFollow; lean.c *= S.print.ribFollow;
-  return { w, h, shade, shirt, logS, logLow, height, lean: { ...lean, xc, yc }, samples: rows.length };
+  const height = P.blur(logS, w, h, st.print.foldScale);
+  // the model's back faces the camera: the print stands straight, following only the folds
+  const pr = st.print;
+  return { w, h, shade, shirt, logS, logLow, height, lean: { a: 0, b: 0, c: 0, xc: pr.centerX, yc: pr.top + pr.height / 2 } };
 }
 
-function fitPlane(rows, xc, yc) {
-  // weighted least squares for v = a + b·(x - xc) + c·(y - yc)
-  const M = [[0, 0, 0], [0, 0, 0], [0, 0, 0]], r = [0, 0, 0];
-  for (const [x, y, v, wt] of rows) {
-    const f = [1, x - xc, y - yc];
-    for (let i = 0; i < 3; i++) { r[i] += wt * f[i] * v; for (let j = 0; j < 3; j++) M[i][j] += wt * f[i] * f[j]; }
-  }
-  const det = m => m[0][0] * (m[1][1] * m[2][2] - m[1][2] * m[2][1]) - m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0]) + m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0]);
-  const d = det(M);
-  const sol = [0, 1, 2].map(k => det(M.map((row, i) => row.map((v, j) => (j === k ? r[i] : v)))) / d);
-  return { a: sol[0], b: sol[1], c: sol[2] };
+// a cut-out made before (designs-isolated/), read back instead of removing the background again
+async function loadCutout(file) {
+  const { data, info } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  return { w: info.width, h: info.height, rgba: data, cleared: Buffer.alloc(info.width * info.height), reused: true };
 }
 
 function sampleF(arr, w, h, x, y) {
@@ -369,17 +381,16 @@ function sampleF(arr, w, h, x, y) {
 // How large the artwork is printed: the same share of the print area for every design (studio.config.js, print.fill),
 // so a wide design comes out wider and a tall one taller with the same presence — never past the print area, never
 // stretched, and centred in it both ways.
-function printSize(ar) {
-  const pr = S.print;
+function printSize(ar, pr) {
   let dw = Math.sqrt(pr.fill * pr.width * pr.height * ar), dh = dw / ar;
   if (dw > pr.width) { dw = pr.width; dh = dw / ar; }
   if (dh > pr.height) { dh = pr.height; dw = dh * ar; }
   return { dw, dh };
 }
 
-function printOnShirt(art, F) {
-  const pr = S.print, K = pr.scale;
-  const { dw, dh } = printSize(art.w / art.h);
+function printOnShirt(art, F, pr) {
+  const K = pr.scale;
+  const { dw, dh } = printSize(art.w / art.h, pr);
   const top = pr.top + (pr.height - dh) / 2;
   const yRef = top + dh / 2;
   const left = pr.centerX - dw / 2;
@@ -486,7 +497,7 @@ function printOnShirt(art, F) {
 /* ---------- legibility on each shirt colour ---------- */
 function contrast(art) {
   const res = {};
-  for (const tone of S.garment.colors) {
+  for (const tone of S.stages) {
     const t = P.hexToLin(tone.fabric);
     const Lt = 0.2126 * t[0] + 0.7152 * t[1] + 0.0722 * t[2];
     let low = 0, all = 0;
@@ -503,11 +514,10 @@ function contrast(art) {
 
 /* ---------- run ---------- */
 async function main() {
-  const F = loadFabric();
-  console.log(`fabric: ribs lean ${F.lean.a.toFixed(3)} + ${F.lean.b.toExponential(2)}·dx + ${F.lean.c.toExponential(2)}·dy (${F.samples} samples)`);
+  const stages = S.stages.map(st => ({ st, F: loadStage(st) }));
   const manifestFile = path.join(ROOT, D.output.manifest);
   const previous = (() => { try { const m = {}; new Function('window', fs.readFileSync(manifestFile, 'utf8'))(m); return m.BELIEF_DESIGNS; } catch (e) { return null; } })();
-  const manifest = { generated: new Date().toISOString().slice(0, 10), print: null, directions: [] };
+  const manifest = { generated: new Date().toISOString().slice(0, 10), frame: { w: S.frame.w, h: S.frame.h }, stages: {}, directions: [] };
 
   for (const dir of D.directions) {
     const srcDir = path.join(ROOT, D.source, dir.id);
@@ -531,60 +541,65 @@ async function main() {
         continue;
       }
       // a vector master is rendered at full size, not upscaled
-      const opt = { ...D.defaults, ...(dir.defaults || {}), ...own, ...(isSvg ? { upscale: 1 } : {}) };
+      const opt = { ...D.defaults, ...(dir.defaults || {}), ...own, ...(isSvg ? { upscale: 1 } : {}), cutout: true };
       const t0 = Date.now();
-      const art = await isolate(path.join(srcDir, file), opt);
-      const cutout = opt.cutout !== false;
       const outDir = path.join(ROOT, D.output.dir, dir.id);
       const isoDir = path.join(ROOT, D.output.isolated, dir.id);
       fs.mkdirSync(outDir, { recursive: true }); fs.mkdirSync(isoDir, { recursive: true });
+      const isoFile = path.join(isoDir, id + '.png');
+      // --reuse-cutouts: the cut-out already in designs-isolated/ is printed as it is
+      const art = reuse && fs.existsSync(isoFile) ? await loadCutout(isoFile) : await isolate(path.join(srcDir, file), opt);
       const raw = (buf, w, h) => sharp(buf, { raw: { width: w, height: h, channels: 4 } });
-      const writePrint = async (printed, name) => {
-        await raw(printed.rgba, printed.W, printed.H).webp({ quality: 84, alphaQuality: 92, effort: 6, smartSubsample: true }).toFile(path.join(outDir, name + '.webp'));
-        await raw(printed.rgba, printed.W, printed.H).resize({ width: Math.round(printed.W / 2), kernel: 'lanczos3' }).webp({ quality: 82, alphaQuality: 90, effort: 6 }).toFile(path.join(outDir, name + '-sm.webp'));
-      };
-      // the image as supplied, printed with its own background
-      const printedBg = printOnShirt(art.original, F);
-      await writePrint(printedBg, id + '-print-bg');
-      let printed = null;
-      if (cutout) {
-        printed = printOnShirt(art, F);
-        await writePrint(printed, id + '-print');
+      if (!art.reused) {
         // the isolated artwork, lossless, back at the size it was supplied (it was worked on at opt.upscale ×)
-        await raw(art.rgba, art.w, art.h).resize({ width: Math.round(art.w / opt.upscale), kernel: 'mitchell' }).png({ compressionLevel: 9, effort: 8 }).toFile(path.join(isoDir, id + '.png'));
-      } else {
-        // no clean cut-out: nothing is offered without the background, and no stale cut-out is left behind
-        for (const f of [path.join(outDir, id + '-print.webp'), path.join(outDir, id + '-print-sm.webp'), path.join(isoDir, id + '.png')]) fs.rmSync(f, { force: true });
+        await raw(art.rgba, art.w, art.h).resize({ width: Math.round(art.w / opt.upscale), kernel: 'mitchell' }).png({ compressionLevel: 9, effort: 8 }).toFile(isoFile);
+      }
+      // printed on each model's shirt, cut out: there is no version with the image's own background
+      const prints = {};
+      const printedAll = [];
+      for (const { st, F } of stages) {
+        const printed = printOnShirt(art, F, st.print);
+        const name = `${id}-${st.id}`;
+        await raw(printed.rgba, printed.W, printed.H).webp({ quality: 86, alphaQuality: 92, effort: 6, smartSubsample: true }).toFile(path.join(outDir, name + '.webp'));
+        await raw(printed.rgba, printed.W, printed.H).resize({ width: Math.round(printed.W / 2), kernel: 'lanczos3' }).webp({ quality: 84, alphaQuality: 90, effort: 6 }).toFile(path.join(outDir, name + '-sm.webp'));
+        prints[st.id] = { src: `${rel}-${st.id}.webp`, small: `${rel}-${st.id}-sm.webp`, width: printed.W };
+        manifest.stages[st.id] = { box: printed.box, scale: st.print.scale };
+        printedAll.push({ st, printed });
       }
       // thumbnail for the design swatches
-      const face = cutout ? art : art.original;
-      await raw(face.rgba, face.w, face.h).resize({ width: 300, height: 300, fit: 'inside', kernel: 'lanczos3' }).webp({ quality: 78, alphaQuality: 85, effort: 6 }).toFile(path.join(outDir, id + '-thumb.webp'));
-      const low = cutout ? contrast(art) : {};
+      await raw(art.rgba, art.w, art.h).resize({ width: 300, height: 300, fit: 'inside', kernel: 'lanczos3' }).webp({ quality: 80, alphaQuality: 88, effort: 6 }).toFile(path.join(outDir, id + '-thumb.webp'));
+      // the files of the way the studio used to show designs, with and without background, are gone
+      for (const f of [id + '-print.webp', id + '-print-sm.webp', id + '-print-bg.webp', id + '-print-bg-sm.webp']) fs.rmSync(path.join(outDir, f), { force: true });
+      const low = contrast(art);
       const design = {
         id, title, source: file,
         thumb: `${rel}-thumb.webp`,
-        print: cutout ? `${rel}-print.webp` : '', printSmall: cutout ? `${rel}-print-sm.webp` : '',
-        printBg: `${rel}-print-bg.webp`, printBgSmall: `${rel}-print-bg-sm.webp`,
-        printWidth: printedBg.W,
-        art: cutout ? `${D.output.isolated}/${dir.id}/${id}.png` : '',
-        ratio: +(face.w / face.h).toFixed(4),
+        prints,
+        art: `${D.output.isolated}/${dir.id}/${id}.png`,
+        ratio: +(art.w / art.h).toFixed(4),
         // shirt colours this design is hard to read on (most of its ink close to the fabric's brightness)
         faint: Object.keys(low).filter(k => low[k] > D.faintAbove),
       };
-      if (!cutout) design.cutout = false;
       if (own.credit) design.credit = own.credit;
       if (!design.faint.length) delete design.faint;
       entry.designs.push(design);
-      manifest.print = printedBg.box;
-      console.log(`${dir.id}/${id}  ` + (cutout ? (art.vector ? `vector, paper ${art.bgHex}` : `bg ${art.bgHex} spread ${art.spread.toFixed(1)} tol ${art.tol.toFixed(1)}`) + `  ${art.w}×${art.h}  faint:${(design.faint || []).join(',') || '-'}` : 'with background only') + `  ${Date.now() - t0}ms`);
-      if (debugDir) await debugSheet(art, printed, printedBg, path.join(ROOT, D.source, dir.id, file), path.join(debugDir, `${dir.id}--${id}.jpg`));
+      const how = art.reused ? 'cut-out reused' : art.vector ? `vector, paper ${art.bgHex}` : `bg ${art.bgHex} spread ${art.spread.toFixed(1)} tol ${art.tol.toFixed(1)} glints ${art.glints}`;
+      console.log(`${dir.id}/${id}  ${how}  ${art.w}×${art.h}  faint:${(design.faint || []).join(',') || '-'}  ${Date.now() - t0}ms`);
+      if (debugDir) await debugSheet(art, printedAll, path.join(ROOT, D.source, dir.id, file), path.join(debugDir, `${dir.id}--${id}.jpg`));
     }
     manifest.directions.push(entry);
   }
-  manifest.print = manifest.print || previous?.print;
-  const pr = S.print;
-  manifest.area = { x: pr.centerX - pr.width / 2, y: pr.top, w: pr.width, h: pr.height, angle: +(Math.atan(F.lean.a) * 180 / Math.PI).toFixed(2) };
-  manifest.frame = { w: S.frame.w, h: S.frame.h };
+  // where each print sits on its model, and how the page frames the model
+  for (const st of S.stages) {
+    const pr = st.print;
+    manifest.stages[st.id] = {
+      ...(previous?.stages?.[st.id] || {}),
+      ...(manifest.stages[st.id] || {}),
+      area: { x: pr.centerX - pr.width / 2, y: pr.top, w: pr.width, h: pr.height },
+      view: st.view,
+      photo: S.widths.map(w => ({ src: `${S.out.dir}/model-${st.id}-${w}.webp`, w })),
+    };
+  }
   const js = '/* Generated by tools/prepare-designs.js — do not edit by hand; edit tools/designs.config.js and run the script. */\n' +
     'window.BELIEF_DESIGNS = ' + JSON.stringify(manifest, null, 1) + ';\n';
   fs.writeFileSync(manifestFile, js);
@@ -592,30 +607,24 @@ async function main() {
 }
 
 // review sheet: the image as supplied; the cut-out on magenta, with what the clean-up took away in lime;
-// the cut-out printed on the Midnight shirt; the image printed with its background
-async function debugSheet(art, printed, printedBg, sourceFile, file) {
+// then the print on each model, framed as the studio frames it
+async function debugSheet(art, printedAll, sourceFile, file) {
   const cell = 440;
   const fit = buf => sharp(buf).resize(cell - 16, cell - 16, { fit: 'inside' }).png().toBuffer();
   const tile = async (bg, input) => sharp({ create: { width: cell, height: cell, channels: 3, background: bg } }).composite(input ? [{ input: await fit(input), gravity: 'center' }] : []).png().toBuffer();
   const tiles = [await tile('#ffffff', await sharp(sourceFile).rotate().png().toBuffer())];
-  if (printed) {
-    const n = art.w * art.h, over = Buffer.alloc(n * 4);
-    for (let i = 0; i < n; i++) {
-      if (art.cleared[i]) { over[i * 4] = 140; over[i * 4 + 1] = 255; over[i * 4 + 2] = 0; over[i * 4 + 3] = 255; }
-      else art.rgba.copy(over, i * 4, i * 4, i * 4 + 4);
-    }
-    tiles.push(await tile('#ff00ff', await sharp(over, { raw: { width: art.w, height: art.h, channels: 4 } }).png().toBuffer()));
-  } else tiles.push(await tile('#888888', null));
-  const K = S.print.scale;
-  const shirt = path.join(ROOT, S.out.dir, 'shirt-midnight-1200.webp');
-  const big = await sharp(shirt).resize(S.frame.w * K, S.frame.h * K).png().toBuffer();
-  for (const pr of [printed, printedBg]) {
-    if (!pr) { tiles.push(await tile('#888888', null)); continue; }
-    const b = pr.box;
-    const crop = { left: Math.max(0, (b.x - 140) * K), top: Math.max(0, (b.y - 160) * K), width: (b.w + 280) * K, height: (b.h + 240) * K };
-    const img = await sharp(pr.rgba, { raw: { width: pr.W, height: pr.H, channels: 4 } }).png().toBuffer();
-    const merged = await sharp(big).composite([{ input: img, left: b.x * K, top: b.y * K }]).png().toBuffer();
-    tiles.push(await sharp(merged).extract(crop).flatten({ background: '#F3F9FF' }).resize(cell, cell, { fit: 'contain', background: '#F3F9FF' }).png().toBuffer());
+  const n = art.w * art.h, over = Buffer.alloc(n * 4);
+  for (let i = 0; i < n; i++) {
+    if (art.cleared[i]) { over[i * 4] = 140; over[i * 4 + 1] = 255; over[i * 4 + 2] = 0; over[i * 4 + 3] = 255; }
+    else art.rgba.copy(over, i * 4, i * 4, i * 4 + 4);
+  }
+  tiles.push(await tile('#ff00ff', await sharp(over, { raw: { width: art.w, height: art.h, channels: 4 } }).png().toBuffer()));
+  for (const { st, printed } of printedAll) {
+    const K = st.print.scale, b = printed.box, v = st.view;
+    const photo = await sharp(path.join(ROOT, S.out.dir, `model-${st.id}-${S.widths[0]}.webp`)).resize(S.frame.w * K, S.frame.h * K).png().toBuffer();
+    const img = await sharp(printed.rgba, { raw: { width: printed.W, height: printed.H, channels: 4 } }).png().toBuffer();
+    const merged = await sharp(photo).composite([{ input: img, left: Math.round(b.x * K), top: Math.round(b.y * K) }]).png().toBuffer();
+    tiles.push(await sharp(merged).extract({ left: v.x * K, top: v.y * K, width: v.w * K, height: v.h * K }).resize(cell, cell, { fit: 'contain', background: '#F3F9FF' }).png().toBuffer());
   }
   await sharp({ create: { width: cell * tiles.length, height: cell, channels: 3, background: '#888' } })
     .composite(tiles.map((t, i) => ({ input: t, left: i * cell, top: 0 }))).jpeg({ quality: 84 }).toFile(file);

@@ -1,13 +1,13 @@
-/* Belief Project — draws the studio's artwork.
-   Every design is drawn in code, in tools/artwork/<direction>.js, with the shared kit in tools/artwork/kit.js, and
-   written as a vector master: designs-source/<direction>/<id>.svg. Lettering is outlined, so the file prints the same
-   anywhere. Each SVG has two layers: <g id="paper"> (the sheet it sits on — the studio's "with background") and
-   <g id="art"> (what is printed on its own).
+/* Belief Project — draws a set of designs in code (archived: the studio shows the original designs).
+   Every design is drawn in tools/artwork/<direction>.js, with the shared kit in tools/artwork/kit.js, and written as a
+   vector master: _reference/designs-drawn/<direction>/<id>.svg. Lettering is outlined, so the file prints the same
+   anywhere. Each SVG has two layers: <g id="paper"> (the sheet it sits on) and <g id="art"> (what is printed).
+   To put one in the studio, copy its SVG into designs-source/<direction>/ and run prepare-designs.js.
 
      node tools/draw-designs.js [--only <direction>[/<id>]] [--preview <folder>]
 
-   Then run prepare-designs.js to print them on the shirt. --preview writes a contact sheet per direction: each design
-   on its paper, on the Midnight fabric and on the Ice Blue fabric. */
+   --preview writes a contact sheet per direction: each design on its paper, on the Midnight fabric and on the
+   Ice Blue fabric. */
 'use strict';
 const fs = require('fs');
 const path = require('path');
@@ -50,7 +50,7 @@ async function svgOf(design) {
 async function preview(dirId, files) {
   const sharp = require('sharp');
   const cell = 420, pad = 22;
-  const tones = [null, ...S.garment.colors.map(c => c.fabric)];
+  const tones = [null, ...S.stages.map(c => c.fabric)];
   const tiles = [];
   for (const file of files) {
     const svg = fs.readFileSync(file, 'utf8');
@@ -78,7 +78,7 @@ async function main() {
     const [onlyDir, onlyId] = (only || '').split('/');
     if (onlyDir && onlyDir !== dir.id) continue;
     const mod = require(file);
-    const outDir = path.join(ROOT, D.source, dir.id);
+    const outDir = path.join(ROOT, '_reference', 'designs-drawn', dir.id);
     fs.mkdirSync(outDir, { recursive: true });
     const written = [];
     for (const design of mod.designs) {

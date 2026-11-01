@@ -24,8 +24,8 @@
         </button>
         <nav class="dock-links" aria-label="Main">
           <a href="#about">About Us</a>
-          <a href="#help">Help</a>
-          <a href="#contact">Contact Us</a>
+          <a href="#help" data-contact="whatsapp">Help</a>
+          <a href="#contact" data-contact="email">Contact Us</a>
         </nav>
       </div>
       <a class="dock-bear" id="dockBear" href="#top" aria-label="Belief Project, back to top">
@@ -38,8 +38,8 @@
   </div>
   <nav class="dock-panel" id="dockPanel" aria-label="Menu" hidden>
     <a href="#about">About Us <span aria-hidden="true">→</span></a>
-    <a href="#help">Help <span aria-hidden="true">→</span></a>
-    <a href="#contact">Contact Us <span aria-hidden="true">→</span></a>
+    <a href="#help" data-contact="whatsapp">Help <span aria-hidden="true">→</span></a>
+    <a href="#contact" data-contact="email">Contact Us <span aria-hidden="true">→</span></a>
   </nav>
 </header>
 
@@ -126,6 +126,7 @@
               <input id="nlEmail" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required aria-describedby="nlStatus">
               <button class="nl-submit" type="submit"><span data-bind="newsletter.button"></span> <span aria-hidden="true">→</span></button>
             </div>
+            <input class="nl-trap" id="nlWebsite" name="website" type="text" tabindex="-1" autocomplete="off" aria-hidden="true">
             <p class="nl-status" id="nlStatus" role="status" aria-live="polite"></p>
             <p class="nl-note" data-bind="newsletter.note"></p>
           </form>
@@ -154,6 +155,9 @@
 </svg>
 
 <script src="content.js"></script>
+<script src="js/sizing.js"></script>
+<script src="js/modal.js"></script>
+<script src="js/panels.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

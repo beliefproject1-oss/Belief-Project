@@ -1,37 +1,36 @@
 /* Belief Project — studio settings shared by prepare-garment.js and prepare-designs.js.
-   Coordinates are pixels of the working frame: the garment photo scaled to frame.w × frame.h. */
+
+   The studio shows each colour on a model photographed from behind, wearing the real shirt, and prints the chosen
+   design on that shirt's back. One stage per colour; coordinates are pixels of the stage's frame (its photograph
+   scaled to frame.w × frame.h). */
 'use strict';
 module.exports = {
-  frame: { w: 1500, h: 2000 },
+  frame: { w: 1120, h: 1400 },   // 4 : 5, the shape of the model photographs
   out: { dir: 'assets/studio' },
+  widths: [1400, 900],           // the photographs the page loads, by width
 
-  garment: {
-    source: '_reference/garment/midnight-back.heic',
-    // the part of the frame the page shows (the shirt plus a little air)
-    crop: { x: 0, y: 0, w: 1500, h: 2000 },
-    widths: [1200, 760],
-    matte: { warmMin: 9, warmLumMin: 0.11, brightMin: 0.5, wallWarm: 18, open: 5 },
-    bodyBox: { x0: 450, y0: 350, x1: 1050, y1: 1300 },   // where "normal" fabric brightness is measured
-    logoBox: { x0: 40, y0: 1650, x1: 260, y1: 1900 },    // the embroidered logo on the cuff
-    colors: [
-      // fabric: the colour of the body in even light. thread: the embroidered logo.
-      // light / relief: how much of the photo's broad lighting and of the rib texture to keep (1 = all of it)
-      { id: 'midnight', fabric: '#242B3F', thread: '#C9CED8', light: 0.9, relief: 1.0, maxLift: 3.2, quality: 86 },
-      { id: 'ice-blue', fabric: '#AFC9D7', thread: '#1D2742', light: 0.5, relief: 0.75, maxLift: 1.4, quality: 86 },
-    ],
-  },
-
-  // the print on the back. width × height is the printable area: clear of the collar, the sleeves and the hem
-  // (the back panel runs about x 280–1170 and y 130–1790 of the frame). Every design is printed at the same
-  // share of that area (fill), keeping its own proportions — so a wide design is wider and a tall one taller,
-  // with the same presence — capped by the area, never stretched or cropped, and centred both ways in it.
-  print: {
-    centerX: 690, top: 255, width: 600, height: 800, fill: 0.7,
-    scale: 2,                                       // printed at 2× the frame, for the close-up view
-    ribArea: { x0: 500, y0: 300, x1: 900, y1: 1050 }, // where the rib direction is measured
-    leanFollow: 0.8, ribFollow: 0.45,                // how much of the ribs' overall lean and of their fanning the print follows (0–1)
-    foldScale: 14, fold: 90,                        // folds: smoothing of the surface, and how far they move the print
-    light: 0.62, relief: 0.5, minLit: 0.42, maxLit: 1.12, // lighting taken from the fabric
-    grain: 0.28,                                    // ink thins in the valleys between ribs
-  },
+  stages: [
+    {
+      id: 'ice-blue',
+      source: '_reference/models/ice-blue-back.webp',   // standing, back to the camera, grey studio
+      fabric: '#9FC4C4',                                // the shirt in even light (legibility check)
+      // the back panel between the arms: where ink can land
+      body: [[472, 318], [700, 318], [706, 470], [700, 676], [486, 676], [476, 470]],
+      // the printable area: below the collar, clear of the sleeves and the hem
+      print: { centerX: 588, top: 344, width: 186, height: 256, fill: 0.72,
+        scale: 3, foldScale: 10, fold: 18, light: 0.7, relief: 0.42, minLit: 0.55, maxLit: 1.18, grain: 0.18 },
+      // what the page frames by default: head to hips
+      view: { x: 304, y: 108, w: 560, h: 700 },
+    },
+    {
+      id: 'midnight',
+      source: '_reference/models/midnight-back.webp',   // seated, back to the camera, blue paper
+      fabric: '#1C2133',
+      body: [[600, 588], [904, 588], [918, 720], [900, 880], [872, 1060], [612, 1066], [598, 800]],
+      // below the label sewn at the back of the neck
+      print: { centerX: 756, top: 614, width: 262, height: 362, fill: 0.72,
+        scale: 3, foldScale: 12, fold: 20, light: 0.6, relief: 0.3, minLit: 0.6, maxLit: 1.25, grain: 0.14 },
+      view: { x: 330, y: 228, w: 760, h: 950 },
+    },
+  ],
 };

@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Find your fit — Belief Project</title>
-<meta name="description" content="Belief Project — enter your height and weight and get a size recommendation for your shirt.">
+<meta name="description" content="Belief Project — enter your weight and get an instant size recommendation for your shirt.">
 <meta name="theme-color" content="#F3F9FF">
 <link rel="icon" type="image/webp" href="assets/img/bear-badge.webp">
 <link rel="preload" href="assets/fonts/Aeonik-Medium.ttf" as="font" type="font/ttf" crossorigin>
@@ -19,6 +19,7 @@
   <a class="pick-home flow-home" href="index.html" aria-label="Belief Project, home">
     <span class="mark mark-badge" aria-hidden="true"></span>
   </a>
+  <div class="flow-end">
   <ol class="flow-steps" aria-label="Your order">
     <li class="is-done">Colour</li>
     <li class="is-done">Design</li>
@@ -26,6 +27,7 @@
     <li>Packaging</li>
     <li>Details</li>
   </ol>
+  </div>
 </header>
 
 <!-- The measurements on the left, the recommendation on the right. Text and the sizing rules come from
@@ -37,23 +39,23 @@
     <p class="fit-lede" data-bind="size.intro"></p>
 
     <form class="fit-form" id="fitForm" novalidate>
+      <div class="measure" data-measure="weight">
+        <label class="measure-label" for="fitWeight" data-bind="size.weightLabel">Weight</label>
+        <div class="measure-field">
+          <input id="fitWeight" name="weight" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="70" required aria-describedby="fitWeightMsg">
+          <span class="measure-unit" aria-hidden="true">kg</span>
+        </div>
+        <span class="measure-scale" aria-hidden="true"><i></i></span>
+        <p class="measure-msg" id="fitWeightMsg"></p>
+      </div>
       <div class="measure" data-measure="height">
-        <label class="measure-label" for="fitHeight" data-bind="size.heightLabel">Height</label>
+        <label class="measure-label" for="fitHeight"><span data-bind="size.heightLabel">Height</span> <span class="measure-optional" data-bind="size.optional">Optional</span></label>
         <div class="measure-field">
           <input id="fitHeight" name="height" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="175" aria-describedby="fitHeightMsg">
           <span class="measure-unit" aria-hidden="true">cm</span>
         </div>
         <span class="measure-scale" aria-hidden="true"><i></i></span>
         <p class="measure-msg" id="fitHeightMsg"></p>
-      </div>
-      <div class="measure" data-measure="weight">
-        <label class="measure-label" for="fitWeight" data-bind="size.weightLabel">Weight</label>
-        <div class="measure-field">
-          <input id="fitWeight" name="weight" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="70" aria-describedby="fitWeightMsg">
-          <span class="measure-unit" aria-hidden="true">kg</span>
-        </div>
-        <span class="measure-scale" aria-hidden="true"><i></i></span>
-        <p class="measure-msg" id="fitWeightMsg"></p>
       </div>
       <button class="lg-btn fit-go" id="fitGo" type="submit"><span data-bind="size.button">Find my size</span> <span class="lg-btn-arrow" aria-hidden="true">→</span></button>
     </form>
@@ -64,6 +66,7 @@
       <p class="result-label" data-bind="size.resultLabel">Recommended size</p>
       <div class="result-sizes" id="fitSizes"></div>
       <p class="result-note" id="fitNote" role="status" aria-live="polite"></p>
+      <a class="result-ask" id="fitAsk" href="#" target="_blank" rel="noopener" hidden>Ask on WhatsApp</a>
     </div>
     <div class="flow-summary" id="flowSummary"></div>
     <button class="lg-btn fit-continue" id="fitContinue" type="button" disabled><span data-bind="size.continueLabel">Continue</span> <span class="lg-btn-arrow" aria-hidden="true">→</span></button>
@@ -74,6 +77,7 @@
 <script src="assets/designs/designs.js"></script>
 <script src="js/main.js"></script>
 <script src="js/flow.js"></script>
+<script src="js/sizing.js"></script>
 <script src="js/fit.js"></script>
 </body>
 </html>
