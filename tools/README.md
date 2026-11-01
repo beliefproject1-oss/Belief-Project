@@ -22,6 +22,7 @@ the print area on it, and the view the page frames by default (head to hips).
 node tools/prepare-garment.js       # the photographs the page loads, and the fabric measurements
 node tools/prepare-designs.js       # every design printed on every model
 node tools/prepare-packaging.js     # the zipper-bag picture on the packaging page
+node tools/stamp-assets.js          # before every push: version tags on CSS/JS links, so the CDN never serves old copies
 ```
 
 Run both when a model photograph or a stage changes. `prepare-garment.js --debug <folder>` writes each photograph with
