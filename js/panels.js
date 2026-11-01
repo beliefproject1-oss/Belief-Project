@@ -1,7 +1,9 @@
 /* Belief Project — what the floating windows hold (js/modal.js shows them).
    BeliefPanels.shipping(): every wilaya with its home-delivery and stop-desk price, searchable as you type.
    BeliefPanels.size(): weight (and, if wished, height) in, the recommended size out, from the same rules as the
-   Find Your Fit page (js/sizing.js). Text and prices come from content.js (shipping, size, contact). */
+   Find Your Fit page (js/sizing.js).
+   BeliefPanels.contact(): the shop's email address, with ways to write that work on any device — in Gmail, in the mail
+   app, or by copying the address — and WhatsApp. Text and prices come from content.js (shipping, size, contact). */
 window.BeliefPanels = (() => {
   'use strict';
 
@@ -144,14 +146,62 @@ window.BeliefPanels = (() => {
     return wrap;
   }
 
-  // opens a window by name: 'shipping' or 'size'
+  /* ---------- contact ---------- */
+  // A plain mailto: link does nothing on a computer with no mail app set up, so the window offers every way to write.
+  function contact() {
+    const K = C.contact || {};
+    const wrap = el('div', 'contact');
+    wrap.append(el('p', 'contact-intro', 'Questions about an order, a size or delivery? Write to us.'));
+    const address = el('p', 'contact-address', K.email || '');
+    wrap.append(address);
+    const actions = el('div', 'contact-actions');
+    const link = (cls, label, href, external) => {
+      const a = el('a', 'lg-btn ' + cls);
+      a.append(el('span', '', label));
+      a.href = href;
+      if (external) { a.target = '_blank'; a.rel = 'noopener'; }
+      actions.append(a);
+      return a;
+    };
+    const subject = K.emailSubject ? encodeURIComponent(K.emailSubject) : '';
+    if (K.email) {
+      link('', 'Write in Gmail', 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(K.email) + (subject ? '&su=' + subject : ''), true);
+      link('is-light', 'Open my email app', 'mailto:' + K.email + (subject ? '?subject=' + subject : ''));
+      const copy = el('button', 'lg-btn is-light');
+      copy.type = 'button';
+      const label = el('span', '', 'Copy the address');
+      copy.append(label);
+      copy.addEventListener('click', async () => {
+        let done = false;
+        try { await navigator.clipboard.writeText(K.email); done = true; } catch (err) { done = false; }
+        if (!done) { // no clipboard access: select the address so it can be copied by hand
+          const r = document.createRange(); r.selectNodeContents(address);
+          const sel = getSelection(); sel.removeAllRanges(); sel.addRange(r);
+        }
+        label.textContent = done ? 'Copied' : 'Selected — copy it';
+        setTimeout(() => { label.textContent = 'Copy the address'; }, 1800);
+      });
+      actions.append(copy);
+    }
+    wrap.append(actions);
+    if (K.whatsapp) {
+      const wa = el('a', 'contact-whatsapp');
+      wa.href = K.whatsapp; wa.target = '_blank'; wa.rel = 'noopener';
+      wa.append(el('span', '', 'Or message us on WhatsApp'), el('strong', '', K.whatsappNumber || ''));
+      wrap.append(wa);
+    }
+    return wrap;
+  }
+
+  // opens a window by name: 'shipping', 'size' or 'contact'
   function open(name) {
     const M = window.BeliefModal;
     if (!M) return null;
+    if (name === 'contact') return M.open({ eyebrow: 'Contact', title: 'Contact us', body: contact() });
     if (name === 'shipping') return M.open({ eyebrow: 'Delivery', title: C.shipping?.title || 'Shipping prices', body: shipping(), wide: true });
     if (name === 'size') return M.open({ eyebrow: 'Your fit', title: C.size?.guideTitle || 'Size guide', body: size() });
     return null;
   }
 
-  return { shipping, size, open };
+  return { shipping, size, contact, open };
 })();

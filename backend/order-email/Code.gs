@@ -19,7 +19,7 @@
    Setup and updating: SETUP.md in this folder. */
 
 const CONFIG = {
-  NOTIFY_TO: 'ybelhandouz8@gmail.com', // every order is emailed here
+  NOTIFY_TO: 'beliefproject1@gmail.com', // every order is emailed here
   BRAND: 'Belief Project',
   PREFIX: 'BP',                        // order numbers look like BP-261101-0042
   TIMEZONE: 'Africa/Algiers',
@@ -34,7 +34,8 @@ const CONFIG = {
   MAX_QUANTITY: 50,
   MAX_PHOTO_BYTES: 400 * 1024,
   NOTION_VERSION: '2022-06-28',
-  REQUIRE_NOTION: true,                // an order counts as saved only once it is in Notion (false: the sheet is enough)
+  REQUIRE_NOTION: false,               // true: an order counts as saved only once it is in Notion; false: the Orders sheet
+                                       // is enough until Notion is connected (each order is also emailed either way)
   ORDER_STATUSES: ['Pending', 'Confirmed', 'Shipped', 'Delivered', 'Cancelled'],
 };
 

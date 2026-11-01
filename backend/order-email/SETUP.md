@@ -3,16 +3,18 @@
 Every order placed on the site, and every newsletter sign-up, is sent to a small script that lives in your Google
 account (`Code.gs`). The script:
 
-- saves each **order** in your Notion **Orders** database (status *Pending*), keeps a backup row in a Google Sheet and
-  emails it to **ybelhandouz8@gmail.com**;
+- emails each **order** to **beliefproject1@gmail.com** and saves it as a row in a Google Sheet, and once Notion is
+  connected (step 2, optional) also in your Notion **Orders** database (status *Pending*);
 - saves each **newsletter sign-up** in your Notion **Newsletter** database, once per address.
 
 The website shows "order confirmed" or "you're on the list" only when the script answers that it really saved it.
 No password or key is stored in the website: the Notion key lives in the script's private settings.
 
-It takes about fifteen minutes. Do the Google steps signed in to Google as **ybelhandouz8@gmail.com**, and the Notion
-steps signed in to Notion as **Souabamouche@gmail.com** (the workspace the orders should arrive in). The script refuses
-orders until Notion is connected, so nothing is ever confirmed to a customer before it is in Notion.
+Steps 1, 3, 4 and 5 take about ten minutes and are all that is needed to receive orders by email. Do them signed in to
+Google as **beliefproject1@gmail.com** (the orders are emailed to that inbox). Step 2, Notion, can be done any time
+later, signed in to Notion as **Souabamouche@gmail.com**; to have the script refuse orders until Notion is connected,
+set `REQUIRE_NOTION: true` at the top of `Code.gs`. A customer only ever sees "order confirmed" once the order is
+saved.
 
 ## 1. Create the orders sheet and add the script
 
@@ -21,7 +23,7 @@ orders until Notion is connected, so nothing is ever confirmed to a customer bef
 3. Delete the few lines of code that are already there, paste **all** of `Code.gs` (in this folder), click **Save**,
    and name the project `Belief Project orders`.
 
-## 2. Connect Notion
+## 2. Connect Notion (optional, any time)
 
 1. Signed in to Notion as **Souabamouche@gmail.com**, go to <https://www.notion.so/profile/integrations> →
    **New integration**. Name it `Belief Project website`, choose that workspace, type **Internal**. Save, then under

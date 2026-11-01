@@ -68,9 +68,10 @@ and the print on each model.
 ## The zipper bag
 
 `tools/prepare-packaging.js` makes `assets/img/pack-zipper-bag.webp` (and a 900 px copy) from photographs only:
-the real bag (`_reference/packaging/zipper-bag-hanging.jpg`), its print, zip and pull kept as they are, with a
-Belief Project T-shirt folded inside it (fabric, collar, label and tag from `_reference/garment/flat/`), seen
-through the frosted film, lit and shadowed on a dark backdrop. The bag is never redrawn, stretched or recoloured.
+two of the real bag (`_reference/packaging/zipper-bag-hanging.jpg`) lying on stone in daylight, a product flat lay:
+its proportions, print, zip, pull and vent holes kept as they are, an Ice Blue and a Midnight T-shirt folded inside
+(fabric, collar, woven label and hang tag from `_reference/garment/flat/`), seen through the frosted film. The bag is
+never redrawn, stretched or recoloured. The scene (which shirt, where, at what angle) is `LAYOUT` at the top.
 
 ## Drawn artwork (archived)
 

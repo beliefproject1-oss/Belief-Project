@@ -154,7 +154,7 @@ window.BELIEF = {
     // "image" is the large picture, "imageSmall" an optional lighter one for phones. The zipper bag picture is made by
     // tools/prepare-packaging.js from the photographs of the bag and the shirt.
     options: [
-      { id: "zipper-bag", name: "Zipper Bag", status: "available", note: "Frosted zipper bag printed with the Belief Project bear, your shirt folded inside.", image: "assets/img/pack-zipper-bag.webp", imageSmall: "assets/img/pack-zipper-bag-sm.webp", imageAlt: "A Midnight Belief Project shirt folded inside the frosted zipper bag printed with the Belief Project wordmark and the bear on a snowboard", statusLabel: "Available" },
+      { id: "zipper-bag", name: "Zipper Bag", status: "available", note: "Frosted zipper bag printed with the Belief Project bear, your shirt folded inside.", image: "assets/img/pack-zipper-bag.webp", imageSmall: "assets/img/pack-zipper-bag-sm.webp", imageAlt: "Two frosted Belief Project zipper bags lying on stone, an Ice Blue and a Midnight shirt folded inside, the wordmark and the bear printed on the bags", statusLabel: "Available" },
       { id: "luxury-box", name: "Luxury Box", status: "unavailable", note: "Rigid Midnight box with the Belief Project wordmark.", image: "assets/img/pack-luxury-box.webp", imageAlt: "The Midnight Belief Project luxury box", statusLabel: "Unavailable", unavailableLabel: "Unavailable for now", unavailableMessage: "The Luxury Box isn't available yet. It's coming soon." },
     ],
   },
@@ -242,7 +242,8 @@ window.BELIEF = {
     ],
   },
 
-  // How customers reach us. WhatsApp opens a chat with the number; email opens the customer's mail app.
+  // How customers reach us. WhatsApp opens a chat with the number; Contact Us opens a window with the email address
+  // and ways to write: in Gmail, in the mail app, or by copying it.
   contact: {
     whatsappNumber: "0772 06 45 77",
     whatsapp: "https://wa.me/213772064577",
@@ -278,10 +279,10 @@ window.BELIEF = {
     title: "Ever forward",
     titleSerif: "/ together",
     supportTitle: "Support",
-    // "url" makes a row a link; "action" opens a window on the page instead ("shipping", "size").
+    // "url" makes a row a link; "action" opens a window on the page instead ("shipping", "size", "contact").
     support: [
       { id: "help", label: "Help & Support", note: "WhatsApp · 0772 06 45 77", url: "https://wa.me/213772064577" },
-      { id: "contact", label: "Contact Us", note: "beliefproject1@gmail.com", url: "mailto:beliefproject1@gmail.com?subject=Belief%20Project%20%E2%80%94%20Customer%20inquiry" },
+      { id: "contact", label: "Contact Us", note: "beliefproject1@gmail.com", action: "contact" },
       { id: "shipping", label: "Shipping Prices", note: "All 69 wilayas", action: "shipping" },
       { id: "size-guide", label: "Size Guide", note: "Find your size by weight", action: "size" },
     ],

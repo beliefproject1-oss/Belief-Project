@@ -34,6 +34,8 @@
       if (!href) return;
       el.href = href;
       if (/^https?:/i.test(href)) { el.target = '_blank'; el.rel = 'noopener'; }
+      // email: a window with every way to write (a mailto: link alone does nothing without a mail app)
+      if (el.dataset.contact === 'email' && window.BeliefPanels) { el.dataset.panel = 'contact'; el.setAttribute('aria-haspopup', 'dialog'); }
     });
     $$('[data-rows]').forEach(list => {
       (get(list.dataset.rows) || []).forEach(item => {
@@ -89,7 +91,7 @@
       picture.hidden = false;
     }
 
-    // Shipping Prices, Size Guide: floating windows over the page
+    // Shipping Prices, Size Guide, Contact Us: floating windows over the page
     document.addEventListener('click', e => {
       const t = e.target.closest('[data-panel]');
       if (!t || !window.BeliefPanels) return;
