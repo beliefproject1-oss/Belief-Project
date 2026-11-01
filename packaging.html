@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Packaging — Belief Project</title>
+<meta name="description" content="Belief Project — choose how your shirt is packed.">
+<meta name="theme-color" content="#F3F9FF">
+<link rel="icon" type="image/webp" href="assets/img/bear-badge.webp">
+<link rel="preload" href="assets/fonts/Aeonik-Medium.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="flow-page pack-page">
+<a class="skip" href="#packOptions">Skip to the packaging</a>
+
+<header class="flow-bar">
+  <a class="glass-btn flow-back" id="flowBack" href="size.html"><span aria-hidden="true">←</span> <span>Fit</span></a>
+  <a class="pick-home flow-home" href="index.html" aria-label="Belief Project, home">
+    <span class="mark mark-badge" aria-hidden="true"></span>
+  </a>
+  <ol class="flow-steps" aria-label="Your order">
+    <li class="is-done">Colour</li>
+    <li class="is-done">Design</li>
+    <li class="is-done">Fit</li>
+    <li aria-current="step" data-of="4 / 5">Packaging</li>
+    <li>Details</li>
+  </ol>
+</header>
+
+<!-- The packaging options come from content.js (packaging) and are built in js/packaging.js.
+     Only an option marked "available" can be chosen; the others are shown under frosted glass. -->
+<main class="pack" id="pack">
+  <header class="pack-head">
+    <p class="eyebrow" data-bind="packaging.eyebrow">Packaging</p>
+    <h1 class="pack-title"><span data-bind="packaging.title">Choose your</span> <span class="serif" data-bind="packaging.titleSerif">packaging</span></h1>
+    <p class="pack-lede" data-bind="packaging.intro"></p>
+  </header>
+  <div class="pack-options" id="packOptions"></div>
+  <footer class="pack-foot">
+    <div class="flow-summary" id="flowSummary"></div>
+    <div class="pack-go">
+      <button class="lg-btn pack-continue" id="packContinue" type="button" disabled><span data-bind="packaging.continueLabel">Continue</span> <span class="lg-btn-arrow" aria-hidden="true">→</span></button>
+      <p class="pack-status" id="packStatus" role="status" aria-live="polite"></p>
+    </div>
+  </footer>
+</main>
+
+<script src="content.js"></script>
+<script src="assets/designs/designs.js"></script>
+<script src="js/main.js"></script>
+<script src="js/flow.js"></script>
+<script src="js/packaging.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Plain or printed — Belief Project</title>
+<meta name="description" content="Belief Project — keep your shirt plain or give its back artwork.">
+<meta name="theme-color" content="#010D2C">
+<link rel="icon" type="image/webp" href="assets/img/bear-badge.webp">
+<link rel="preload" href="assets/fonts/Aeonik-Medium.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="pick-page ways-page">
+<a class="skip" href="#ways">Skip to the choices</a>
+
+<!-- The bear leads back to the homepage; the arrow back to the colours -->
+<a class="pick-home" href="index.html" aria-label="Belief Project, home">
+  <span class="mark mark-badge" aria-hidden="true"></span>
+</a>
+<a class="glass-btn step-back" href="shop.html"><span aria-hidden="true">←</span> <span>Colour</span></a>
+<div class="tone-switch" role="group" aria-label="Shirt colour" data-tone-switch></div>
+
+<!-- Two halves, like the colour page: the shirt left plain, and the same shirt with artwork on its back.
+     Labels and where each half leads come from content.js (customize); js/studio.js fills them in. -->
+<main class="pick ways" id="ways">
+  <h1 class="sr-only"><span data-bind="customize.title">Plain or</span> <span data-bind="customize.titleSerif">printed</span></h1>
+  <a class="tone way way-plain" data-way="plain" href="#plain">
+    <span class="way-stage" aria-hidden="true">
+      <span class="garment" data-garment></span>
+    </span>
+    <span class="way-eyebrow" data-bind="customize.plainEyebrow">01 — Plain</span>
+    <span class="tone-foot">
+      <span class="way-price"><span class="way-price-label" data-bind="prices.plainLabel">Without design</span><span class="way-price-amount" data-bind="prices.plain">3,900 DA</span></span>
+      <span class="tone-chip"><span class="tone-name" data-bind="customize.plainLabel">Keep it plain</span><span class="tone-arrow" aria-hidden="true">→</span></span>
+      <span class="way-soon" data-bind="customize.plainSoon" hidden></span>
+    </span>
+  </a>
+  <a class="tone way way-print" data-way="print" href="studio.html">
+    <span class="way-stage" aria-hidden="true">
+      <span class="garment" data-garment data-showcase></span>
+    </span>
+    <span class="way-eyebrow" data-bind="customize.printEyebrow">02 — Printed</span>
+    <span class="tone-foot">
+      <span class="way-price"><span class="way-price-label" data-bind="prices.printedLabel">With design</span><span class="way-price-amount" data-bind="prices.printed">4,900 DA</span></span>
+      <span class="tone-chip"><span class="tone-name" data-bind="customize.printLabel">Add artwork</span><span class="tone-arrow" aria-hidden="true">→</span></span>
+    </span>
+  </a>
+</main>
+<p class="sr-only" id="pickStatus" role="status" aria-live="polite"></p>
+
+<script src="content.js"></script>
+<script src="assets/designs/designs.js"></script>
+<script src="js/main.js"></script>
+<script src="js/flow.js"></script>
+<script src="js/studio.js"></script>
+</body>
+</html>

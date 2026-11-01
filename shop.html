@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Choose your colour — Belief Project</title>
+<meta name="description" content="Belief Project — choose your T-shirt colour: Ice Blue or Midnight.">
+<meta name="theme-color" content="#010D2C">
+<link rel="icon" type="image/webp" href="assets/img/bear-badge.webp">
+<link rel="preload" href="assets/fonts/Aeonik-Medium.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="pick-page">
+<a class="skip" href="#colours">Skip to the colours</a>
+
+<!-- The bear leads back to the homepage -->
+<a class="pick-home" href="index.html" aria-label="Belief Project, home">
+  <span class="mark mark-badge" aria-hidden="true"></span>
+</a>
+
+<!-- The two photographs are the whole page. Photos, labels and the page each colour opens come
+     from content.js (shop); js/main.js fills them in. Left is Ice Blue, right is Midnight. -->
+<main class="pick" id="colours">
+  <h1 class="sr-only"><span data-bind="shop.title">Choose your</span> <span data-bind="shop.titleSerif">colour</span></h1>
+  <a class="tone tone-ice" data-color="ice-blue" href="#ice-blue">
+    <span class="tone-photo"><img alt="" decoding="async" hidden></span>
+    <span class="tone-foot"><span class="tone-chip"><span class="tone-name">Ice Blue</span><span class="tone-arrow" aria-hidden="true">→</span></span></span>
+  </a>
+  <a class="tone tone-midnight" data-color="midnight" href="#midnight">
+    <span class="tone-photo"><img alt="" decoding="async" hidden></span>
+    <span class="tone-foot"><span class="tone-chip"><span class="tone-name">Midnight</span><span class="tone-arrow" aria-hidden="true">→</span></span></span>
+  </a>
+</main>
+<p class="sr-only" id="pickStatus" role="status" aria-live="polite"></p>
+
+<script src="content.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

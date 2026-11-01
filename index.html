@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Belief Project</title>
+<meta name="description" content="Belief Project — pieces made to be worn with intention, confidence, and belief.">
+<meta name="theme-color" content="#FFEDDF">
+<link rel="icon" type="image/webp" href="assets/img/bear-badge.webp">
+<link rel="preload" href="assets/fonts/Aeonik-Regular.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body>
+<a class="skip" href="#about">Skip to content</a>
+
+<!-- Pinned icy-glass navigation. Hidden on load; it opens out of the bear once the hero logo has morphed into it. -->
+<header class="dock" id="dock" inert>
+  <div class="dock-bar" id="dockBar">
+    <div class="dock-inner">
+      <div class="dock-side">
+        <button class="dock-menu" id="dockMenu" type="button" aria-expanded="false" aria-controls="dockPanel">
+          <span class="sr-only">Menu</span><i aria-hidden="true"></i><i aria-hidden="true"></i>
+        </button>
+        <nav class="dock-links" aria-label="Main">
+          <a href="#about">About Us</a>
+          <a href="#help">Help</a>
+          <a href="#contact">Contact Us</a>
+        </nav>
+      </div>
+      <a class="dock-bear" id="dockBear" href="#top" aria-label="Belief Project, back to top">
+        <span class="mark mark-badge" aria-hidden="true"></span>
+      </a>
+      <div class="dock-side dock-side-end">
+        <a class="dock-shop" href="#shop" data-bind="hero.shopLabel" data-href="hero.shopUrl"></a>
+      </div>
+    </div>
+  </div>
+  <nav class="dock-panel" id="dockPanel" aria-label="Menu" hidden>
+    <a href="#about">About Us <span aria-hidden="true">→</span></a>
+    <a href="#help">Help <span aria-hidden="true">→</span></a>
+    <a href="#contact">Contact Us <span aria-hidden="true">→</span></a>
+  </nav>
+</header>
+
+<!-- Brand marquee: the groups are built in js/main.js from content.js -->
+<div class="marquee" role="img" aria-label="Belief Project">
+  <div class="marquee-track" id="marqueeTrack" aria-hidden="true"></div>
+</div>
+
+<main id="top">
+  <section class="hero" aria-label="Belief Project">
+    <div class="hero-frame" id="heroFrame">
+      <div class="hero-media">
+        <video id="heroVideo" autoplay muted loop playsinline preload="auto" disablepictureinpicture disableremoteplayback></video>
+      </div>
+
+      <!-- The official wordmark (assets/img/logo-wordmark.svg) in Ice Blue -->
+      <h1 class="hero-logo" id="heroLogo">
+        <span class="sr-only">Belief Project</span>
+        <span class="hero-logo-in" id="heroLogoIn" aria-hidden="true">
+          <span class="logo-shape logo-ice"></span>
+          <span class="logo-shape logo-ink"></span>
+        </span>
+      </h1>
+
+      <a class="liquid" id="shopNow" href="#shop" data-href="hero.shopUrl">
+        <span class="liquid-glass" aria-hidden="true"></span>
+        <span class="liquid-shine" aria-hidden="true"></span>
+        <span class="liquid-rim" aria-hidden="true"></span>
+        <span class="liquid-label" data-bind="hero.shopLabel"></span>
+        <span class="liquid-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+
+    <div class="hero-foot">
+      <span data-bind="hero.captionLeft"></span>
+      <span class="hero-scroll"><span data-bind="hero.captionRight"></span><i aria-hidden="true"></i></span>
+    </div>
+  </section>
+
+  <!-- About Us: the id sits on the wordmark so the About Us link lands on it -->
+  <section class="statement" aria-labelledby="about">
+    <h2 class="statement-title" id="about">
+      <span class="sr-only">Belief Project</span>
+      <span class="logo-shape" aria-hidden="true"></span>
+    </h2>
+    <div class="statement-grid">
+      <p class="eyebrow" data-bind="statement.eyebrow" data-reveal></p>
+      <p class="statement-copy" data-bind="statement.body" data-reveal></p>
+    </div>
+  </section>
+
+  <section class="feature" id="custom" aria-labelledby="customTitle">
+    <div class="feature-media">
+      <picture id="customPicture" hidden>
+        <source id="customSource" media="(max-width: 700px) and (orientation: portrait)">
+        <img id="customImage" alt="" loading="lazy" decoding="async">
+      </picture>
+    </div>
+    <div class="feature-copy">
+      <p class="feature-eyebrow" data-bind="custom.eyebrow"></p>
+      <h2 class="feature-title" id="customTitle" data-bind="custom.title"></h2>
+      <a class="pill-cta" href="#custom" data-bind="custom.cta" data-href="custom.url"></a>
+    </div>
+  </section>
+
+  <section class="community" id="community" aria-labelledby="communityTitle">
+    <div class="panel">
+      <header class="panel-head" data-reveal>
+        <p class="eyebrow" data-bind="community.eyebrow"></p>
+        <!-- when content.js names a label image it is shown here in place of the written phrase -->
+        <h2 class="h2" id="communityTitle">
+          <img class="panel-label" id="communityLabel" alt="" hidden>
+          <span id="communityWords"><span data-bind="community.title"></span> <span class="serif" data-bind="community.titleSerif"></span></span>
+        </h2>
+      </header>
+      <div class="link-grid">
+        <div class="link-col nl" id="newsletter" data-reveal>
+          <p class="eyebrow" data-bind="newsletter.eyebrow"></p>
+          <h3 class="nl-title"><span data-bind="newsletter.title"></span> <span class="serif" data-bind="newsletter.titleSerif"></span></h3>
+          <p class="nl-text" data-bind="newsletter.text"></p>
+          <form class="nl-form" id="nlForm" novalidate>
+            <div class="nl-field">
+              <label class="sr-only" for="nlEmail">Email address</label>
+              <input id="nlEmail" name="email" type="email" inputmode="email" autocomplete="email" autocapitalize="off" spellcheck="false" required aria-describedby="nlStatus">
+              <button class="nl-submit" type="submit"><span data-bind="newsletter.button"></span> <span aria-hidden="true">→</span></button>
+            </div>
+            <p class="nl-status" id="nlStatus" role="status" aria-live="polite"></p>
+            <p class="nl-note" data-bind="newsletter.note"></p>
+          </form>
+          <ul class="socials" id="socials" aria-label="Social media"></ul>
+        </div>
+        <div class="link-col" data-reveal>
+          <h3 class="eyebrow" data-bind="community.supportTitle"></h3>
+          <ul class="rows" data-rows="community.support"></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span class="mark mark-stand foot-bear" aria-hidden="true"></span>
+  <p data-bind="footer.note"></p>
+</footer>
+
+<!-- Distortion used by the Shop Now button's moving highlights -->
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <filter id="liquid" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.011 0.026" numOctaves="2" seed="7" result="noise"/>
+    <feDisplacementMap id="liquidDisp" in="SourceGraphic" in2="noise" scale="0" xChannelSelector="R" yChannelSelector="G"/>
+  </filter>
+</svg>
+
+<script src="content.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

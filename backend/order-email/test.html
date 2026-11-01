@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Order email — preview and test</title>
+<!-- every address below is read from the site's main folder -->
+<base href="../../">
+<link rel="stylesheet" href="css/styles.css">
+<style>
+  .lab{max-width:1180px;margin-inline:auto;padding:clamp(24px,4vw,56px) var(--gutter)}
+  .lab-title{font-weight:700;font-size:clamp(1.8rem,3.4vw,2.8rem);letter-spacing:-.04em;line-height:1}
+  .lab-lead{margin-top:.8rem;max-width:44em;color:var(--ink-2)}
+  .lab-grid{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:clamp(24px,4vw,56px);margin-top:clamp(24px,3vw,40px);align-items:start}
+  .lab-form{display:grid;gap:14px}
+  .lab-form label{display:grid;gap:5px;font-size:.72rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-2)}
+  .lab-form input,.lab-form select{width:100%;min-height:44px;padding:0 12px;border:1px solid var(--line);border-radius:12px;background:var(--white);color:var(--midnight);font:inherit;font-size:1rem;letter-spacing:0;text-transform:none}
+  .lab-pair{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .lab-send{min-height:50px;margin-top:6px;border:0;border-radius:999px;background:var(--midnight);color:var(--white);font-weight:500}
+  .lab-send[disabled]{opacity:.5;cursor:progress}
+  .lab-status{min-height:1.5em;font-weight:500}
+  .lab-status[data-kind="good"]{color:#0B6B3A}
+  .lab-status[data-kind="bad"]{color:#A3261A}
+  .lab-bar{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+  .lab-bar button{min-height:36px;padding:0 1rem;border:1px solid var(--line);border-radius:999px;background:none;font-size:.86rem;font-weight:500}
+  .lab-bar button[aria-pressed="true"]{background:var(--midnight);border-color:var(--midnight);color:var(--white)}
+  .lab-subject{margin-bottom:10px;font-size:.9rem;color:var(--ink-2)}
+  .lab-frame{display:block;width:100%;max-width:100%;height:960px;border:1px solid var(--line);border-radius:18px;background:var(--white)}
+  @media (max-width:860px){
+    .lab-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<main class="lab">
+  <h1 class="lab-title">Order email <span class="serif">preview and test</span></h1>
+  <p class="lab-lead">The preview on the right is the email exactly as the script builds it. “Send test order” posts this order through the real order service, so a numbered email should arrive in the orders inbox.</p>
+
+  <div class="lab-grid">
+    <form class="lab-form" id="form" novalidate>
+      <label>Full name <input name="name" value="Yasmine Benali" autocomplete="off"></label>
+      <label>Email <input name="email" type="email" value="yasmine@example.com" autocomplete="off"></label>
+      <label>Phone <input name="phone" value="+213 555 12 34 56" autocomplete="off"></label>
+      <label>City <input name="city" value="Algiers" autocomplete="off"></label>
+      <div class="lab-pair">
+        <label>Colour
+          <select name="color">
+            <option value="ice-blue">Ice Blue</option>
+            <option value="midnight">Midnight</option>
+          </select>
+        </label>
+        <label>Size
+          <select name="size"><option>S</option><option selected>M</option><option>L</option><option>XL</option></select>
+        </label>
+      </div>
+      <div class="lab-pair">
+        <label>Quantity <input name="quantity" type="number" min="1" max="50" value="1"></label>
+        <label>Customisation <input name="custom" value="Name on the back: YASMINE" autocomplete="off"></label>
+      </div>
+      <button class="lab-send" id="send" type="submit">Send test order</button>
+      <p class="lab-status" id="status" role="status" aria-live="polite"></p>
+    </form>
+
+    <div>
+      <div class="lab-bar">
+        <button type="button" data-width="100%" aria-pressed="true">Desktop</button>
+        <button type="button" data-width="375px" aria-pressed="false">Phone</button>
+      </div>
+      <p class="lab-subject" id="subject"></p>
+      <iframe class="lab-frame" id="frame" title="Order email preview"></iframe>
+    </div>
+  </div>
+</main>
+
+<script src="content.js"></script>
+<script src="js/orders.js"></script>
+<script>
+(async () => {
+  'use strict';
+  const $ = s => document.querySelector(s);
+  const form = $('#form'), frame = $('#frame'), status = $('#status'), send = $('#send');
+  const say = (text, kind = '') => { status.textContent = text; status.dataset.kind = kind; };
+
+  // the email is built by the same code that runs on Google: Code.gs is loaded and run here
+  const source = await fetch('backend/order-email/Code.gs').then(r => r.text());
+  const script = new Function(source + '\nreturn { CONFIG, LOGO_PNG_, cleanOrder_, orderEmail_ };')();
+
+  function read() {
+    const f = new FormData(form);
+    return {
+      customer: { name: f.get('name'), email: f.get('email'), phone: f.get('phone'), city: f.get('city') },
+      items: [{ product: 'T-shirt', color: f.get('color'), size: f.get('size'), quantity: f.get('quantity'), customization: f.get('custom') }],
+      notes: 'Test order sent from the preview page.',
+    };
+  }
+
+  async function preview() {
+    const data = read();
+    const tone = (window.BELIEF.shop?.colors || []).find(t => t.id === data.items[0].color);
+    data.items[0].photo = await BeliefOrders.photo(tone?.image);
+    try {
+      const order = script.cleanOrder_(data);
+      order.number = script.CONFIG.PREFIX + '-000000-0000';
+      order.received = new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: script.CONFIG.TIMEZONE }).format(new Date());
+      const mail = script.orderEmail_(order);
+      $('#subject').textContent = 'Subject: ' + mail.subject;
+      frame.srcdoc = mail.html
+        .replace('cid:logo', 'data:image/png;base64,' + script.LOGO_PNG_)
+        .replace(/cid:item(\d+)/g, (m, i) => data.items[i]?.photo || '');
+    } catch (err) {
+      $('#subject').textContent = 'The script would refuse this order: ' + err.message;
+      frame.srcdoc = '';
+    }
+  }
+
+  form.addEventListener('input', preview);
+  document.querySelectorAll('.lab-bar button').forEach(button => button.addEventListener('click', () => {
+    document.querySelectorAll('.lab-bar button').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+    frame.style.width = button.dataset.width;
+  }));
+
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    send.disabled = true;
+    say('Sending…');
+    try {
+      const { orderNumber } = await BeliefOrders.submit(read());
+      say('Email sent. Order ' + orderNumber + ' should now be in the orders inbox and in the Orders sheet.', 'good');
+    } catch (err) {
+      say((err.orderNumber ? 'Order ' + err.orderNumber + ' was saved, but: ' : '') + err.message + ' (' + (err.code || 'error') + ')', 'bad');
+    } finally {
+      send.disabled = false;
+    }
+  });
+
+  if (!window.BELIEF.orders?.endpoint) say('Not connected yet: follow SETUP.md, then paste the web-app address into content.js (orders.endpoint).');
+  preview();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Find your fit — Belief Project</title>
+<meta name="description" content="Belief Project — enter your height and weight and get a size recommendation for your shirt.">
+<meta name="theme-color" content="#F3F9FF">
+<link rel="icon" type="image/webp" href="assets/img/bear-badge.webp">
+<link rel="preload" href="assets/fonts/Aeonik-Medium.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="flow-page fit-page">
+<a class="skip" href="#fitForm">Skip to your measurements</a>
+
+<header class="flow-bar">
+  <a class="glass-btn flow-back" id="flowBack" href="studio.html"><span aria-hidden="true">←</span> <span>Design</span></a>
+  <a class="pick-home flow-home" href="index.html" aria-label="Belief Project, home">
+    <span class="mark mark-badge" aria-hidden="true"></span>
+  </a>
+  <ol class="flow-steps" aria-label="Your order">
+    <li class="is-done">Colour</li>
+    <li class="is-done">Design</li>
+    <li aria-current="step" data-of="3 / 5">Fit</li>
+    <li>Packaging</li>
+    <li>Details</li>
+  </ol>
+</header>
+
+<!-- The measurements on the left, the recommendation on the right. Text and the sizing rules come from
+     content.js (size); js/fit.js does the rest. -->
+<main class="fit" id="fit">
+  <section class="fit-copy" aria-labelledby="fitTitle">
+    <p class="eyebrow" data-bind="size.eyebrow">Your fit</p>
+    <h1 class="fit-title" id="fitTitle"><span data-bind="size.title">Find your</span> <span class="serif" data-bind="size.titleSerif">fit</span></h1>
+    <p class="fit-lede" data-bind="size.intro"></p>
+
+    <form class="fit-form" id="fitForm" novalidate>
+      <div class="measure" data-measure="height">
+        <label class="measure-label" for="fitHeight" data-bind="size.heightLabel">Height</label>
+        <div class="measure-field">
+          <input id="fitHeight" name="height" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="175" aria-describedby="fitHeightMsg">
+          <span class="measure-unit" aria-hidden="true">cm</span>
+        </div>
+        <span class="measure-scale" aria-hidden="true"><i></i></span>
+        <p class="measure-msg" id="fitHeightMsg"></p>
+      </div>
+      <div class="measure" data-measure="weight">
+        <label class="measure-label" for="fitWeight" data-bind="size.weightLabel">Weight</label>
+        <div class="measure-field">
+          <input id="fitWeight" name="weight" type="text" inputmode="decimal" autocomplete="off" spellcheck="false" placeholder="70" aria-describedby="fitWeightMsg">
+          <span class="measure-unit" aria-hidden="true">kg</span>
+        </div>
+        <span class="measure-scale" aria-hidden="true"><i></i></span>
+        <p class="measure-msg" id="fitWeightMsg"></p>
+      </div>
+      <button class="lg-btn fit-go" id="fitGo" type="submit"><span data-bind="size.button">Find my size</span> <span class="lg-btn-arrow" aria-hidden="true">→</span></button>
+    </form>
+  </section>
+
+  <section class="fit-side" aria-label="Your size">
+    <div class="result" id="fitResult" data-state="idle">
+      <p class="result-label" data-bind="size.resultLabel">Recommended size</p>
+      <div class="result-sizes" id="fitSizes"></div>
+      <p class="result-note" id="fitNote" role="status" aria-live="polite"></p>
+    </div>
+    <div class="flow-summary" id="flowSummary"></div>
+    <button class="lg-btn fit-continue" id="fitContinue" type="button" disabled><span data-bind="size.continueLabel">Continue</span> <span class="lg-btn-arrow" aria-hidden="true">→</span></button>
+  </section>
+</main>
+
+<script src="content.js"></script>
+<script src="assets/designs/designs.js"></script>
+<script src="js/main.js"></script>
+<script src="js/flow.js"></script>
+<script src="js/fit.js"></script>
+</body>
+</html>

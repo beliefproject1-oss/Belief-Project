@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Design studio — Belief Project</title>
+<meta name="description" content="Belief Project — explore six creative directions and preview your design printed large on the back of the shirt, with or without its background.">
+<meta name="theme-color" content="#F3F9FF">
+<link rel="icon" type="image/webp" href="assets/img/bear-badge.webp">
+<link rel="preload" href="assets/fonts/Aeonik-Medium.ttf" as="font" type="font/ttf" crossorigin>
+<link rel="stylesheet" href="css/styles.css">
+<script>document.documentElement.classList.add('js')</script>
+</head>
+<body class="studio-page">
+<a class="skip" href="#atelierViews">Skip to the designs</a>
+
+<main class="studio" id="studio">
+  <!-- The preview: the back of the shirt hanging in the studio, with the chosen artwork printed on it -->
+  <section class="stage" id="stage" aria-label="Preview of the back of your shirt">
+    <div class="stage-bar">
+      <a class="pick-home stage-home" href="index.html" aria-label="Belief Project, home">
+        <span class="mark mark-badge" aria-hidden="true"></span>
+      </a>
+      <a class="glass-btn stage-back" href="customize.html" id="stageBack"><span aria-hidden="true">←</span> <span>Back</span></a>
+      <div class="tone-switch" role="group" aria-label="Shirt colour" data-tone-switch></div>
+    </div>
+
+    <div class="stage-room" id="stageRoom">
+      <div class="rig" id="rig">
+        <div class="hang" id="hang">
+          <span class="hang-line" aria-hidden="true"></span>
+          <span class="garment" data-garment id="garment"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stage-foot">
+      <p class="stage-caption" aria-live="off">
+        <span class="stage-kicker" data-bind="studio.printLabel">Back print</span>
+        <span class="stage-title" id="stageTitle" data-bind="studio.empty">Choose a design</span>
+        <span class="stage-credit" id="stageCredit"></span>
+      </p>
+      <button class="glass-btn stage-zoom" id="stageZoom" type="button" aria-pressed="false" disabled>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" fill="none" stroke="currentColor" stroke-width="1.7"/><path d="M15.4 15.4 21 21" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/><path class="zoom-plus" d="M10.5 7.8v5.4M7.8 10.5h5.4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/></svg>
+        <span class="stage-zoom-label">Close-up</span>
+      </button>
+    </div>
+    <p class="stage-faint" id="stageFaint" hidden></p>
+  </section>
+
+  <!-- The six directions and their designs; built in js/studio.js from content.js and designs.js -->
+  <section class="atelier" aria-labelledby="studioTitle">
+    <header class="atelier-head">
+      <p class="eyebrow" data-bind="studio.eyebrow">Design studio</p>
+      <h1 class="atelier-title" id="studioTitle"><span data-bind="studio.title">Six</span> <span class="serif" data-bind="studio.titleSerif">directions</span></h1>
+      <p class="atelier-note" data-bind="studio.note"></p>
+    </header>
+    <!-- the six directions as cards, two by two; a card opens its designs. Built in js/studio.js from content.js and designs.js -->
+    <div class="atelier-views" id="atelierViews" data-view="grid">
+      <ul class="dcards" id="dirGrid" role="list" aria-label="Directions"></ul>
+      <div class="dir-view" id="dirView" hidden>
+        <div class="dir-head">
+          <button class="glass-btn dir-back" id="dirBack" type="button"><span aria-hidden="true">←</span> <span data-bind="studio.allLabel">All directions</span></button>
+          <p class="dir-num" id="dirNum"></p>
+          <h2 class="dir-title" id="dirTitle"></h2>
+          <p class="dir-note" id="dirNote"></p>
+          <p class="dir-count" id="dirCount"></p>
+        </div>
+        <div class="dir-panels" id="dirPanels"></div>
+      </div>
+    </div>
+    <div class="atelier-foot">
+      <!-- the artwork printed with the background of its image, or cut out on its own -->
+      <div class="bgmode is-off" id="bgMode" role="group" aria-labelledby="bgModeLabel" data-mode="without">
+        <span class="bgmode-label" id="bgModeLabel" data-bind="studio.bgLabel">Artwork background</span>
+        <div class="bgmode-track">
+          <span class="bgmode-thumb" aria-hidden="true"></span>
+          <button class="bgmode-btn" type="button" data-bg="with" aria-pressed="false" disabled><span class="bgmode-icon bgmode-with" aria-hidden="true"></span><span data-bind="studio.bgWith">With background</span></button>
+          <button class="bgmode-btn" type="button" data-bg="without" aria-pressed="false" disabled><span class="bgmode-icon bgmode-without" aria-hidden="true"></span><span data-bind="studio.bgWithout">Without background</span></button>
+        </div>
+        <p class="bgmode-note" id="bgNote" hidden></p>
+      </div>
+      <div class="keep">
+        <span class="keep-swatch" aria-hidden="true"></span>
+        <span class="keep-text"><span class="keep-line" id="keepLine"></span><strong class="keep-design" id="keepDesign" data-bind="studio.empty">Choose a design</strong></span>
+        <button class="keep-btn" id="keepBtn" type="button" disabled><span data-bind="studio.keepLabel">Choose this design</span> <span class="keep-arrow" aria-hidden="true">→</span></button>
+      </div>
+      <p class="keep-status" id="keepStatus" role="status" aria-live="polite"></p>
+    </div>
+  </section>
+</main>
+<p class="sr-only" id="studioStatus" role="status" aria-live="polite"></p>
+
+<script src="content.js"></script>
+<script src="assets/designs/designs.js"></script>
+<script src="js/main.js"></script>
+<script src="js/flow.js"></script>
+<script src="js/studio.js"></script>
+</body>
+</html>

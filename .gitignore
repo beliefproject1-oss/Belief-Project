@@ -1,0 +1,17 @@
+# Installed with `npm install` in tools/
+node_modules/
+npm-debug.log*
+
+# Fabric measurements, remade by tools/prepare-garment.js
+tools/.cache/
+
+# The images the design studio showed before its own artwork: collected from the web, not ours to keep in history
+_reference/designs-previous/
+
+# Personal Claude Code settings (.claude/launch.json is shared)
+.claude/settings.local.json
+
+# System files
+Thumbs.db
+desktop.ini
+.DS_Store
