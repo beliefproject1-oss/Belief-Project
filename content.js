@@ -7,7 +7,7 @@ window.BELIEF = {
   marquee: "Belief Project",
 
   hero: {
-    video: "assets/video/hero-placeholder.mp4", // wide video for desktop and tablet
+    video: "assets/video/hero-placeholder.mp4?v=96516aea", // wide video for desktop and tablet
     videoMobile: "",                            // optional 9:16 video for phones
     poster: "",                                 // optional still image shown while the video loads
     shopLabel: "Shop Now",
@@ -24,8 +24,8 @@ window.BELIEF = {
 
   // Full-screen photo section
   custom: {
-    image: "assets/img/custom-wide.webp",          // photo for desktop and tablet
-    imageMobile: "assets/img/custom-mobile.webp",  // upright photo for phones
+    image: "assets/img/custom-wide.webp?v=6a6e67e4",          // photo for desktop and tablet
+    imageMobile: "assets/img/custom-mobile.webp?v=1323f5f9",  // upright photo for phones
     imageAlt: "Two models in Belief Project shirts and wide jeans: one in Midnight facing forward, one in Ice Blue seen from behind",
     focus: "50% 22%",                              // the part of the photo kept in view when it is cropped
     eyebrow: "Custom",
@@ -47,8 +47,8 @@ window.BELIEF = {
     // "focus" is the part of the photo that stays in view when it is cropped: across, then down (0% = left / top).
     // The same models wear the shirt in the design studio (tools/studio.config.js).
     colors: [
-      { id: "ice-blue", label: "Ice Blue", image: "assets/img/tee-ice-blue.webp", imageWide: "assets/img/tee-ice-blue-wide.webp", imageAlt: "Model seen from behind in the Ice Blue Belief Project shirt and light jeans", focus: "52% 30%", focusWide: "50% 30%" },
-      { id: "midnight", label: "Midnight", image: "assets/img/tee-midnight.webp", imageWide: "assets/img/tee-midnight-wide.webp", imageAlt: "Model seated with his back to the camera in the Midnight Belief Project shirt", focus: "62% 40%", focusWide: "60% 40%" },
+      { id: "ice-blue", label: "Ice Blue", image: "assets/img/tee-ice-blue.webp?v=d677f57e", imageWide: "assets/img/tee-ice-blue-wide.webp?v=e4e9d5e9", imageAlt: "Model seen from behind in the Ice Blue Belief Project shirt and light jeans", focus: "52% 30%", focusWide: "50% 30%" },
+      { id: "midnight", label: "Midnight", image: "assets/img/tee-midnight.webp?v=7080d66c", imageWide: "assets/img/tee-midnight-wide.webp?v=c1a90543", imageAlt: "Model seated with his back to the camera in the Midnight Belief Project shirt", focus: "62% 40%", focusWide: "60% 40%" },
     ],
   },
 
@@ -154,8 +154,8 @@ window.BELIEF = {
     // "image" is the large picture, "imageSmall" an optional lighter one for phones. The zipper bag picture is made by
     // tools/prepare-packaging.js from the photographs of the bag and the shirt.
     options: [
-      { id: "zipper-bag", name: "Zipper Bag", status: "available", note: "Frosted zipper bag printed with the Belief Project bear, your shirt folded inside.", image: "assets/img/pack-zipper-bag.webp", imageSmall: "assets/img/pack-zipper-bag-sm.webp", imageAlt: "Two frosted Belief Project zipper bags lying on stone, an Ice Blue and a Midnight shirt folded inside, the wordmark and the bear printed on the bags", statusLabel: "Available" },
-      { id: "luxury-box", name: "Luxury Box", status: "unavailable", note: "Rigid Midnight box with the Belief Project wordmark.", image: "assets/img/pack-luxury-box.webp", imageAlt: "The Midnight Belief Project luxury box", statusLabel: "Unavailable", unavailableLabel: "Unavailable for now", unavailableMessage: "The Luxury Box isn't available yet. It's coming soon." },
+      { id: "zipper-bag", name: "Zipper Bag", status: "available", note: "Frosted zipper bag printed with the Belief Project bear, your shirt folded inside.", image: "assets/img/pack-zipper-bag.webp?v=ff663f77", imageSmall: "assets/img/pack-zipper-bag-sm.webp?v=9931b13a", imageAlt: "Two frosted Belief Project zipper bags lying on stone, an Ice Blue and a Midnight shirt folded inside, the wordmark and the bear printed on the bags", statusLabel: "Available" },
+      { id: "luxury-box", name: "Luxury Box", status: "unavailable", note: "Rigid Midnight box with the Belief Project wordmark.", image: "assets/img/pack-luxury-box.webp?v=dd95fd31", imageAlt: "The Midnight Belief Project luxury box", statusLabel: "Unavailable", unavailableLabel: "Unavailable for now", unavailableMessage: "The Luxury Box isn't available yet. It's coming soon." },
     ],
   },
 
@@ -275,7 +275,7 @@ window.BELIEF = {
     eyebrow: "Community",
     // The leather label is shown in place of the written phrase. Empty the "label"
     // line ("") to show the written phrase again.
-    label: "assets/img/ever-forward-label.webp",
+    label: "assets/img/ever-forward-label.webp?v=ec44059d",
     title: "Ever forward",
     titleSerif: "/ together",
     supportTitle: "Support",
