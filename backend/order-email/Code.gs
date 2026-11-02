@@ -25,6 +25,8 @@ const CONFIG = {
   TIMEZONE: 'Africa/Algiers',
   TIMEZONE_NAME: 'Algiers time',       // written next to every date
   SHEET: 'Orders',
+  SHEET_ID: '',                        // the orders spreadsheet's ID (from its address), when the script is not opened
+                                       // from the spreadsheet itself (Extensions > Apps Script)
   // the only colours an order may name
   COLORS: {
     'ice-blue': { label: 'Ice Blue', hex: '#C2E2FE' },
@@ -531,8 +533,8 @@ function nextNumber_() {
 }
 
 function sheet_() {
-  const book = SpreadsheetApp.getActiveSpreadsheet();
-  if (!book) throw new Error('Open this script from the orders spreadsheet (Extensions > Apps Script).');
+  const book = CONFIG.SHEET_ID ? SpreadsheetApp.openById(CONFIG.SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
+  if (!book) throw new Error('Open this script from the orders spreadsheet (Extensions > Apps Script), or set CONFIG.SHEET_ID.');
   let sheet = book.getSheetByName(CONFIG.SHEET);
   if (!sheet) {
     sheet = book.insertSheet(CONFIG.SHEET);
