@@ -28,7 +28,8 @@
                        { size, gap, mass } (fractions of the image: largest speck, how far to look, how much artwork
                        nearby keeps a mark)
      skip            — leave the image out of the studio
-   A vector master (.svg, see tools/draw-designs.js) needs no settings: its art layer is already cut out.
+   A vector master (.svg, see tools/draw-designs.js) needs no settings: its art layer is already cut out. Nor does a PNG
+   with its own transparency (a cut-out from the designer): it is used exactly as it is.
    Direction names and descriptions shown on the page are in content.js (studio.directions). */
 'use strict';
 module.exports = {
@@ -63,11 +64,10 @@ module.exports = {
         'human-after-all.jpg': { title: 'Human After All' },
         'light-of-the-world.jpg': { title: 'Light of the World' },
         'brooklyn-varsity.jpg': { title: 'Brooklyn Varsity Club' },
-        'dream-big.jpg': { title: 'Dream Big, Start Small' },
-        'perfect-love.jpg': { title: 'Perfect Love' },
+        'dream-big.png': { title: 'Dream Big, Start Small' },
+        'perfect-love.png': { title: 'Perfect Love' },
         'homebody-club.jpg': { title: 'The Homebody Club' },
         'around-the-world.jpg': { title: 'Around the World' },
-        'blue-blooms.jpg': { title: 'Blue Blooms', tolerance: 34 },
       },
     },
     {
@@ -109,35 +109,35 @@ module.exports = {
       id: 'retro-mascot',
       designs: {
         'public-records.jpg': { title: 'Public Records', credit: 'Reza Alfian' },
-        'dont-be-crabby.jpg': { title: 'Don’t Be Crabby' },
-        'bangers-sub-shop.jpg': { title: 'Banger’s Sub Shop', credit: 'Zach Wieland' },
-        'disco-only.jpg': { title: 'Disco Only' },
+        'dont-be-crabby.png': { title: 'Don’t Be Crabby' },
+        'bangers-sub-shop.png': { title: 'Banger’s Sub Shop', credit: 'Zach Wieland' },
+        'disco-only.png': { title: 'Disco Only' },
         'go-analog.jpg': { title: 'Go Analog' },
-        'the-clubhouse.jpg': { title: 'The Clubhouse' },
-        'pasta-la-vista.jpg': { title: 'Pasta La Vista' },
+        'the-clubhouse.png': { title: 'The Clubhouse' },
+        'pasta-la-vista.png': { title: 'Pasta La Vista' },
         'pasta-club.jpg': { title: 'Pasta Club' },
-        'recents-detailing.jpg': { title: 'Recent’s Car Detailing' },
-        'perhaps-showroom.jpg': { title: 'Perhaps Showroom' },
+        'recents-detailing.png': { title: 'Recent’s Car Detailing' },
+        'perhaps-showroom.png': { title: 'Perhaps Showroom' },
         'vintage-road.jpg': { title: 'Vintage Road' },
         'timeless-style.jpg': { title: 'Timeless Style' },
-        'yes-we-are-open.jpg': { title: 'Yes, We Are Open' },
-        'fisher-of-men.jpg': { title: 'Fisher of Men' },
+        'yes-we-are-open.png': { title: 'Yes, We Are Open' },
+        'fisher-of-men.png': { title: 'Fisher of Men' },
         'gratitude.jpg': { title: 'Gratitude' },
         'consider-the-lilies.jpg': { title: 'Consider the Lilies' },
         'make-your-move.jpg': { title: 'Make Your Move' },
-        'north-bay.jpg': { title: 'North Bay Leisure Club' },
-        'borcelle.jpg': { title: 'The Borcelle' },
+        'north-bay.png': { title: 'North Bay Leisure Club' },
+        'borcelle.png': { title: 'The Borcelle' },
       },
     },
     {
       id: 'vintage-athletic',
       designs: {
         'dont-look-back.jpg': { title: 'Don’t Look Back' },
-        'slow-and-easy.jpg': { title: 'Slow & Easy Running Club' },
-        'just-got-served.jpg': { title: 'You Just Got Served' },
+        'slow-and-easy.png': { title: 'Slow & Easy Running Club' },
+        'just-got-served.png': { title: 'You Just Got Served' },
         'run-more-stress-less.jpg': { title: 'Run More, Stress Less' },
-        'billys-bowling.jpg': { title: 'Billy’s Bowling Club', credit: 'Good Time Retro' },
-        'slow-sundays.jpg': { title: 'Slow Sundays', credit: 'Good Time Retro' },
+        'billys-bowling.png': { title: 'Billy’s Bowling Club', credit: 'Good Time Retro' },
+        'slow-sundays.png': { title: 'Slow Sundays', credit: 'Good Time Retro' },
         'nice-day.jpg': { title: 'It’s a Nice Day' },
         'sunday-running-club.jpg': { title: 'Sunday Running Club' },
         'tennis-club.jpg': { title: 'Tennis Club' },

@@ -59,8 +59,60 @@ async function isolateSvg(file, opt) {
   return { w: tw, h: th, rgba, cleared: Buffer.alloc(tw * th), trim: { x: x0, y: y0, w, h }, tol: 0, spread: 0, bgHex: paper, original, vector: true };
 }
 
+// A PNG that comes with its own transparency (a cut-out supplied by the designer) is used exactly as it is: enlarged
+// for printing and trimmed to the artwork, nothing taken away or recoloured.
+async function ownTransparency(file) {
+  if (!/\.png$/i.test(file)) return false;
+  const { data, info } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  let clear = 0;
+  for (let i = 3; i < data.length; i += 4) if (data[i] < 250) clear++;
+  return clear / (info.width * info.height) > 0.02;
+}
+async function isolateAlpha(file, opt) {
+  const up = opt.upscale;
+  const meta = await sharp(file).metadata();
+  const w = Math.round(meta.width * up), h = Math.round(meta.height * up);
+  const { data } = await sharp(file).ensureAlpha().resize(w, h, { kernel: 'lanczos3' }).raw().toBuffer({ resolveWithObject: true });
+  let x0 = w, y0 = h, x1 = -1, y1 = -1;
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) if (data[(y * w + x) * 4 + 3] > 8) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+  if (x1 < 0) throw new Error(file + ': the image is empty');
+  const pad = Math.round(4 * up);
+  x0 = Math.max(0, x0 - pad); y0 = Math.max(0, y0 - pad); x1 = Math.min(w - 1, x1 + pad); y1 = Math.min(h - 1, y1 + pad);
+  const tw = x1 - x0 + 1, th = y1 - y0 + 1, rgba = Buffer.alloc(tw * th * 4);
+  for (let y = 0; y < th; y++) data.copy(rgba, y * tw * 4, ((y + y0) * w + x0) * 4, ((y + y0) * w + x1 + 1) * 4);
+  // the image as supplied, on white, for the review sheets
+  const original = { w, h, rgba: Buffer.alloc(w * h * 4, 255) };
+  for (let i = 0; i < w * h; i++) { const a = data[i * 4 + 3] / 255; for (let k = 0; k < 3; k++) original.rgba[i * 4 + k] = Math.round(data[i * 4 + k] * a + 255 * (1 - a)); }
+  return { w: tw, h: th, rgba, cleared: Buffer.alloc(tw * th), trim: { x: x0, y: y0, w, h }, tol: 0, spread: 0, glints: 0, bgHex: '', original, alpha: true };
+}
+
+// The design's own colours, for the studio to dress its swatch and the stage in: its two most present inks, the more
+// colourful counting for more than black, white or grey. Returned as two hex colours.
+function palette(art) {
+  const bins = new Map();
+  for (let i = 0; i < art.w * art.h; i++) {
+    if (art.rgba[i * 4 + 3] < 200) continue;
+    const r = art.rgba[i * 4], g = art.rgba[i * 4 + 1], b = art.rgba[i * 4 + 2];
+    const key = ((r >> 4) << 8) | ((g >> 4) << 4) | (b >> 4);
+    const s = bins.get(key) || { n: 0, r: 0, g: 0, b: 0 };
+    s.n++; s.r += r; s.g += g; s.b += b;
+    bins.set(key, s);
+  }
+  const inks = [...bins.values()].map(s => {
+    const c = [s.r / s.n, s.g / s.n, s.b / s.n];
+    const chroma = (Math.max(...c) - Math.min(...c)) / 255;
+    return { c, score: s.n * (0.3 + chroma * 1.7) };
+  }).sort((a, b) => b.score - a.score);
+  const hex = c => '#' + c.map(v => Math.round(v).toString(16).padStart(2, '0')).join('');
+  const first = inks[0];
+  if (!first) return ['#C2E2FE', '#C2E2FE'];
+  const second = inks.find(k => Math.hypot(k.c[0] - first.c[0], k.c[1] - first.c[1], k.c[2] - first.c[2]) > 70) || first;
+  return [hex(first.c), hex(second.c)];
+}
+
 async function isolate(file, opt) {
   if (/\.svg$/i.test(file)) return isolateSvg(file, opt);
+  if (await ownTransparency(file)) return isolateAlpha(file, opt);
   const up = opt.upscale;
   const meta = await sharp(file).rotate().metadata();
   // crop: trim the image's own edges first (a frame or overlay left from a screenshot, not part of the design)
@@ -579,11 +631,13 @@ async function main() {
         ratio: +(art.w / art.h).toFixed(4),
         // shirt colours this design is hard to read on (most of its ink close to the fabric's brightness)
         faint: Object.keys(low).filter(k => low[k] > D.faintAbove),
+        // its own colours: the studio dresses the design's swatch and the stage in them
+        palette: palette(art),
       };
       if (own.credit) design.credit = own.credit;
       if (!design.faint.length) delete design.faint;
       entry.designs.push(design);
-      const how = art.reused ? 'cut-out reused' : art.vector ? `vector, paper ${art.bgHex}` : `bg ${art.bgHex} spread ${art.spread.toFixed(1)} tol ${art.tol.toFixed(1)} glints ${art.glints}`;
+      const how = art.reused ? 'cut-out reused' : art.alpha ? 'own transparency' : art.vector ? `vector, paper ${art.bgHex}` : `bg ${art.bgHex} spread ${art.spread.toFixed(1)} tol ${art.tol.toFixed(1)} glints ${art.glints}`;
       console.log(`${dir.id}/${id}  ${how}  ${art.w}×${art.h}  faint:${(design.faint || []).join(',') || '-'}  ${Date.now() - t0}ms`);
       if (debugDir) await debugSheet(art, printedAll, path.join(ROOT, D.source, dir.id, file), path.join(debugDir, `${dir.id}--${id}.jpg`));
     }

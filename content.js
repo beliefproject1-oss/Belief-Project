@@ -306,7 +306,7 @@ window.BELIEF = {
 
   // Small icons under the email field. An icon with an empty url is shown but cannot be clicked.
   socials: [
-    { name: "Instagram", url: "https://www.instagram.com/beli.efproject?obrf=MXFyejdhd21vb3p0eA==" },
+    { name: "Instagram", url: "https://www.instagram.com/belief__project?srtk=MXFyejdhd21vb3p0eA==" },
     { name: "TikTok", url: "https://www.tiktok.com/@belief.project?_r=1&_t=ZS-9AO9EZ4O2nF" },
     { name: "YouTube", url: "" },
   ],

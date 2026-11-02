@@ -42,6 +42,9 @@ its back panel (magenta), print area (green) and view (yellow) marked.
 
 For each image the script:
 
+- **keeps a cut-out as it is.** A PNG that already has its own transparency (a cut-out from the designer) is only
+  enlarged for printing and trimmed: nothing is removed or recoloured. JPEGs (and PNGs on paper) go through the steps
+  below.
 - **removes all of the paper.** The paper colour is read from the edge of the image, and every area of that
   colour goes: around the artwork and inside it (the inside of a letter, a mug, a car). Nothing white is printed
   that was not ink, so no design ever sits in a white box. Edges keep their anti-aliasing and the paper is taken
@@ -56,6 +59,8 @@ For each image the script:
   wider and a tall one taller, never stretched or cropped, moved by the folds and lit and textured by the shirt in
   the photograph. The results are `assets/designs/<direction>/<id>-<colour>.webp` (and half-size copies), which the
   page lays exactly over the model's back.
+- **reads the design's own colours:** its two most present inks (the more colourful counting for more) go into
+  `designs.js` as `palette`; the studio lights each design's swatch, and the stage when it is chosen, in them.
 - **checks legibility:** a design whose ink is mostly as light or dark as a shirt colour is marked, and
   the studio suggests the other colour for it.
 

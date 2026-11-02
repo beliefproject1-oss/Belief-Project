@@ -234,6 +234,8 @@
         const li = el('li');
         const b = el('button', 'design', { type: 'button', 'aria-pressed': 'false', 'data-key': d.id + '/' + x.id });
         const sw = el('span', 'design-swatch', { 'aria-hidden': 'true' });
+        // each design in its own light: a glow of its own inks behind it (assets/designs/designs.js, palette)
+        if (x.palette) { b.style.setProperty('--ink-a', x.palette[0]); b.style.setProperty('--ink-b', x.palette[1]); }
         const im = el('img', '', { alt: '', loading: 'lazy', decoding: 'async', src: x.thumb });
         sw.append(im);
         const label = el('span', 'design-name');
@@ -305,6 +307,11 @@
       $$('.design', panels).forEach(b => b.setAttribute('aria-pressed', String(!!found && b.dataset.key === found.key)));
       cards.forEach(c => { const on = !!found && found.dir.id === c.id; c.mark.hidden = !on; c.b.classList.toggle('has-pick', on); });
       if (changed) garment.show(found && found.design);
+      // the stage takes on the chosen design's own colours
+      const stageEl = $('#stage');
+      const pal = found && found.design.palette;
+      stageEl.classList.toggle('has-mood', !!pal);
+      if (pal) { stageEl.style.setProperty('--mood-a', pal[0]); stageEl.style.setProperty('--mood-b', pal[1]); }
       zoomBtn.disabled = !found;
       if (!found) { setZoom(false); }
       title.textContent = found ? found.design.title : (S.empty || 'Choose a design');
