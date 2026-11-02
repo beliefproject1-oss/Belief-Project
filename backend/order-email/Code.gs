@@ -41,8 +41,11 @@ const CONFIG = {
   ORDER_STATUSES: ['Pending', 'Confirmed', 'Shipped', 'Delivered', 'Cancelled'],
 };
 
-const HEADERS = ['Order number', 'Received', 'Name', 'Email', 'Phone', 'Other details', 'Items', 'Pieces', 'Summary', 'Notes', 'Notification email'];
-const EMAIL_STATUS_COLUMN = HEADERS.length;
+// The Orders sheet: one row per order, one column per detail. Status starts at Pending and is chosen from a list.
+const HEADERS = ['Order ID', 'Order date', 'Status', 'Customer name', 'Phone', 'Second phone', 'Email', 'Wilaya', 'Commune',
+  'Delivery address', 'T-shirt', 'Colour', 'Size', 'Design', 'Customisation', 'Quantity', 'Packaging', 'Delivery',
+  'Shipping price (DA)', 'T-shirt price (DA)', 'Total price (DA)', 'Notes', 'Email sent'];
+const EMAIL_STATUS_COLUMN = HEADERS.indexOf('Email sent') + 1;
 
 /* ---------- web app ---------- */
 
@@ -536,30 +539,52 @@ function sheet_() {
   const book = CONFIG.SHEET_ID ? SpreadsheetApp.openById(CONFIG.SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
   if (!book) throw new Error('Open this script from the orders spreadsheet (Extensions > Apps Script), or set CONFIG.SHEET_ID.');
   let sheet = book.getSheetByName(CONFIG.SHEET);
+  // a sheet from an earlier layout of the columns is kept, under another name, and a new one is started
+  if (sheet && sheet.getLastRow() > 0 && String(sheet.getRange(1, 1).getValue()) !== HEADERS[0]) {
+    sheet.setName(CONFIG.SHEET + ' (earlier layout)');
+    sheet = null;
+  }
   if (!sheet) {
-    sheet = book.insertSheet(CONFIG.SHEET);
+    sheet = book.insertSheet(CONFIG.SHEET, 0);
     sheet.appendRow(HEADERS);
-    sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold');
+    sheet.getRange(1, 1, 1, HEADERS.length).setFontWeight('bold').setBackground('#010D2C').setFontColor('#FFFFFF');
     sheet.setFrozenRows(1);
+    // the status of each order, chosen from a list
+    const status = HEADERS.indexOf('Status') + 1;
+    sheet.getRange(2, status, 999, 1).setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(CONFIG.ORDER_STATUSES, true).build());
   }
   return sheet;
 }
 
 function saveOrder_(order) {
   const sheet = sheet_();
-  const lines = pair => pair[0] + ': ' + pair[1];
+  const r = order.raw;
+  const each = function (fn) { return order.items.map(fn).filter(function (v) { return v; }).join(', '); };
+  const total = r.total === null ? (r.productPrice === null ? '' : r.productPrice + ' + shipping') : r.total;
   sheet.appendRow([
     order.number,
     order.received,
-    order.customer.name,
-    order.customer.email,
-    order.customer.phone,
-    order.customer.details.map(lines).join('\n'),
-    order.items.map(itemLine_).join('\n'),
-    pieces_(order),
-    order.summary.map(lines).join('\n'),
-    order.notes,
     'Pending',
+    order.customer.name,
+    r.phone,
+    r.phone2,
+    r.email,
+    r.wilaya,
+    r.commune,
+    r.address,
+    each(function (item) { return item.product; }),
+    each(function (item) { return item.color; }),
+    each(function (item) { return item.size; }),
+    each(function (item) { return item.design ? item.design + (item.direction ? ' (' + item.direction + ')' : '') : 'Plain, no design'; }),
+    each(function (item) { return item.customization; }),
+    pieces_(order),
+    r.packaging,
+    r.method,
+    r.onRequest ? 'On request' : r.shippingPrice,
+    r.productPrice === null ? '' : r.productPrice,
+    total,
+    r.instructions,
+    'Sending',
   ].map(cell_));
   return sheet.getLastRow();
 }
