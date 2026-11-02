@@ -127,7 +127,7 @@ window.BELIEF = {
     rules: [
       { size: "M", weight: [50, 60] },
       { size: "L", weight: [70, 80] },
-      { size: "XL", weight: [85, null] },
+      { size: "XL", weight: [80, null] },    // above 80 kg (exactly 80 is L: the first rule that fits wins)
     ],
     found: "Based on your weight.",
     outside: "We can't recommend a size for this weight automatically. Message us on WhatsApp and we'll help you choose.",

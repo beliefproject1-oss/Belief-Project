@@ -41,8 +41,12 @@ window.BeliefSizing = (() => {
     return r ? { state: 'found', size: String(r.size) } : { state: 'outside' };
   }
 
-  // the rules as lines for a table: "50–60 kg" → "M"
-  const table = () => rules.map(r => ({ size: String(r.size), range: r.weight[1] == null ? `${r.weight[0]} kg and above` : `${r.weight[0]}–${r.weight[1]} kg` }));
+  // the rules as lines for a table: "50–60 kg" → "M"; a rule that starts where the one before ends reads "over 80 kg"
+  const table = () => rules.map((r, i) => {
+    const after = i > 0 && rules[i - 1].weight[1] === r.weight[0];
+    const range = r.weight[1] == null ? (after ? `over ${r.weight[0]} kg` : `${r.weight[0]} kg and above`) : `${r.weight[0]}–${r.weight[1]} kg`;
+    return { size: String(r.size), range };
+  });
 
   return { parse, check, recommend, table, sizes, limits, units };
 })();
