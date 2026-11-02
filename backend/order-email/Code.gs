@@ -7,7 +7,8 @@
 
      an order        → it gets its order number, is saved in the Notion orders database (and, as a backup, in the
                        "Orders" sheet), is emailed to NOTIFY_TO, and the website is told it was saved;
-     a sign-up       → the email address is saved in the Notion newsletter database, once.
+     a sign-up       → the email address is saved once, in the "Newsletter" tab of the spreadsheet (and in the
+                       Notion newsletter database when Notion is connected).
 
    The website shows "saved" only when this script answers that it was. The Notion key and the two database IDs are
    kept in the script's own settings (Project Settings → Script Properties), never in this file or the website:
@@ -25,6 +26,7 @@ const CONFIG = {
   TIMEZONE: 'Africa/Algiers',
   TIMEZONE_NAME: 'Algiers time',       // written next to every date
   SHEET: 'Orders',
+  NEWSLETTER_SHEET: 'Newsletter',      // the tab newsletter sign-ups are saved in
   SHEET_ID: '',                        // the orders spreadsheet's ID (from its address), when the script is not opened
                                        // from the spreadsheet itself (Extensions > Apps Script)
   // the only colours an order may name
@@ -317,7 +319,6 @@ function subscribe_(data) {
   const email = text_(data && data.email, 160).toLowerCase();
   if (text_(data && data.website, 200)) return { ok: false, saved: false, error: 'rejected', message: 'The sign-up was not accepted.' };
   if (!/^[^\s@<>"]+@[^\s@<>"]+\.[^\s@<>"]{2,}$/.test(email)) return { ok: false, saved: false, error: 'bad_email', message: 'The email address is not valid.' };
-  if (!notionReady_('NOTION_NEWSLETTER_DB')) return { ok: false, saved: false, error: 'not_configured', message: 'Sign-ups are not connected yet.' };
   const lock = LockService.getScriptLock();
   try {
     lock.waitLock(20000);
@@ -325,8 +326,15 @@ function subscribe_(data) {
     return { ok: false, saved: false, error: 'busy', message: 'Please try again in a moment.' };
   }
   try {
+    // the Newsletter tab of the spreadsheet: one row per address
+    const sheet = newsletterSheet_();
+    const last = sheet.getLastRow();
+    const known = last > 1 ? sheet.getRange(2, 1, last - 1, 1).getValues().map(function (r) { return String(r[0]).toLowerCase(); }) : [];
+    if (known.indexOf(email) !== -1) return { ok: true, saved: true, duplicate: true };
+    sheet.appendRow([email, Utilities.formatDate(new Date(), CONFIG.TIMEZONE, 'd MMM yyyy, HH:mm'), text_(data.source, 60) || 'Website', 'Subscribed'].map(cell_));
+    if (!notionReady_('NOTION_NEWSLETTER_DB')) return { ok: true, saved: true, duplicate: false };
+    // … and Notion, when it is connected
     const db = prop_('NOTION_NEWSLETTER_DB');
-    // one entry per address
     const found = notion_('post', '/databases/' + db + '/query', { filter: { property: 'Email', title: { equals: email } }, page_size: 1 });
     if (found.results && found.results.length) return { ok: true, saved: true, duplicate: true };
     notion_('post', '/pages', {
@@ -552,6 +560,19 @@ function sheet_() {
     // the status of each order, chosen from a list
     const status = HEADERS.indexOf('Status') + 1;
     sheet.getRange(2, status, 999, 1).setDataValidation(SpreadsheetApp.newDataValidation().requireValueInList(CONFIG.ORDER_STATUSES, true).build());
+  }
+  return sheet;
+}
+
+function newsletterSheet_() {
+  const book = CONFIG.SHEET_ID ? SpreadsheetApp.openById(CONFIG.SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
+  if (!book) throw new Error('Open this script from the orders spreadsheet (Extensions > Apps Script), or set CONFIG.SHEET_ID.');
+  let sheet = book.getSheetByName(CONFIG.NEWSLETTER_SHEET);
+  if (!sheet) {
+    sheet = book.insertSheet(CONFIG.NEWSLETTER_SHEET);
+    sheet.appendRow(['Email', 'Subscribed on', 'Source', 'Status']);
+    sheet.getRange(1, 1, 1, 4).setFontWeight('bold').setBackground('#010D2C').setFontColor('#FFFFFF');
+    sheet.setFrozenRows(1);
   }
   return sheet;
 }
