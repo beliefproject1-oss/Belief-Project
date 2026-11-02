@@ -7,8 +7,8 @@
 
      an order        → it gets its order number, is saved in the Notion orders database (and, as a backup, in the
                        "Orders" sheet), is emailed to NOTIFY_TO, and the website is told it was saved;
-     a sign-up       → the email address is saved once, in the "Newsletter" tab of the spreadsheet (and in the
-                       Notion newsletter database when Notion is connected).
+     a sign-up       → the email address is saved once, in the "Subscribers" tab of the subscribers spreadsheet
+                       (NEWSLETTER_SHEET_ID; and in the Notion newsletter database when Notion is connected).
 
    The website shows "saved" only when this script answers that it was. The Notion key and the two database IDs are
    kept in the script's own settings (Project Settings → Script Properties), never in this file or the website:
@@ -26,7 +26,8 @@ const CONFIG = {
   TIMEZONE: 'Africa/Algiers',
   TIMEZONE_NAME: 'Algiers time',       // written next to every date
   SHEET: 'Orders',
-  NEWSLETTER_SHEET: 'Newsletter',      // the tab newsletter sign-ups are saved in
+  NEWSLETTER_SHEET: 'Subscribers',     // the tab newsletter sign-ups are saved in
+  NEWSLETTER_SHEET_ID: '',             // the subscribers spreadsheet's ID (from its address); empty: the orders spreadsheet
   SHEET_ID: '',                        // the orders spreadsheet's ID (from its address), when the script is not opened
                                        // from the spreadsheet itself (Extensions > Apps Script)
   // the only colours an order may name
@@ -565,11 +566,15 @@ function sheet_() {
 }
 
 function newsletterSheet_() {
-  const book = CONFIG.SHEET_ID ? SpreadsheetApp.openById(CONFIG.SHEET_ID) : SpreadsheetApp.getActiveSpreadsheet();
+  const id = CONFIG.NEWSLETTER_SHEET_ID || CONFIG.SHEET_ID;
+  const book = id ? SpreadsheetApp.openById(id) : SpreadsheetApp.getActiveSpreadsheet();
   if (!book) throw new Error('Open this script from the orders spreadsheet (Extensions > Apps Script), or set CONFIG.SHEET_ID.');
   let sheet = book.getSheetByName(CONFIG.NEWSLETTER_SHEET);
   if (!sheet) {
-    sheet = book.insertSheet(CONFIG.NEWSLETTER_SHEET);
+    // a new spreadsheet's own empty first tab is used (and named), so there is no blank "Sheet1" left beside it
+    const tabs = book.getSheets();
+    if (tabs.length === 1 && tabs[0].getLastRow() === 0) { sheet = tabs[0]; sheet.setName(CONFIG.NEWSLETTER_SHEET); }
+    else sheet = book.insertSheet(CONFIG.NEWSLETTER_SHEET);
     sheet.appendRow(['Email', 'Subscribed on', 'Source', 'Status']);
     sheet.getRange(1, 1, 1, 4).setFontWeight('bold').setBackground('#010D2C').setFontColor('#FFFFFF');
     sheet.setFrozenRows(1);
