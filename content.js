@@ -125,7 +125,7 @@ window.BELIEF = {
     next: "packaging.html", // the packaging page
     sizes: ["M", "L", "XL"],
     rules: [
-      { size: "M", weight: [50, 60] },
+      { size: "M", weight: [50, 69.99] },  // 50 to 69 kg, and anything under 70
       { size: "L", weight: [70, 80] },
       { size: "XL", weight: [80, null] },    // above 80 kg (exactly 80 is L: the first rule that fits wins)
     ],
