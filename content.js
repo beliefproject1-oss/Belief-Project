@@ -268,7 +268,7 @@ window.BELIEF = {
   // Notion (and emails each order). Paste its web-app address (it ends in /exec) in both places below.
   // Setup steps: backend/order-email/SETUP.md. While an address is empty, nothing can be sent and the page says so.
   orders: {
-    endpoint: "",
+    endpoint: "https://script.google.com/macros/s/AKfycbyYpEJNmkQSf6DVmHmzuE1PcyCueschEp_IBDPSUQ-IB-VZo_sK2hhQ3jmLf-xVlnTV/exec",
   },
 
   community: {
