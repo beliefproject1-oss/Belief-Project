@@ -300,8 +300,9 @@ window.BELIEF = {
     already: "You're already on the list.",
     notConnected: "Sign-ups open soon: we can't save your email just yet.",
     failed: "We couldn't save your email. Please try again in a moment.",
-    // The same web-app address as orders.endpoint (see above). While this is empty nothing is saved.
-    endpoint: "",
+    // The same web-app address as orders.endpoint (see above): sign-ups go to the Newsletter tab of the orders
+    // spreadsheet. While this is empty nothing is saved.
+    endpoint: "https://script.google.com/macros/s/AKfycbyYpEJNmkQSf6DVmHmzuE1PcyCueschEp_IBDPSUQ-IB-VZo_sK2hhQ3jmLf-xVlnTV/exec",
   },
 
   // Small icons under the email field. An icon with an empty url is shown but cannot be clicked.

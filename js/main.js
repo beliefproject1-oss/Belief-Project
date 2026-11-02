@@ -592,7 +592,7 @@
     const button = $('.nl-submit', form);
     const status = $('#nlStatus', form);
     const N = C.newsletter || {};
-    // the sign-up is saved by the same Google script as the orders (backend/order-email), which writes it to Notion
+    // the sign-up is saved by the same Google script as the orders (backend/order-email), which writes it to the Newsletter tab of the orders spreadsheet
     const endpoint = N.endpoint || '';
     const say = (text, kind) => {
       status.textContent = text;
