@@ -28,11 +28,11 @@ window.BELIEF_DESIGNS = {
    },
    "photo": [
     {
-     "src": "assets/studio/model-ice-blue-1400.webp",
+     "src": "assets/studio/model-ice-blue-1400.webp?v=fe00c2e9",
      "w": 1400
     },
     {
-     "src": "assets/studio/model-ice-blue-900.webp",
+     "src": "assets/studio/model-ice-blue-900.webp?v=5b257962",
      "w": 900
     }
    ]
@@ -59,11 +59,11 @@ window.BELIEF_DESIGNS = {
    },
    "photo": [
     {
-     "src": "assets/studio/model-midnight-1400.webp",
+     "src": "assets/studio/model-midnight-1400.webp?v=9c4077a0",
      "w": 1400
     },
     {
-     "src": "assets/studio/model-midnight-900.webp",
+     "src": "assets/studio/model-midnight-900.webp?v=d5e30d73",
      "w": 900
     }
    ]
@@ -77,20 +77,20 @@ window.BELIEF_DESIGNS = {
      "id": "slow-down",
      "title": "Slow Down",
      "source": "slow-down.jpg",
-     "thumb": "assets/designs/creed-type/slow-down-thumb.webp",
+     "thumb": "assets/designs/creed-type/slow-down-thumb.webp?v=c37b2c42",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/creed-type/slow-down-ice-blue.webp",
-       "small": "assets/designs/creed-type/slow-down-ice-blue-sm.webp",
+       "src": "assets/designs/creed-type/slow-down-ice-blue.webp?v=f83b6b5a",
+       "small": "assets/designs/creed-type/slow-down-ice-blue-sm.webp?v=3709f68e",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/creed-type/slow-down-midnight.webp",
-       "small": "assets/designs/creed-type/slow-down-midnight-sm.webp",
+       "src": "assets/designs/creed-type/slow-down-midnight.webp?v=4aae81ac",
+       "small": "assets/designs/creed-type/slow-down-midnight-sm.webp?v=c58052ad",
        "width": 870
       }
      },
-     "art": "designs-isolated/creed-type/slow-down.png",
+     "art": "designs-isolated/creed-type/slow-down.png?v=09da6efd",
      "ratio": 0.7154,
      "palette": [
       "#6d8a66",
@@ -101,20 +101,20 @@ window.BELIEF_DESIGNS = {
      "id": "proud-of-the-progress",
      "title": "Proud of the Progress",
      "source": "proud-of-the-progress.jpg",
-     "thumb": "assets/designs/creed-type/proud-of-the-progress-thumb.webp",
+     "thumb": "assets/designs/creed-type/proud-of-the-progress-thumb.webp?v=d66488f1",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/creed-type/proud-of-the-progress-ice-blue.webp",
-       "small": "assets/designs/creed-type/proud-of-the-progress-ice-blue-sm.webp",
+       "src": "assets/designs/creed-type/proud-of-the-progress-ice-blue.webp?v=27044845",
+       "small": "assets/designs/creed-type/proud-of-the-progress-ice-blue-sm.webp?v=8e8731a7",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/creed-type/proud-of-the-progress-midnight.webp",
-       "small": "assets/designs/creed-type/proud-of-the-progress-midnight-sm.webp",
+       "src": "assets/designs/creed-type/proud-of-the-progress-midnight.webp?v=77361e80",
+       "small": "assets/designs/creed-type/proud-of-the-progress-midnight-sm.webp?v=89d2f923",
        "width": 870
       }
      },
-     "art": "designs-isolated/creed-type/proud-of-the-progress.png",
+     "art": "designs-isolated/creed-type/proud-of-the-progress.png?v=42bc84c0",
      "ratio": 0.8922,
      "palette": [
       "#0d51d9",
@@ -125,20 +125,20 @@ window.BELIEF_DESIGNS = {
      "id": "do-things-that-matter",
      "title": "Do Things That Matter",
      "source": "do-things-that-matter.jpg",
-     "thumb": "assets/designs/creed-type/do-things-that-matter-thumb.webp",
+     "thumb": "assets/designs/creed-type/do-things-that-matter-thumb.webp?v=e3f790a1",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/creed-type/do-things-that-matter-ice-blue.webp",
-       "small": "assets/designs/creed-type/do-things-that-matter-ice-blue-sm.webp",
+       "src": "assets/designs/creed-type/do-things-that-matter-ice-blue.webp?v=e9dd63d1",
+       "small": "assets/designs/creed-type/do-things-that-matter-ice-blue-sm.webp?v=eac6b486",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/creed-type/do-things-that-matter-midnight.webp",
-       "small": "assets/designs/creed-type/do-things-that-matter-midnight-sm.webp",
+       "src": "assets/designs/creed-type/do-things-that-matter-midnight.webp?v=f9fa8854",
+       "small": "assets/designs/creed-type/do-things-that-matter-midnight-sm.webp?v=c4fe24ef",
        "width": 870
       }
      },
-     "art": "designs-isolated/creed-type/do-things-that-matter.png",
+     "art": "designs-isolated/creed-type/do-things-that-matter.png?v=20e07d89",
      "ratio": 0.7814,
      "palette": [
       "#2968fc",
@@ -149,20 +149,20 @@ window.BELIEF_DESIGNS = {
      "id": "happy-place",
      "title": "This Is My Happy Place",
      "source": "happy-place.jpg",
-     "thumb": "assets/designs/creed-type/happy-place-thumb.webp",
+     "thumb": "assets/designs/creed-type/happy-place-thumb.webp?v=73788689",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/creed-type/happy-place-ice-blue.webp",
-       "small": "assets/designs/creed-type/happy-place-ice-blue-sm.webp",
+       "src": "assets/designs/creed-type/happy-place-ice-blue.webp?v=eb8610f8",
+       "small": "assets/designs/creed-type/happy-place-ice-blue-sm.webp?v=9b306b0d",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/creed-type/happy-place-midnight.webp",
-       "small": "assets/designs/creed-type/happy-place-midnight-sm.webp",
+       "src": "assets/designs/creed-type/happy-place-midnight.webp?v=a866ef70",
+       "small": "assets/designs/creed-type/happy-place-midnight-sm.webp?v=4e447267",
        "width": 870
       }
      },
-     "art": "designs-isolated/creed-type/happy-place.png",
+     "art": "designs-isolated/creed-type/happy-place.png?v=8cefd47a",
      "ratio": 0.9328,
      "palette": [
       "#2b5299",
@@ -173,20 +173,20 @@ window.BELIEF_DESIGNS = {
      "id": "be-brave",
      "title": "You Can’t Be Brave Without Being Afraid",
      "source": "be-brave.jpg",
-     "thumb": "assets/designs/creed-type/be-brave-thumb.webp",
+     "thumb": "assets/designs/creed-type/be-brave-thumb.webp?v=cccbc3c9",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/creed-type/be-brave-ice-blue.webp",
-       "small": "assets/designs/creed-type/be-brave-ice-blue-sm.webp",
+       "src": "assets/designs/creed-type/be-brave-ice-blue.webp?v=6754d9be",
+       "small": "assets/designs/creed-type/be-brave-ice-blue-sm.webp?v=2fa8f5ea",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/creed-type/be-brave-midnight.webp",
-       "small": "assets/designs/creed-type/be-brave-midnight-sm.webp",
+       "src": "assets/designs/creed-type/be-brave-midnight.webp?v=fea306c7",
+       "small": "assets/designs/creed-type/be-brave-midnight-sm.webp?v=e8374924",
        "width": 870
       }
      },
-     "art": "designs-isolated/creed-type/be-brave.png",
+     "art": "designs-isolated/creed-type/be-brave.png?v=59064df6",
      "ratio": 0.774,
      "palette": [
       "#01729e",
@@ -198,20 +198,20 @@ window.BELIEF_DESIGNS = {
      "id": "choose-kindness",
      "title": "Choose Kindness",
      "source": "choose-kindness.jpg",
-     "thumb": "assets/designs/creed-type/choose-kindness-thumb.webp",
+     "thumb": "assets/designs/creed-type/choose-kindness-thumb.webp?v=38d66d43",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/creed-type/choose-kindness-ice-blue.webp",
-       "small": "assets/designs/creed-type/choose-kindness-ice-blue-sm.webp",
+       "src": "assets/designs/creed-type/choose-kindness-ice-blue.webp?v=cdcb1783",
+       "small": "assets/designs/creed-type/choose-kindness-ice-blue-sm.webp?v=1bac6925",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/creed-type/choose-kindness-midnight.webp",
-       "small": "assets/designs/creed-type/choose-kindness-midnight-sm.webp",
+       "src": "assets/designs/creed-type/choose-kindness-midnight.webp?v=dfcfe36e",
+       "small": "assets/designs/creed-type/choose-kindness-midnight-sm.webp?v=51c8f106",
        "width": 870
       }
      },
-     "art": "designs-isolated/creed-type/choose-kindness.png",
+     "art": "designs-isolated/creed-type/choose-kindness.png?v=40892d97",
      "ratio": 0.9209,
      "faint": [
       "ice-blue"
@@ -225,20 +225,20 @@ window.BELIEF_DESIGNS = {
      "id": "dont-forget-to-play",
      "title": "Don’t Forget to Play",
      "source": "dont-forget-to-play.jpg",
-     "thumb": "assets/designs/creed-type/dont-forget-to-play-thumb.webp",
+     "thumb": "assets/designs/creed-type/dont-forget-to-play-thumb.webp?v=d3af8e72",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/creed-type/dont-forget-to-play-ice-blue.webp",
-       "small": "assets/designs/creed-type/dont-forget-to-play-ice-blue-sm.webp",
+       "src": "assets/designs/creed-type/dont-forget-to-play-ice-blue.webp?v=7b1f7dc6",
+       "small": "assets/designs/creed-type/dont-forget-to-play-ice-blue-sm.webp?v=7e63999a",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/creed-type/dont-forget-to-play-midnight.webp",
-       "small": "assets/designs/creed-type/dont-forget-to-play-midnight-sm.webp",
+       "src": "assets/designs/creed-type/dont-forget-to-play-midnight.webp?v=2c2af98d",
+       "small": "assets/designs/creed-type/dont-forget-to-play-midnight-sm.webp?v=7aa7c809",
        "width": 870
       }
      },
-     "art": "designs-isolated/creed-type/dont-forget-to-play.png",
+     "art": "designs-isolated/creed-type/dont-forget-to-play.png?v=b097f188",
      "ratio": 0.9884,
      "palette": [
       "#384ea3",
@@ -249,20 +249,20 @@ window.BELIEF_DESIGNS = {
      "id": "just-keep-swimming",
      "title": "Just Keep Swimming",
      "source": "just-keep-swimming.jpg",
-     "thumb": "assets/designs/creed-type/just-keep-swimming-thumb.webp",
+     "thumb": "assets/designs/creed-type/just-keep-swimming-thumb.webp?v=84544b31",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/creed-type/just-keep-swimming-ice-blue.webp",
-       "small": "assets/designs/creed-type/just-keep-swimming-ice-blue-sm.webp",
+       "src": "assets/designs/creed-type/just-keep-swimming-ice-blue.webp?v=c4dd91fb",
+       "small": "assets/designs/creed-type/just-keep-swimming-ice-blue-sm.webp?v=5a620d17",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/creed-type/just-keep-swimming-midnight.webp",
-       "small": "assets/designs/creed-type/just-keep-swimming-midnight-sm.webp",
+       "src": "assets/designs/creed-type/just-keep-swimming-midnight.webp?v=9ae43f7a",
+       "small": "assets/designs/creed-type/just-keep-swimming-midnight-sm.webp?v=1b67720c",
        "width": 870
       }
      },
-     "art": "designs-isolated/creed-type/just-keep-swimming.png",
+     "art": "designs-isolated/creed-type/just-keep-swimming.png?v=11fd5598",
      "ratio": 1.9523,
      "palette": [
       "#0273d3",
@@ -273,20 +273,20 @@ window.BELIEF_DESIGNS = {
      "id": "stop-chasing-perfection",
      "title": "Stop Chasing Perfection",
      "source": "stop-chasing-perfection.jpg",
-     "thumb": "assets/designs/creed-type/stop-chasing-perfection-thumb.webp",
+     "thumb": "assets/designs/creed-type/stop-chasing-perfection-thumb.webp?v=573c247d",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/creed-type/stop-chasing-perfection-ice-blue.webp",
-       "small": "assets/designs/creed-type/stop-chasing-perfection-ice-blue-sm.webp",
+       "src": "assets/designs/creed-type/stop-chasing-perfection-ice-blue.webp?v=0388598d",
+       "small": "assets/designs/creed-type/stop-chasing-perfection-ice-blue-sm.webp?v=55c07948",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/creed-type/stop-chasing-perfection-midnight.webp",
-       "small": "assets/designs/creed-type/stop-chasing-perfection-midnight-sm.webp",
+       "src": "assets/designs/creed-type/stop-chasing-perfection-midnight.webp?v=f7d8dcc1",
+       "small": "assets/designs/creed-type/stop-chasing-perfection-midnight-sm.webp?v=b451c47a",
        "width": 870
       }
      },
-     "art": "designs-isolated/creed-type/stop-chasing-perfection.png",
+     "art": "designs-isolated/creed-type/stop-chasing-perfection.png?v=5ffbbdc9",
      "ratio": 0.7428,
      "palette": [
       "#174387",
@@ -297,20 +297,20 @@ window.BELIEF_DESIGNS = {
      "id": "makes-you-happy",
      "title": "Someone Who Makes You Happy",
      "source": "makes-you-happy.jpg",
-     "thumb": "assets/designs/creed-type/makes-you-happy-thumb.webp",
+     "thumb": "assets/designs/creed-type/makes-you-happy-thumb.webp?v=81db1010",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/creed-type/makes-you-happy-ice-blue.webp",
-       "small": "assets/designs/creed-type/makes-you-happy-ice-blue-sm.webp",
+       "src": "assets/designs/creed-type/makes-you-happy-ice-blue.webp?v=229dbe3c",
+       "small": "assets/designs/creed-type/makes-you-happy-ice-blue-sm.webp?v=7d7bddd4",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/creed-type/makes-you-happy-midnight.webp",
-       "small": "assets/designs/creed-type/makes-you-happy-midnight-sm.webp",
+       "src": "assets/designs/creed-type/makes-you-happy-midnight.webp?v=00655c8b",
+       "small": "assets/designs/creed-type/makes-you-happy-midnight-sm.webp?v=79b6a70e",
        "width": 870
       }
      },
-     "art": "designs-isolated/creed-type/makes-you-happy.png",
+     "art": "designs-isolated/creed-type/makes-you-happy.png?v=4b0659a2",
      "ratio": 1.3846,
      "palette": [
       "#fefdfd",
@@ -326,20 +326,20 @@ window.BELIEF_DESIGNS = {
      "id": "good-things",
      "title": "Good Things Are Coming",
      "source": "good-things.jpg",
-     "thumb": "assets/designs/loud/good-things-thumb.webp",
+     "thumb": "assets/designs/loud/good-things-thumb.webp?v=007f28ed",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/loud/good-things-ice-blue.webp",
-       "small": "assets/designs/loud/good-things-ice-blue-sm.webp",
+       "src": "assets/designs/loud/good-things-ice-blue.webp?v=6a3ee462",
+       "small": "assets/designs/loud/good-things-ice-blue-sm.webp?v=b5c03866",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/loud/good-things-midnight.webp",
-       "small": "assets/designs/loud/good-things-midnight-sm.webp",
+       "src": "assets/designs/loud/good-things-midnight.webp?v=70687a2f",
+       "small": "assets/designs/loud/good-things-midnight-sm.webp?v=24a824d3",
        "width": 870
       }
      },
-     "art": "designs-isolated/loud/good-things.png",
+     "art": "designs-isolated/loud/good-things.png?v=1ad1ec90",
      "ratio": 0.9819,
      "faint": [
       "ice-blue"
@@ -353,20 +353,20 @@ window.BELIEF_DESIGNS = {
      "id": "happiness-within",
      "title": "Happiness Within Yourself",
      "source": "happiness-within.jpg",
-     "thumb": "assets/designs/loud/happiness-within-thumb.webp",
+     "thumb": "assets/designs/loud/happiness-within-thumb.webp?v=79cad5bc",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/loud/happiness-within-ice-blue.webp",
-       "small": "assets/designs/loud/happiness-within-ice-blue-sm.webp",
+       "src": "assets/designs/loud/happiness-within-ice-blue.webp?v=c1b48869",
+       "small": "assets/designs/loud/happiness-within-ice-blue-sm.webp?v=18cf4da5",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/loud/happiness-within-midnight.webp",
-       "small": "assets/designs/loud/happiness-within-midnight-sm.webp",
+       "src": "assets/designs/loud/happiness-within-midnight.webp?v=29cf9556",
+       "small": "assets/designs/loud/happiness-within-midnight-sm.webp?v=51f5d03b",
        "width": 870
       }
      },
-     "art": "designs-isolated/loud/happiness-within.png",
+     "art": "designs-isolated/loud/happiness-within.png?v=f4b50459",
      "ratio": 0.8676,
      "faint": [
       "ice-blue"
@@ -380,20 +380,20 @@ window.BELIEF_DESIGNS = {
      "id": "summer-waves",
      "title": "Summer Waves",
      "source": "summer-waves.jpg",
-     "thumb": "assets/designs/loud/summer-waves-thumb.webp",
+     "thumb": "assets/designs/loud/summer-waves-thumb.webp?v=6ef1a039",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/loud/summer-waves-ice-blue.webp",
-       "small": "assets/designs/loud/summer-waves-ice-blue-sm.webp",
+       "src": "assets/designs/loud/summer-waves-ice-blue.webp?v=da4df23d",
+       "small": "assets/designs/loud/summer-waves-ice-blue-sm.webp?v=d75c1bbc",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/loud/summer-waves-midnight.webp",
-       "small": "assets/designs/loud/summer-waves-midnight-sm.webp",
+       "src": "assets/designs/loud/summer-waves-midnight.webp?v=b467e45b",
+       "small": "assets/designs/loud/summer-waves-midnight-sm.webp?v=0d539456",
        "width": 870
       }
      },
-     "art": "designs-isolated/loud/summer-waves.png",
+     "art": "designs-isolated/loud/summer-waves.png?v=e1ae8e4c",
      "ratio": 1.466,
      "faint": [
       "ice-blue"
@@ -407,20 +407,20 @@ window.BELIEF_DESIGNS = {
      "id": "just-be-yourself",
      "title": "Just Be Yourself",
      "source": "just-be-yourself.jpg",
-     "thumb": "assets/designs/loud/just-be-yourself-thumb.webp",
+     "thumb": "assets/designs/loud/just-be-yourself-thumb.webp?v=71af5673",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/loud/just-be-yourself-ice-blue.webp",
-       "small": "assets/designs/loud/just-be-yourself-ice-blue-sm.webp",
+       "src": "assets/designs/loud/just-be-yourself-ice-blue.webp?v=fa4d229c",
+       "small": "assets/designs/loud/just-be-yourself-ice-blue-sm.webp?v=800a469f",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/loud/just-be-yourself-midnight.webp",
-       "small": "assets/designs/loud/just-be-yourself-midnight-sm.webp",
+       "src": "assets/designs/loud/just-be-yourself-midnight.webp?v=8f3f480d",
+       "small": "assets/designs/loud/just-be-yourself-midnight-sm.webp?v=a1934ce3",
        "width": 870
       }
      },
-     "art": "designs-isolated/loud/just-be-yourself.png",
+     "art": "designs-isolated/loud/just-be-yourself.png?v=bce33ca6",
      "ratio": 0.8511,
      "faint": [
       "ice-blue"
@@ -434,20 +434,20 @@ window.BELIEF_DESIGNS = {
      "id": "human-after-all",
      "title": "Human After All",
      "source": "human-after-all.jpg",
-     "thumb": "assets/designs/loud/human-after-all-thumb.webp",
+     "thumb": "assets/designs/loud/human-after-all-thumb.webp?v=51a18665",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/loud/human-after-all-ice-blue.webp",
-       "small": "assets/designs/loud/human-after-all-ice-blue-sm.webp",
+       "src": "assets/designs/loud/human-after-all-ice-blue.webp?v=a5d44076",
+       "small": "assets/designs/loud/human-after-all-ice-blue-sm.webp?v=05182d72",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/loud/human-after-all-midnight.webp",
-       "small": "assets/designs/loud/human-after-all-midnight-sm.webp",
+       "src": "assets/designs/loud/human-after-all-midnight.webp?v=bdc3fd7f",
+       "small": "assets/designs/loud/human-after-all-midnight-sm.webp?v=44a66e64",
        "width": 870
       }
      },
-     "art": "designs-isolated/loud/human-after-all.png",
+     "art": "designs-isolated/loud/human-after-all.png?v=88e65661",
      "ratio": 1.2098,
      "palette": [
       "#fcfefd",
@@ -458,20 +458,20 @@ window.BELIEF_DESIGNS = {
      "id": "light-of-the-world",
      "title": "Light of the World",
      "source": "light-of-the-world.jpg",
-     "thumb": "assets/designs/loud/light-of-the-world-thumb.webp",
+     "thumb": "assets/designs/loud/light-of-the-world-thumb.webp?v=0daca710",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/loud/light-of-the-world-ice-blue.webp",
-       "small": "assets/designs/loud/light-of-the-world-ice-blue-sm.webp",
+       "src": "assets/designs/loud/light-of-the-world-ice-blue.webp?v=8489d4ad",
+       "small": "assets/designs/loud/light-of-the-world-ice-blue-sm.webp?v=b1d719cf",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/loud/light-of-the-world-midnight.webp",
-       "small": "assets/designs/loud/light-of-the-world-midnight-sm.webp",
+       "src": "assets/designs/loud/light-of-the-world-midnight.webp?v=39fc7a6f",
+       "small": "assets/designs/loud/light-of-the-world-midnight-sm.webp?v=39ef75f1",
        "width": 870
       }
      },
-     "art": "designs-isolated/loud/light-of-the-world.png",
+     "art": "designs-isolated/loud/light-of-the-world.png?v=b4c64c8e",
      "ratio": 1.0549,
      "palette": [
       "#fdfde5",
@@ -482,20 +482,20 @@ window.BELIEF_DESIGNS = {
      "id": "brooklyn-varsity",
      "title": "Brooklyn Varsity Club",
      "source": "brooklyn-varsity.jpg",
-     "thumb": "assets/designs/loud/brooklyn-varsity-thumb.webp",
+     "thumb": "assets/designs/loud/brooklyn-varsity-thumb.webp?v=7c02f8f0",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/loud/brooklyn-varsity-ice-blue.webp",
-       "small": "assets/designs/loud/brooklyn-varsity-ice-blue-sm.webp",
+       "src": "assets/designs/loud/brooklyn-varsity-ice-blue.webp?v=e15fe13e",
+       "small": "assets/designs/loud/brooklyn-varsity-ice-blue-sm.webp?v=bcceb068",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/loud/brooklyn-varsity-midnight.webp",
-       "small": "assets/designs/loud/brooklyn-varsity-midnight-sm.webp",
+       "src": "assets/designs/loud/brooklyn-varsity-midnight.webp?v=091f3bd0",
+       "small": "assets/designs/loud/brooklyn-varsity-midnight-sm.webp?v=78a599ed",
        "width": 870
       }
      },
-     "art": "designs-isolated/loud/brooklyn-varsity.png",
+     "art": "designs-isolated/loud/brooklyn-varsity.png?v=f18254a8",
      "ratio": 1.4816,
      "palette": [
       "#f5f7f6",
@@ -506,20 +506,20 @@ window.BELIEF_DESIGNS = {
      "id": "dream-big",
      "title": "Dream Big, Start Small",
      "source": "dream-big.png",
-     "thumb": "assets/designs/loud/dream-big-thumb.webp",
+     "thumb": "assets/designs/loud/dream-big-thumb.webp?v=34c4b0df",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/loud/dream-big-ice-blue.webp",
-       "small": "assets/designs/loud/dream-big-ice-blue-sm.webp",
+       "src": "assets/designs/loud/dream-big-ice-blue.webp?v=4a26713c",
+       "small": "assets/designs/loud/dream-big-ice-blue-sm.webp?v=1f48a440",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/loud/dream-big-midnight.webp",
-       "small": "assets/designs/loud/dream-big-midnight-sm.webp",
+       "src": "assets/designs/loud/dream-big-midnight.webp?v=55a05a85",
+       "small": "assets/designs/loud/dream-big-midnight-sm.webp?v=7c85702a",
        "width": 870
       }
      },
-     "art": "designs-isolated/loud/dream-big.png",
+     "art": "designs-isolated/loud/dream-big.png?v=26aaa06c",
      "ratio": 1.1237,
      "palette": [
       "#d83d3b",
@@ -530,20 +530,20 @@ window.BELIEF_DESIGNS = {
      "id": "perfect-love",
      "title": "Perfect Love",
      "source": "perfect-love.png",
-     "thumb": "assets/designs/loud/perfect-love-thumb.webp",
+     "thumb": "assets/designs/loud/perfect-love-thumb.webp?v=00ff47eb",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/loud/perfect-love-ice-blue.webp",
-       "small": "assets/designs/loud/perfect-love-ice-blue-sm.webp",
+       "src": "assets/designs/loud/perfect-love-ice-blue.webp?v=1729df4d",
+       "small": "assets/designs/loud/perfect-love-ice-blue-sm.webp?v=62f234b2",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/loud/perfect-love-midnight.webp",
-       "small": "assets/designs/loud/perfect-love-midnight-sm.webp",
+       "src": "assets/designs/loud/perfect-love-midnight.webp?v=0cadc809",
+       "small": "assets/designs/loud/perfect-love-midnight-sm.webp?v=d5af2b6c",
        "width": 870
       }
      },
-     "art": "designs-isolated/loud/perfect-love.png",
+     "art": "designs-isolated/loud/perfect-love.png?v=ade75b64",
      "ratio": 0.9895,
      "palette": [
       "#547306",
@@ -554,20 +554,20 @@ window.BELIEF_DESIGNS = {
      "id": "homebody-club",
      "title": "The Homebody Club",
      "source": "homebody-club.jpg",
-     "thumb": "assets/designs/loud/homebody-club-thumb.webp",
+     "thumb": "assets/designs/loud/homebody-club-thumb.webp?v=9f1abea9",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/loud/homebody-club-ice-blue.webp",
-       "small": "assets/designs/loud/homebody-club-ice-blue-sm.webp",
+       "src": "assets/designs/loud/homebody-club-ice-blue.webp?v=dbf0454a",
+       "small": "assets/designs/loud/homebody-club-ice-blue-sm.webp?v=aec9b9f7",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/loud/homebody-club-midnight.webp",
-       "small": "assets/designs/loud/homebody-club-midnight-sm.webp",
+       "src": "assets/designs/loud/homebody-club-midnight.webp?v=e68f7abe",
+       "small": "assets/designs/loud/homebody-club-midnight-sm.webp?v=583a267c",
        "width": 870
       }
      },
-     "art": "designs-isolated/loud/homebody-club.png",
+     "art": "designs-isolated/loud/homebody-club.png?v=7e76c7da",
      "ratio": 1.5352,
      "palette": [
       "#296d54",
@@ -578,20 +578,20 @@ window.BELIEF_DESIGNS = {
      "id": "around-the-world",
      "title": "Around the World",
      "source": "around-the-world.jpg",
-     "thumb": "assets/designs/loud/around-the-world-thumb.webp",
+     "thumb": "assets/designs/loud/around-the-world-thumb.webp?v=be41583c",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/loud/around-the-world-ice-blue.webp",
-       "small": "assets/designs/loud/around-the-world-ice-blue-sm.webp",
+       "src": "assets/designs/loud/around-the-world-ice-blue.webp?v=fe7ce86b",
+       "small": "assets/designs/loud/around-the-world-ice-blue-sm.webp?v=8fcfd7dc",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/loud/around-the-world-midnight.webp",
-       "small": "assets/designs/loud/around-the-world-midnight-sm.webp",
+       "src": "assets/designs/loud/around-the-world-midnight.webp?v=e61266e9",
+       "small": "assets/designs/loud/around-the-world-midnight-sm.webp?v=ebde3dec",
        "width": 870
       }
      },
-     "art": "designs-isolated/loud/around-the-world.png",
+     "art": "designs-isolated/loud/around-the-world.png?v=0acc4664",
      "ratio": 0.7097,
      "palette": [
       "#0c2968",
@@ -607,20 +607,20 @@ window.BELIEF_DESIGNS = {
      "id": "grow-at-your-own-pace",
      "title": "Grow at Your Own Pace",
      "source": "grow-at-your-own-pace.jpg",
-     "thumb": "assets/designs/matisse-cut-out/grow-at-your-own-pace-thumb.webp",
+     "thumb": "assets/designs/matisse-cut-out/grow-at-your-own-pace-thumb.webp?v=b244b929",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/matisse-cut-out/grow-at-your-own-pace-ice-blue.webp",
-       "small": "assets/designs/matisse-cut-out/grow-at-your-own-pace-ice-blue-sm.webp",
+       "src": "assets/designs/matisse-cut-out/grow-at-your-own-pace-ice-blue.webp?v=12b6474b",
+       "small": "assets/designs/matisse-cut-out/grow-at-your-own-pace-ice-blue-sm.webp?v=90363597",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/matisse-cut-out/grow-at-your-own-pace-midnight.webp",
-       "small": "assets/designs/matisse-cut-out/grow-at-your-own-pace-midnight-sm.webp",
+       "src": "assets/designs/matisse-cut-out/grow-at-your-own-pace-midnight.webp?v=0ecc76de",
+       "small": "assets/designs/matisse-cut-out/grow-at-your-own-pace-midnight-sm.webp?v=a28a7b00",
        "width": 870
       }
      },
-     "art": "designs-isolated/matisse-cut-out/grow-at-your-own-pace.png",
+     "art": "designs-isolated/matisse-cut-out/grow-at-your-own-pace.png?v=c1f2ed22",
      "ratio": 0.7357,
      "palette": [
       "#f86824",
@@ -631,20 +631,20 @@ window.BELIEF_DESIGNS = {
      "id": "sunset-tide",
      "title": "Sunset Tide",
      "source": "sunset-tide.jpg",
-     "thumb": "assets/designs/matisse-cut-out/sunset-tide-thumb.webp",
+     "thumb": "assets/designs/matisse-cut-out/sunset-tide-thumb.webp?v=da70e1a2",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/matisse-cut-out/sunset-tide-ice-blue.webp",
-       "small": "assets/designs/matisse-cut-out/sunset-tide-ice-blue-sm.webp",
+       "src": "assets/designs/matisse-cut-out/sunset-tide-ice-blue.webp?v=3270fa5a",
+       "small": "assets/designs/matisse-cut-out/sunset-tide-ice-blue-sm.webp?v=18d873aa",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/matisse-cut-out/sunset-tide-midnight.webp",
-       "small": "assets/designs/matisse-cut-out/sunset-tide-midnight-sm.webp",
+       "src": "assets/designs/matisse-cut-out/sunset-tide-midnight.webp?v=4912e076",
+       "small": "assets/designs/matisse-cut-out/sunset-tide-midnight-sm.webp?v=b9cfe142",
        "width": 870
       }
      },
-     "art": "designs-isolated/matisse-cut-out/sunset-tide.png",
+     "art": "designs-isolated/matisse-cut-out/sunset-tide.png?v=60f0b3b0",
      "ratio": 0.6934,
      "faint": [
       "ice-blue"
@@ -658,20 +658,20 @@ window.BELIEF_DESIGNS = {
      "id": "lemons",
      "title": "Lemons",
      "source": "lemons.jpg",
-     "thumb": "assets/designs/matisse-cut-out/lemons-thumb.webp",
+     "thumb": "assets/designs/matisse-cut-out/lemons-thumb.webp?v=393a9816",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/matisse-cut-out/lemons-ice-blue.webp",
-       "small": "assets/designs/matisse-cut-out/lemons-ice-blue-sm.webp",
+       "src": "assets/designs/matisse-cut-out/lemons-ice-blue.webp?v=f4d5bb93",
+       "small": "assets/designs/matisse-cut-out/lemons-ice-blue-sm.webp?v=95384af1",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/matisse-cut-out/lemons-midnight.webp",
-       "small": "assets/designs/matisse-cut-out/lemons-midnight-sm.webp",
+       "src": "assets/designs/matisse-cut-out/lemons-midnight.webp?v=ad5107ea",
+       "small": "assets/designs/matisse-cut-out/lemons-midnight-sm.webp?v=5373d7e9",
        "width": 870
       }
      },
-     "art": "designs-isolated/matisse-cut-out/lemons.png",
+     "art": "designs-isolated/matisse-cut-out/lemons.png?v=8bd7ff7e",
      "ratio": 0.7189,
      "palette": [
       "#f5ca36",
@@ -682,20 +682,20 @@ window.BELIEF_DESIGNS = {
      "id": "sunburst",
      "title": "Sunburst",
      "source": "sunburst.jpg",
-     "thumb": "assets/designs/matisse-cut-out/sunburst-thumb.webp",
+     "thumb": "assets/designs/matisse-cut-out/sunburst-thumb.webp?v=aa6b553d",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/matisse-cut-out/sunburst-ice-blue.webp",
-       "small": "assets/designs/matisse-cut-out/sunburst-ice-blue-sm.webp",
+       "src": "assets/designs/matisse-cut-out/sunburst-ice-blue.webp?v=04b5511e",
+       "small": "assets/designs/matisse-cut-out/sunburst-ice-blue-sm.webp?v=3197be21",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/matisse-cut-out/sunburst-midnight.webp",
-       "small": "assets/designs/matisse-cut-out/sunburst-midnight-sm.webp",
+       "src": "assets/designs/matisse-cut-out/sunburst-midnight.webp?v=8581f333",
+       "small": "assets/designs/matisse-cut-out/sunburst-midnight-sm.webp?v=8fea69f0",
        "width": 870
       }
      },
-     "art": "designs-isolated/matisse-cut-out/sunburst.png",
+     "art": "designs-isolated/matisse-cut-out/sunburst.png?v=1ae0f232",
      "ratio": 0.6843,
      "faint": [
       "ice-blue"
@@ -709,20 +709,20 @@ window.BELIEF_DESIGNS = {
      "id": "blue-daisies",
      "title": "Blue Daisies",
      "source": "blue-daisies.jpg",
-     "thumb": "assets/designs/matisse-cut-out/blue-daisies-thumb.webp",
+     "thumb": "assets/designs/matisse-cut-out/blue-daisies-thumb.webp?v=73cfd9a5",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/matisse-cut-out/blue-daisies-ice-blue.webp",
-       "small": "assets/designs/matisse-cut-out/blue-daisies-ice-blue-sm.webp",
+       "src": "assets/designs/matisse-cut-out/blue-daisies-ice-blue.webp?v=6d79db46",
+       "small": "assets/designs/matisse-cut-out/blue-daisies-ice-blue-sm.webp?v=54527f2d",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/matisse-cut-out/blue-daisies-midnight.webp",
-       "small": "assets/designs/matisse-cut-out/blue-daisies-midnight-sm.webp",
+       "src": "assets/designs/matisse-cut-out/blue-daisies-midnight.webp?v=061b384b",
+       "small": "assets/designs/matisse-cut-out/blue-daisies-midnight-sm.webp?v=f1132166",
        "width": 870
       }
      },
-     "art": "designs-isolated/matisse-cut-out/blue-daisies.png",
+     "art": "designs-isolated/matisse-cut-out/blue-daisies.png?v=d7694c62",
      "ratio": 0.7198,
      "palette": [
       "#0a47a9",
@@ -733,20 +733,20 @@ window.BELIEF_DESIGNS = {
      "id": "sun-between-waves",
      "title": "Sun Between Waves",
      "source": "sun-between-waves.jpg",
-     "thumb": "assets/designs/matisse-cut-out/sun-between-waves-thumb.webp",
+     "thumb": "assets/designs/matisse-cut-out/sun-between-waves-thumb.webp?v=4f692506",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/matisse-cut-out/sun-between-waves-ice-blue.webp",
-       "small": "assets/designs/matisse-cut-out/sun-between-waves-ice-blue-sm.webp",
+       "src": "assets/designs/matisse-cut-out/sun-between-waves-ice-blue.webp?v=74b11937",
+       "small": "assets/designs/matisse-cut-out/sun-between-waves-ice-blue-sm.webp?v=7358d182",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/matisse-cut-out/sun-between-waves-midnight.webp",
-       "small": "assets/designs/matisse-cut-out/sun-between-waves-midnight-sm.webp",
+       "src": "assets/designs/matisse-cut-out/sun-between-waves-midnight.webp?v=51cde5f0",
+       "small": "assets/designs/matisse-cut-out/sun-between-waves-midnight-sm.webp?v=6e3cfc6a",
        "width": 870
       }
      },
-     "art": "designs-isolated/matisse-cut-out/sun-between-waves.png",
+     "art": "designs-isolated/matisse-cut-out/sun-between-waves.png?v=eb5c18c0",
      "ratio": 0.6941,
      "palette": [
       "#2d67de",
@@ -757,20 +757,20 @@ window.BELIEF_DESIGNS = {
      "id": "blue-stem",
      "title": "Blue Stem",
      "source": "blue-stem.jpg",
-     "thumb": "assets/designs/matisse-cut-out/blue-stem-thumb.webp",
+     "thumb": "assets/designs/matisse-cut-out/blue-stem-thumb.webp?v=0e1a3dde",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/matisse-cut-out/blue-stem-ice-blue.webp",
-       "small": "assets/designs/matisse-cut-out/blue-stem-ice-blue-sm.webp",
+       "src": "assets/designs/matisse-cut-out/blue-stem-ice-blue.webp?v=95e1f0f8",
+       "small": "assets/designs/matisse-cut-out/blue-stem-ice-blue-sm.webp?v=bbcd3450",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/matisse-cut-out/blue-stem-midnight.webp",
-       "small": "assets/designs/matisse-cut-out/blue-stem-midnight-sm.webp",
+       "src": "assets/designs/matisse-cut-out/blue-stem-midnight.webp?v=076cfd2c",
+       "small": "assets/designs/matisse-cut-out/blue-stem-midnight-sm.webp?v=0b32a0de",
        "width": 870
       }
      },
-     "art": "designs-isolated/matisse-cut-out/blue-stem.png",
+     "art": "designs-isolated/matisse-cut-out/blue-stem.png?v=f2b39c81",
      "ratio": 0.7066,
      "faint": [
       "ice-blue"
@@ -784,20 +784,20 @@ window.BELIEF_DESIGNS = {
      "id": "wildflowers",
      "title": "Wildflowers",
      "source": "wildflowers.jpg",
-     "thumb": "assets/designs/matisse-cut-out/wildflowers-thumb.webp",
+     "thumb": "assets/designs/matisse-cut-out/wildflowers-thumb.webp?v=1d98b709",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/matisse-cut-out/wildflowers-ice-blue.webp",
-       "small": "assets/designs/matisse-cut-out/wildflowers-ice-blue-sm.webp",
+       "src": "assets/designs/matisse-cut-out/wildflowers-ice-blue.webp?v=833f866f",
+       "small": "assets/designs/matisse-cut-out/wildflowers-ice-blue-sm.webp?v=6dabf4cc",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/matisse-cut-out/wildflowers-midnight.webp",
-       "small": "assets/designs/matisse-cut-out/wildflowers-midnight-sm.webp",
+       "src": "assets/designs/matisse-cut-out/wildflowers-midnight.webp?v=60e45c4d",
+       "small": "assets/designs/matisse-cut-out/wildflowers-midnight-sm.webp?v=1c0232b7",
        "width": 870
       }
      },
-     "art": "designs-isolated/matisse-cut-out/wildflowers.png",
+     "art": "designs-isolated/matisse-cut-out/wildflowers.png?v=edc63fce",
      "ratio": 0.7887,
      "palette": [
       "#f19a22",
@@ -808,20 +808,20 @@ window.BELIEF_DESIGNS = {
      "id": "green-flower",
      "title": "Green Flower",
      "source": "green-flower.jpg",
-     "thumb": "assets/designs/matisse-cut-out/green-flower-thumb.webp",
+     "thumb": "assets/designs/matisse-cut-out/green-flower-thumb.webp?v=aa07dc66",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/matisse-cut-out/green-flower-ice-blue.webp",
-       "small": "assets/designs/matisse-cut-out/green-flower-ice-blue-sm.webp",
+       "src": "assets/designs/matisse-cut-out/green-flower-ice-blue.webp?v=08d4d4f8",
+       "small": "assets/designs/matisse-cut-out/green-flower-ice-blue-sm.webp?v=f497279f",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/matisse-cut-out/green-flower-midnight.webp",
-       "small": "assets/designs/matisse-cut-out/green-flower-midnight-sm.webp",
+       "src": "assets/designs/matisse-cut-out/green-flower-midnight.webp?v=e2b61004",
+       "small": "assets/designs/matisse-cut-out/green-flower-midnight-sm.webp?v=9ffbe658",
        "width": 870
       }
      },
-     "art": "designs-isolated/matisse-cut-out/green-flower.png",
+     "art": "designs-isolated/matisse-cut-out/green-flower.png?v=a935f128",
      "ratio": 0.673,
      "palette": [
       "#2c5400",
@@ -832,20 +832,20 @@ window.BELIEF_DESIGNS = {
      "id": "night-blooms",
      "title": "Night Blooms",
      "source": "night-blooms.jpg",
-     "thumb": "assets/designs/matisse-cut-out/night-blooms-thumb.webp",
+     "thumb": "assets/designs/matisse-cut-out/night-blooms-thumb.webp?v=2e7134cc",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/matisse-cut-out/night-blooms-ice-blue.webp",
-       "small": "assets/designs/matisse-cut-out/night-blooms-ice-blue-sm.webp",
+       "src": "assets/designs/matisse-cut-out/night-blooms-ice-blue.webp?v=2c075462",
+       "small": "assets/designs/matisse-cut-out/night-blooms-ice-blue-sm.webp?v=62a07dea",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/matisse-cut-out/night-blooms-midnight.webp",
-       "small": "assets/designs/matisse-cut-out/night-blooms-midnight-sm.webp",
+       "src": "assets/designs/matisse-cut-out/night-blooms-midnight.webp?v=b61f1c91",
+       "small": "assets/designs/matisse-cut-out/night-blooms-midnight-sm.webp?v=f8ce58ba",
        "width": 870
       }
      },
-     "art": "designs-isolated/matisse-cut-out/night-blooms.png",
+     "art": "designs-isolated/matisse-cut-out/night-blooms.png?v=d92c0405",
      "ratio": 0.7239,
      "faint": [
       "midnight"
@@ -864,20 +864,20 @@ window.BELIEF_DESIGNS = {
      "id": "summit-club",
      "title": "Summit Club",
      "source": "summit-club.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/summit-club-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/summit-club-thumb.webp?v=4321af1c",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/summit-club-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/summit-club-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/summit-club-ice-blue.webp?v=7e51e41f",
+       "small": "assets/designs/retro-mascot-badge/summit-club-ice-blue-sm.webp?v=1134eb45",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/summit-club-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/summit-club-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/summit-club-midnight.webp?v=f8b866e9",
+       "small": "assets/designs/retro-mascot-badge/summit-club-midnight-sm.webp?v=51f337f3",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/summit-club.png",
+     "art": "designs-isolated/retro-mascot-badge/summit-club.png?v=99159a53",
      "ratio": 0.7717,
      "palette": [
       "#b95236",
@@ -888,20 +888,20 @@ window.BELIEF_DESIGNS = {
      "id": "happy-hands",
      "title": "Happy Hands",
      "source": "happy-hands.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/happy-hands-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/happy-hands-thumb.webp?v=adc05f6c",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/happy-hands-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/happy-hands-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/happy-hands-ice-blue.webp?v=6bb625c2",
+       "small": "assets/designs/retro-mascot-badge/happy-hands-ice-blue-sm.webp?v=3acd3346",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/happy-hands-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/happy-hands-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/happy-hands-midnight.webp?v=4e2bbf31",
+       "small": "assets/designs/retro-mascot-badge/happy-hands-midnight-sm.webp?v=0aa70717",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/happy-hands.png",
+     "art": "designs-isolated/retro-mascot-badge/happy-hands.png?v=a2f7b2e4",
      "ratio": 0.8009,
      "palette": [
       "#da8c35",
@@ -912,20 +912,20 @@ window.BELIEF_DESIGNS = {
      "id": "cookies-and-milk",
      "title": "Cookies & Milk",
      "source": "cookies-and-milk.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/cookies-and-milk-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/cookies-and-milk-thumb.webp?v=342054c6",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/cookies-and-milk-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/cookies-and-milk-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/cookies-and-milk-ice-blue.webp?v=500d1954",
+       "small": "assets/designs/retro-mascot-badge/cookies-and-milk-ice-blue-sm.webp?v=0b8fccc5",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/cookies-and-milk-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/cookies-and-milk-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/cookies-and-milk-midnight.webp?v=59535ca4",
+       "small": "assets/designs/retro-mascot-badge/cookies-and-milk-midnight-sm.webp?v=aa3caeef",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/cookies-and-milk.png",
+     "art": "designs-isolated/retro-mascot-badge/cookies-and-milk.png?v=40f3f3ae",
      "ratio": 1.0304,
      "palette": [
       "#d25442",
@@ -936,20 +936,20 @@ window.BELIEF_DESIGNS = {
      "id": "wrench-boy",
      "title": "Wrench Boy",
      "source": "wrench-boy.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/wrench-boy-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/wrench-boy-thumb.webp?v=4fe6270b",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/wrench-boy-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/wrench-boy-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/wrench-boy-ice-blue.webp?v=519d02f7",
+       "small": "assets/designs/retro-mascot-badge/wrench-boy-ice-blue-sm.webp?v=c639bbfb",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/wrench-boy-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/wrench-boy-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/wrench-boy-midnight.webp?v=207d909b",
+       "small": "assets/designs/retro-mascot-badge/wrench-boy-midnight-sm.webp?v=a0957d21",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/wrench-boy.png",
+     "art": "designs-isolated/retro-mascot-badge/wrench-boy.png?v=48c6f560",
      "ratio": 0.6466,
      "palette": [
       "#78cee7",
@@ -960,20 +960,20 @@ window.BELIEF_DESIGNS = {
      "id": "grandpa-goods",
      "title": "Grandpa Goods",
      "source": "grandpa-goods.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/grandpa-goods-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/grandpa-goods-thumb.webp?v=d7a9913b",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/grandpa-goods-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/grandpa-goods-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/grandpa-goods-ice-blue.webp?v=f1535638",
+       "small": "assets/designs/retro-mascot-badge/grandpa-goods-ice-blue-sm.webp?v=f8c42b6e",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/grandpa-goods-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/grandpa-goods-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/grandpa-goods-midnight.webp?v=fedfbdc1",
+       "small": "assets/designs/retro-mascot-badge/grandpa-goods-midnight-sm.webp?v=05bf3965",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/grandpa-goods.png",
+     "art": "designs-isolated/retro-mascot-badge/grandpa-goods.png?v=6a4a4582",
      "ratio": 0.8726,
      "palette": [
       "#b92428",
@@ -985,20 +985,20 @@ window.BELIEF_DESIGNS = {
      "id": "central-oak",
      "title": "Central Oak Barber Co.",
      "source": "central-oak.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/central-oak-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/central-oak-thumb.webp?v=0414a1bd",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/central-oak-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/central-oak-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/central-oak-ice-blue.webp?v=95906b5c",
+       "small": "assets/designs/retro-mascot-badge/central-oak-ice-blue-sm.webp?v=81c76d44",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/central-oak-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/central-oak-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/central-oak-midnight.webp?v=da73d53f",
+       "small": "assets/designs/retro-mascot-badge/central-oak-midnight-sm.webp?v=5cf364cb",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/central-oak.png",
+     "art": "designs-isolated/retro-mascot-badge/central-oak.png?v=5af22ea7",
      "ratio": 0.9947,
      "faint": [
       "midnight"
@@ -1013,20 +1013,20 @@ window.BELIEF_DESIGNS = {
      "id": "kooppee",
      "title": "Kooppee",
      "source": "kooppee.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/kooppee-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/kooppee-thumb.webp?v=18eef8b9",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/kooppee-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/kooppee-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/kooppee-ice-blue.webp?v=97afedb8",
+       "small": "assets/designs/retro-mascot-badge/kooppee-ice-blue-sm.webp?v=ac597798",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/kooppee-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/kooppee-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/kooppee-midnight.webp?v=901b12a4",
+       "small": "assets/designs/retro-mascot-badge/kooppee-midnight-sm.webp?v=2fdcf084",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/kooppee.png",
+     "art": "designs-isolated/retro-mascot-badge/kooppee.png?v=bd534fa3",
      "ratio": 0.7859,
      "faint": [
       "midnight"
@@ -1040,20 +1040,20 @@ window.BELIEF_DESIGNS = {
      "id": "garage-club",
      "title": "Garage Club",
      "source": "garage-club.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/garage-club-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/garage-club-thumb.webp?v=2cdfdc7d",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/garage-club-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/garage-club-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/garage-club-ice-blue.webp?v=f5f6eda4",
+       "small": "assets/designs/retro-mascot-badge/garage-club-ice-blue-sm.webp?v=5aed1629",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/garage-club-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/garage-club-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/garage-club-midnight.webp?v=7ed2e324",
+       "small": "assets/designs/retro-mascot-badge/garage-club-midnight-sm.webp?v=b3ea3be7",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/garage-club.png",
+     "art": "designs-isolated/retro-mascot-badge/garage-club.png?v=0de2a490",
      "ratio": 0.673,
      "faint": [
       "midnight"
@@ -1067,20 +1067,20 @@ window.BELIEF_DESIGNS = {
      "id": "lagu-mano-boh",
      "title": "Lagu Mano Boh",
      "source": "lagu-mano-boh.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/lagu-mano-boh-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/lagu-mano-boh-thumb.webp?v=def16528",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/lagu-mano-boh-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/lagu-mano-boh-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/lagu-mano-boh-ice-blue.webp?v=7d468148",
+       "small": "assets/designs/retro-mascot-badge/lagu-mano-boh-ice-blue-sm.webp?v=865b491c",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/lagu-mano-boh-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/lagu-mano-boh-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/lagu-mano-boh-midnight.webp?v=aedb808b",
+       "small": "assets/designs/retro-mascot-badge/lagu-mano-boh-midnight-sm.webp?v=e37f34fe",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/lagu-mano-boh.png",
+     "art": "designs-isolated/retro-mascot-badge/lagu-mano-boh.png?v=27c62c54",
      "ratio": 0.9043,
      "palette": [
       "#0a57d5",
@@ -1091,20 +1091,20 @@ window.BELIEF_DESIGNS = {
      "id": "food-festival",
      "title": "Food Festival",
      "source": "food-festival.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/food-festival-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/food-festival-thumb.webp?v=7c67c416",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/food-festival-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/food-festival-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/food-festival-ice-blue.webp?v=850788c9",
+       "small": "assets/designs/retro-mascot-badge/food-festival-ice-blue-sm.webp?v=2c9eec0e",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/food-festival-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/food-festival-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/food-festival-midnight.webp?v=b6aba132",
+       "small": "assets/designs/retro-mascot-badge/food-festival-midnight-sm.webp?v=b0492f5d",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/food-festival.png",
+     "art": "designs-isolated/retro-mascot-badge/food-festival.png?v=8e9a644f",
      "ratio": 0.6706,
      "palette": [
       "#097c4a",
@@ -1115,20 +1115,20 @@ window.BELIEF_DESIGNS = {
      "id": "coffee-club",
      "title": "Coffee Club",
      "source": "coffee-club.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/coffee-club-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/coffee-club-thumb.webp?v=c83546fb",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/coffee-club-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/coffee-club-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/coffee-club-ice-blue.webp?v=62245a7b",
+       "small": "assets/designs/retro-mascot-badge/coffee-club-ice-blue-sm.webp?v=c12f387b",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/coffee-club-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/coffee-club-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/coffee-club-midnight.webp?v=341067f7",
+       "small": "assets/designs/retro-mascot-badge/coffee-club-midnight-sm.webp?v=f4df6100",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/coffee-club.png",
+     "art": "designs-isolated/retro-mascot-badge/coffee-club.png?v=1de1ecd2",
      "ratio": 0.681,
      "faint": [
       "midnight"
@@ -1142,20 +1142,20 @@ window.BELIEF_DESIGNS = {
      "id": "more-espresso",
      "title": "More Espresso",
      "source": "more-espresso.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/more-espresso-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/more-espresso-thumb.webp?v=08008d83",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/more-espresso-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/more-espresso-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/more-espresso-ice-blue.webp?v=09fbd4f6",
+       "small": "assets/designs/retro-mascot-badge/more-espresso-ice-blue-sm.webp?v=aed12548",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/more-espresso-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/more-espresso-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/more-espresso-midnight.webp?v=0ff75aa6",
+       "small": "assets/designs/retro-mascot-badge/more-espresso-midnight-sm.webp?v=d56ee318",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/more-espresso.png",
+     "art": "designs-isolated/retro-mascot-badge/more-espresso.png?v=b1f1b078",
      "ratio": 0.5927,
      "faint": [
       "midnight"
@@ -1169,20 +1169,20 @@ window.BELIEF_DESIGNS = {
      "id": "flushed-golf",
      "title": "Flushed Golf",
      "source": "flushed-golf.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/flushed-golf-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/flushed-golf-thumb.webp?v=18283c98",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/flushed-golf-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/flushed-golf-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/flushed-golf-ice-blue.webp?v=c52eb6e0",
+       "small": "assets/designs/retro-mascot-badge/flushed-golf-ice-blue-sm.webp?v=3ea30874",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/flushed-golf-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/flushed-golf-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/flushed-golf-midnight.webp?v=be5caead",
+       "small": "assets/designs/retro-mascot-badge/flushed-golf-midnight-sm.webp?v=b4e42d01",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/flushed-golf.png",
+     "art": "designs-isolated/retro-mascot-badge/flushed-golf.png?v=c0b68671",
      "ratio": 0.9467,
      "palette": [
       "#3b5854",
@@ -1193,20 +1193,20 @@ window.BELIEF_DESIGNS = {
      "id": "pizza-friends",
      "title": "Pizza Is Better With Friends",
      "source": "pizza-friends.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/pizza-friends-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/pizza-friends-thumb.webp?v=901b796b",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/pizza-friends-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/pizza-friends-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/pizza-friends-ice-blue.webp?v=3dd4988b",
+       "small": "assets/designs/retro-mascot-badge/pizza-friends-ice-blue-sm.webp?v=580cce4f",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/pizza-friends-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/pizza-friends-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/pizza-friends-midnight.webp?v=a17bd316",
+       "small": "assets/designs/retro-mascot-badge/pizza-friends-midnight-sm.webp?v=b6674a4b",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/pizza-friends.png",
+     "art": "designs-isolated/retro-mascot-badge/pizza-friends.png?v=27dbdd51",
      "ratio": 1.0919,
      "faint": [
       "midnight"
@@ -1220,20 +1220,20 @@ window.BELIEF_DESIGNS = {
      "id": "run-club-brunch",
      "title": "Run Club Brunch",
      "source": "run-club-brunch.jpg",
-     "thumb": "assets/designs/retro-mascot-badge/run-club-brunch-thumb.webp",
+     "thumb": "assets/designs/retro-mascot-badge/run-club-brunch-thumb.webp?v=9b475c0d",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot-badge/run-club-brunch-ice-blue.webp",
-       "small": "assets/designs/retro-mascot-badge/run-club-brunch-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/run-club-brunch-ice-blue.webp?v=9defde5d",
+       "small": "assets/designs/retro-mascot-badge/run-club-brunch-ice-blue-sm.webp?v=fd6f3ef3",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot-badge/run-club-brunch-midnight.webp",
-       "small": "assets/designs/retro-mascot-badge/run-club-brunch-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot-badge/run-club-brunch-midnight.webp?v=def63858",
+       "small": "assets/designs/retro-mascot-badge/run-club-brunch-midnight-sm.webp?v=b8bd7ca5",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot-badge/run-club-brunch.png",
+     "art": "designs-isolated/retro-mascot-badge/run-club-brunch.png?v=29d85eb8",
      "ratio": 0.8077,
      "palette": [
       "#d6332d",
@@ -1249,20 +1249,20 @@ window.BELIEF_DESIGNS = {
      "id": "public-records",
      "title": "Public Records",
      "source": "public-records.jpg",
-     "thumb": "assets/designs/retro-mascot/public-records-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/public-records-thumb.webp?v=4dd69e93",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/public-records-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/public-records-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/public-records-ice-blue.webp?v=07f15722",
+       "small": "assets/designs/retro-mascot/public-records-ice-blue-sm.webp?v=3958a071",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/public-records-midnight.webp",
-       "small": "assets/designs/retro-mascot/public-records-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/public-records-midnight.webp?v=830786d5",
+       "small": "assets/designs/retro-mascot/public-records-midnight-sm.webp?v=e2df6a1d",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/public-records.png",
+     "art": "designs-isolated/retro-mascot/public-records.png?v=35817b5d",
      "ratio": 0.779,
      "palette": [
       "#a32a2e",
@@ -1274,20 +1274,20 @@ window.BELIEF_DESIGNS = {
      "id": "dont-be-crabby",
      "title": "Don’t Be Crabby",
      "source": "dont-be-crabby.png",
-     "thumb": "assets/designs/retro-mascot/dont-be-crabby-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/dont-be-crabby-thumb.webp?v=92c19fcd",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/dont-be-crabby-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/dont-be-crabby-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/dont-be-crabby-ice-blue.webp?v=c998b949",
+       "small": "assets/designs/retro-mascot/dont-be-crabby-ice-blue-sm.webp?v=60a04752",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/dont-be-crabby-midnight.webp",
-       "small": "assets/designs/retro-mascot/dont-be-crabby-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/dont-be-crabby-midnight.webp?v=d4d8b082",
+       "small": "assets/designs/retro-mascot/dont-be-crabby-midnight-sm.webp?v=708ef3c4",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/dont-be-crabby.png",
+     "art": "designs-isolated/retro-mascot/dont-be-crabby.png?v=cc8e9952",
      "ratio": 1.0251,
      "palette": [
       "#ea462b",
@@ -1298,20 +1298,20 @@ window.BELIEF_DESIGNS = {
      "id": "bangers-sub-shop",
      "title": "Banger’s Sub Shop",
      "source": "bangers-sub-shop.png",
-     "thumb": "assets/designs/retro-mascot/bangers-sub-shop-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/bangers-sub-shop-thumb.webp?v=1bed8139",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/bangers-sub-shop-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/bangers-sub-shop-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/bangers-sub-shop-ice-blue.webp?v=6f56fbf6",
+       "small": "assets/designs/retro-mascot/bangers-sub-shop-ice-blue-sm.webp?v=b279f639",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/bangers-sub-shop-midnight.webp",
-       "small": "assets/designs/retro-mascot/bangers-sub-shop-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/bangers-sub-shop-midnight.webp?v=8dd0f99d",
+       "small": "assets/designs/retro-mascot/bangers-sub-shop-midnight-sm.webp?v=92626e36",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/bangers-sub-shop.png",
+     "art": "designs-isolated/retro-mascot/bangers-sub-shop.png?v=ff7937f4",
      "ratio": 1.0377,
      "palette": [
       "#da1907",
@@ -1323,20 +1323,20 @@ window.BELIEF_DESIGNS = {
      "id": "disco-only",
      "title": "Disco Only",
      "source": "disco-only.png",
-     "thumb": "assets/designs/retro-mascot/disco-only-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/disco-only-thumb.webp?v=00b545f3",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/disco-only-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/disco-only-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/disco-only-ice-blue.webp?v=b65e4977",
+       "small": "assets/designs/retro-mascot/disco-only-ice-blue-sm.webp?v=abd89d11",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/disco-only-midnight.webp",
-       "small": "assets/designs/retro-mascot/disco-only-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/disco-only-midnight.webp?v=f0793f34",
+       "small": "assets/designs/retro-mascot/disco-only-midnight-sm.webp?v=f307ce6d",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/disco-only.png",
+     "art": "designs-isolated/retro-mascot/disco-only.png?v=11711676",
      "ratio": 0.6529,
      "faint": [
       "midnight"
@@ -1350,20 +1350,20 @@ window.BELIEF_DESIGNS = {
      "id": "go-analog",
      "title": "Go Analog",
      "source": "go-analog.jpg",
-     "thumb": "assets/designs/retro-mascot/go-analog-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/go-analog-thumb.webp?v=d6e2fe5c",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/go-analog-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/go-analog-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/go-analog-ice-blue.webp?v=14180c2a",
+       "small": "assets/designs/retro-mascot/go-analog-ice-blue-sm.webp?v=3c555938",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/go-analog-midnight.webp",
-       "small": "assets/designs/retro-mascot/go-analog-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/go-analog-midnight.webp?v=d89fcc26",
+       "small": "assets/designs/retro-mascot/go-analog-midnight-sm.webp?v=730edb0e",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/go-analog.png",
+     "art": "designs-isolated/retro-mascot/go-analog.png?v=2b358bf0",
      "ratio": 0.7993,
      "palette": [
       "#cb2c1d",
@@ -1374,20 +1374,20 @@ window.BELIEF_DESIGNS = {
      "id": "the-clubhouse",
      "title": "The Clubhouse",
      "source": "the-clubhouse.png",
-     "thumb": "assets/designs/retro-mascot/the-clubhouse-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/the-clubhouse-thumb.webp?v=d41f12c4",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/the-clubhouse-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/the-clubhouse-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/the-clubhouse-ice-blue.webp?v=00e02162",
+       "small": "assets/designs/retro-mascot/the-clubhouse-ice-blue-sm.webp?v=dd939b95",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/the-clubhouse-midnight.webp",
-       "small": "assets/designs/retro-mascot/the-clubhouse-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/the-clubhouse-midnight.webp?v=0a39f6ea",
+       "small": "assets/designs/retro-mascot/the-clubhouse-midnight-sm.webp?v=a4ee3272",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/the-clubhouse.png",
+     "art": "designs-isolated/retro-mascot/the-clubhouse.png?v=87be1023",
      "ratio": 1.0037,
      "palette": [
       "#99232a",
@@ -1398,20 +1398,20 @@ window.BELIEF_DESIGNS = {
      "id": "pasta-la-vista",
      "title": "Pasta La Vista",
      "source": "pasta-la-vista.png",
-     "thumb": "assets/designs/retro-mascot/pasta-la-vista-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/pasta-la-vista-thumb.webp?v=c3d021fc",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/pasta-la-vista-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/pasta-la-vista-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/pasta-la-vista-ice-blue.webp?v=7196afdc",
+       "small": "assets/designs/retro-mascot/pasta-la-vista-ice-blue-sm.webp?v=c3dd7eec",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/pasta-la-vista-midnight.webp",
-       "small": "assets/designs/retro-mascot/pasta-la-vista-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/pasta-la-vista-midnight.webp?v=b4ed309f",
+       "small": "assets/designs/retro-mascot/pasta-la-vista-midnight-sm.webp?v=54316ae5",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/pasta-la-vista.png",
+     "art": "designs-isolated/retro-mascot/pasta-la-vista.png?v=25166eca",
      "ratio": 0.7099,
      "faint": [
       "midnight"
@@ -1425,20 +1425,20 @@ window.BELIEF_DESIGNS = {
      "id": "pasta-club",
      "title": "Pasta Club",
      "source": "pasta-club.jpg",
-     "thumb": "assets/designs/retro-mascot/pasta-club-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/pasta-club-thumb.webp?v=afa8562f",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/pasta-club-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/pasta-club-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/pasta-club-ice-blue.webp?v=6791759b",
+       "small": "assets/designs/retro-mascot/pasta-club-ice-blue-sm.webp?v=1fb871f6",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/pasta-club-midnight.webp",
-       "small": "assets/designs/retro-mascot/pasta-club-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/pasta-club-midnight.webp?v=5b16e894",
+       "small": "assets/designs/retro-mascot/pasta-club-midnight-sm.webp?v=2c7ba3eb",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/pasta-club.png",
+     "art": "designs-isolated/retro-mascot/pasta-club.png?v=c65d9ea3",
      "ratio": 0.7326,
      "palette": [
       "#2e61a7",
@@ -1449,20 +1449,20 @@ window.BELIEF_DESIGNS = {
      "id": "recents-detailing",
      "title": "Recent’s Car Detailing",
      "source": "recents-detailing.png",
-     "thumb": "assets/designs/retro-mascot/recents-detailing-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/recents-detailing-thumb.webp?v=80198f20",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/recents-detailing-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/recents-detailing-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/recents-detailing-ice-blue.webp?v=92957fc4",
+       "small": "assets/designs/retro-mascot/recents-detailing-ice-blue-sm.webp?v=9e4bc46c",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/recents-detailing-midnight.webp",
-       "small": "assets/designs/retro-mascot/recents-detailing-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/recents-detailing-midnight.webp?v=bca80ff8",
+       "small": "assets/designs/retro-mascot/recents-detailing-midnight-sm.webp?v=bb47682e",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/recents-detailing.png",
+     "art": "designs-isolated/retro-mascot/recents-detailing.png?v=30c015c6",
      "ratio": 0.9567,
      "palette": [
       "#eb1923",
@@ -1473,20 +1473,20 @@ window.BELIEF_DESIGNS = {
      "id": "perhaps-showroom",
      "title": "Perhaps Showroom",
      "source": "perhaps-showroom.png",
-     "thumb": "assets/designs/retro-mascot/perhaps-showroom-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/perhaps-showroom-thumb.webp?v=2f022983",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/perhaps-showroom-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/perhaps-showroom-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/perhaps-showroom-ice-blue.webp?v=62e4682d",
+       "small": "assets/designs/retro-mascot/perhaps-showroom-ice-blue-sm.webp?v=2be4384b",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/perhaps-showroom-midnight.webp",
-       "small": "assets/designs/retro-mascot/perhaps-showroom-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/perhaps-showroom-midnight.webp?v=a1046032",
+       "small": "assets/designs/retro-mascot/perhaps-showroom-midnight-sm.webp?v=215f6272",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/perhaps-showroom.png",
+     "art": "designs-isolated/retro-mascot/perhaps-showroom.png?v=c4544711",
      "ratio": 1.043,
      "palette": [
       "#f32627",
@@ -1497,20 +1497,20 @@ window.BELIEF_DESIGNS = {
      "id": "vintage-road",
      "title": "Vintage Road",
      "source": "vintage-road.jpg",
-     "thumb": "assets/designs/retro-mascot/vintage-road-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/vintage-road-thumb.webp?v=7da4ed4d",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/vintage-road-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/vintage-road-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/vintage-road-ice-blue.webp?v=1314b47f",
+       "small": "assets/designs/retro-mascot/vintage-road-ice-blue-sm.webp?v=f4459071",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/vintage-road-midnight.webp",
-       "small": "assets/designs/retro-mascot/vintage-road-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/vintage-road-midnight.webp?v=a0add5ec",
+       "small": "assets/designs/retro-mascot/vintage-road-midnight-sm.webp?v=fb6735aa",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/vintage-road.png",
+     "art": "designs-isolated/retro-mascot/vintage-road.png?v=c370321f",
      "ratio": 0.9933,
      "palette": [
       "#d73939",
@@ -1521,20 +1521,20 @@ window.BELIEF_DESIGNS = {
      "id": "timeless-style",
      "title": "Timeless Style",
      "source": "timeless-style.jpg",
-     "thumb": "assets/designs/retro-mascot/timeless-style-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/timeless-style-thumb.webp?v=cefb7f23",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/timeless-style-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/timeless-style-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/timeless-style-ice-blue.webp?v=cd9b15ad",
+       "small": "assets/designs/retro-mascot/timeless-style-ice-blue-sm.webp?v=7e1e03fa",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/timeless-style-midnight.webp",
-       "small": "assets/designs/retro-mascot/timeless-style-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/timeless-style-midnight.webp?v=c28484a4",
+       "small": "assets/designs/retro-mascot/timeless-style-midnight-sm.webp?v=29e62a9c",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/timeless-style.png",
+     "art": "designs-isolated/retro-mascot/timeless-style.png?v=48c10f26",
      "ratio": 0.7749,
      "palette": [
       "#e84737",
@@ -1545,20 +1545,20 @@ window.BELIEF_DESIGNS = {
      "id": "yes-we-are-open",
      "title": "Yes, We Are Open",
      "source": "yes-we-are-open.png",
-     "thumb": "assets/designs/retro-mascot/yes-we-are-open-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/yes-we-are-open-thumb.webp?v=a1d3d999",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/yes-we-are-open-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/yes-we-are-open-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/yes-we-are-open-ice-blue.webp?v=a5e456de",
+       "small": "assets/designs/retro-mascot/yes-we-are-open-ice-blue-sm.webp?v=9d5dea1d",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/yes-we-are-open-midnight.webp",
-       "small": "assets/designs/retro-mascot/yes-we-are-open-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/yes-we-are-open-midnight.webp?v=8f13bb3c",
+       "small": "assets/designs/retro-mascot/yes-we-are-open-midnight-sm.webp?v=e02c8c16",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/yes-we-are-open.png",
+     "art": "designs-isolated/retro-mascot/yes-we-are-open.png?v=7d5a152e",
      "ratio": 0.5833,
      "palette": [
       "#fa3937",
@@ -1569,20 +1569,20 @@ window.BELIEF_DESIGNS = {
      "id": "fisher-of-men",
      "title": "Fisher of Men",
      "source": "fisher-of-men.png",
-     "thumb": "assets/designs/retro-mascot/fisher-of-men-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/fisher-of-men-thumb.webp?v=0b571844",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/fisher-of-men-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/fisher-of-men-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/fisher-of-men-ice-blue.webp?v=c7d93c08",
+       "small": "assets/designs/retro-mascot/fisher-of-men-ice-blue-sm.webp?v=fa675e27",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/fisher-of-men-midnight.webp",
-       "small": "assets/designs/retro-mascot/fisher-of-men-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/fisher-of-men-midnight.webp?v=7a6b7e05",
+       "small": "assets/designs/retro-mascot/fisher-of-men-midnight-sm.webp?v=9f2fd803",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/fisher-of-men.png",
+     "art": "designs-isolated/retro-mascot/fisher-of-men.png?v=0e28e515",
      "ratio": 1.2913,
      "palette": [
       "#ea3305",
@@ -1593,20 +1593,20 @@ window.BELIEF_DESIGNS = {
      "id": "gratitude",
      "title": "Gratitude",
      "source": "gratitude.jpg",
-     "thumb": "assets/designs/retro-mascot/gratitude-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/gratitude-thumb.webp?v=024eb8b6",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/gratitude-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/gratitude-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/gratitude-ice-blue.webp?v=31b76e21",
+       "small": "assets/designs/retro-mascot/gratitude-ice-blue-sm.webp?v=a0f64192",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/gratitude-midnight.webp",
-       "small": "assets/designs/retro-mascot/gratitude-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/gratitude-midnight.webp?v=bffbb8a3",
+       "small": "assets/designs/retro-mascot/gratitude-midnight-sm.webp?v=7ef3536d",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/gratitude.png",
+     "art": "designs-isolated/retro-mascot/gratitude.png?v=b5a16637",
      "ratio": 0.7454,
      "palette": [
       "#335ca9",
@@ -1617,20 +1617,20 @@ window.BELIEF_DESIGNS = {
      "id": "consider-the-lilies",
      "title": "Consider the Lilies",
      "source": "consider-the-lilies.jpg",
-     "thumb": "assets/designs/retro-mascot/consider-the-lilies-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/consider-the-lilies-thumb.webp?v=22321063",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/consider-the-lilies-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/consider-the-lilies-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/consider-the-lilies-ice-blue.webp?v=6994f51c",
+       "small": "assets/designs/retro-mascot/consider-the-lilies-ice-blue-sm.webp?v=9d955107",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/consider-the-lilies-midnight.webp",
-       "small": "assets/designs/retro-mascot/consider-the-lilies-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/consider-the-lilies-midnight.webp?v=a1b0ab8b",
+       "small": "assets/designs/retro-mascot/consider-the-lilies-midnight-sm.webp?v=019a4602",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/consider-the-lilies.png",
+     "art": "designs-isolated/retro-mascot/consider-the-lilies.png?v=56fb578d",
      "ratio": 0.6967,
      "palette": [
       "#1b508c",
@@ -1641,20 +1641,20 @@ window.BELIEF_DESIGNS = {
      "id": "make-your-move",
      "title": "Make Your Move",
      "source": "make-your-move.jpg",
-     "thumb": "assets/designs/retro-mascot/make-your-move-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/make-your-move-thumb.webp?v=8c42ea9e",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/make-your-move-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/make-your-move-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/make-your-move-ice-blue.webp?v=8d3a0d22",
+       "small": "assets/designs/retro-mascot/make-your-move-ice-blue-sm.webp?v=71e31ffe",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/make-your-move-midnight.webp",
-       "small": "assets/designs/retro-mascot/make-your-move-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/make-your-move-midnight.webp?v=8bd9b8f8",
+       "small": "assets/designs/retro-mascot/make-your-move-midnight-sm.webp?v=929cf4ce",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/make-your-move.png",
+     "art": "designs-isolated/retro-mascot/make-your-move.png?v=a54c5b8a",
      "ratio": 0.8557,
      "palette": [
       "#2647b9",
@@ -1665,20 +1665,20 @@ window.BELIEF_DESIGNS = {
      "id": "north-bay",
      "title": "North Bay Leisure Club",
      "source": "north-bay.png",
-     "thumb": "assets/designs/retro-mascot/north-bay-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/north-bay-thumb.webp?v=85a2e006",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/north-bay-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/north-bay-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/north-bay-ice-blue.webp?v=09e627c9",
+       "small": "assets/designs/retro-mascot/north-bay-ice-blue-sm.webp?v=bf297758",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/north-bay-midnight.webp",
-       "small": "assets/designs/retro-mascot/north-bay-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/north-bay-midnight.webp?v=da5c85e3",
+       "small": "assets/designs/retro-mascot/north-bay-midnight-sm.webp?v=d914f9e1",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/north-bay.png",
+     "art": "designs-isolated/retro-mascot/north-bay.png?v=92c436ee",
      "ratio": 1.4925,
      "palette": [
       "#4767a9",
@@ -1689,20 +1689,20 @@ window.BELIEF_DESIGNS = {
      "id": "borcelle",
      "title": "The Borcelle",
      "source": "borcelle.png",
-     "thumb": "assets/designs/retro-mascot/borcelle-thumb.webp",
+     "thumb": "assets/designs/retro-mascot/borcelle-thumb.webp?v=c5465e32",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/retro-mascot/borcelle-ice-blue.webp",
-       "small": "assets/designs/retro-mascot/borcelle-ice-blue-sm.webp",
+       "src": "assets/designs/retro-mascot/borcelle-ice-blue.webp?v=8d3431d9",
+       "small": "assets/designs/retro-mascot/borcelle-ice-blue-sm.webp?v=ec3bdce2",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/retro-mascot/borcelle-midnight.webp",
-       "small": "assets/designs/retro-mascot/borcelle-midnight-sm.webp",
+       "src": "assets/designs/retro-mascot/borcelle-midnight.webp?v=63ebc8a5",
+       "small": "assets/designs/retro-mascot/borcelle-midnight-sm.webp?v=1fb57b04",
        "width": 870
       }
      },
-     "art": "designs-isolated/retro-mascot/borcelle.png",
+     "art": "designs-isolated/retro-mascot/borcelle.png?v=a41e2cba",
      "ratio": 1.0605,
      "palette": [
       "#594867",
@@ -1718,20 +1718,20 @@ window.BELIEF_DESIGNS = {
      "id": "dont-look-back",
      "title": "Don’t Look Back",
      "source": "dont-look-back.jpg",
-     "thumb": "assets/designs/vintage-athletic/dont-look-back-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/dont-look-back-thumb.webp?v=c005a5d1",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/dont-look-back-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/dont-look-back-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/dont-look-back-ice-blue.webp?v=ab0187a3",
+       "small": "assets/designs/vintage-athletic/dont-look-back-ice-blue-sm.webp?v=10ee3805",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/dont-look-back-midnight.webp",
-       "small": "assets/designs/vintage-athletic/dont-look-back-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/dont-look-back-midnight.webp?v=085efce3",
+       "small": "assets/designs/vintage-athletic/dont-look-back-midnight-sm.webp?v=41e29815",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/dont-look-back.png",
+     "art": "designs-isolated/vintage-athletic/dont-look-back.png?v=20bf782b",
      "ratio": 0.7331,
      "faint": [
       "midnight"
@@ -1745,20 +1745,20 @@ window.BELIEF_DESIGNS = {
      "id": "slow-and-easy",
      "title": "Slow & Easy Running Club",
      "source": "slow-and-easy.png",
-     "thumb": "assets/designs/vintage-athletic/slow-and-easy-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/slow-and-easy-thumb.webp?v=306f2155",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/slow-and-easy-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/slow-and-easy-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/slow-and-easy-ice-blue.webp?v=f2ae2e9b",
+       "small": "assets/designs/vintage-athletic/slow-and-easy-ice-blue-sm.webp?v=ccb14eb7",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/slow-and-easy-midnight.webp",
-       "small": "assets/designs/vintage-athletic/slow-and-easy-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/slow-and-easy-midnight.webp?v=6c10a53d",
+       "small": "assets/designs/vintage-athletic/slow-and-easy-midnight-sm.webp?v=fd402cae",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/slow-and-easy.png",
+     "art": "designs-isolated/vintage-athletic/slow-and-easy.png?v=d366f6c0",
      "ratio": 0.8792,
      "palette": [
       "#166aea",
@@ -1769,20 +1769,20 @@ window.BELIEF_DESIGNS = {
      "id": "just-got-served",
      "title": "You Just Got Served",
      "source": "just-got-served.png",
-     "thumb": "assets/designs/vintage-athletic/just-got-served-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/just-got-served-thumb.webp?v=cc6bd5ef",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/just-got-served-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/just-got-served-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/just-got-served-ice-blue.webp?v=56c680ba",
+       "small": "assets/designs/vintage-athletic/just-got-served-ice-blue-sm.webp?v=6bcae2e0",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/just-got-served-midnight.webp",
-       "small": "assets/designs/vintage-athletic/just-got-served-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/just-got-served-midnight.webp?v=6556d176",
+       "small": "assets/designs/vintage-athletic/just-got-served-midnight-sm.webp?v=593293d9",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/just-got-served.png",
+     "art": "designs-isolated/vintage-athletic/just-got-served.png?v=4cf923e4",
      "ratio": 0.9541,
      "palette": [
       "#076c34",
@@ -1793,20 +1793,20 @@ window.BELIEF_DESIGNS = {
      "id": "run-more-stress-less",
      "title": "Run More, Stress Less",
      "source": "run-more-stress-less.jpg",
-     "thumb": "assets/designs/vintage-athletic/run-more-stress-less-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/run-more-stress-less-thumb.webp?v=a3102e79",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/run-more-stress-less-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/run-more-stress-less-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/run-more-stress-less-ice-blue.webp?v=edf20564",
+       "small": "assets/designs/vintage-athletic/run-more-stress-less-ice-blue-sm.webp?v=3873035d",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/run-more-stress-less-midnight.webp",
-       "small": "assets/designs/vintage-athletic/run-more-stress-less-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/run-more-stress-less-midnight.webp?v=4ec895b0",
+       "small": "assets/designs/vintage-athletic/run-more-stress-less-midnight-sm.webp?v=99f535aa",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/run-more-stress-less.png",
+     "art": "designs-isolated/vintage-athletic/run-more-stress-less.png?v=42102602",
      "ratio": 1.0041,
      "palette": [
       "#024aab",
@@ -1817,20 +1817,20 @@ window.BELIEF_DESIGNS = {
      "id": "billys-bowling",
      "title": "Billy’s Bowling Club",
      "source": "billys-bowling.png",
-     "thumb": "assets/designs/vintage-athletic/billys-bowling-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/billys-bowling-thumb.webp?v=2b717cb3",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/billys-bowling-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/billys-bowling-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/billys-bowling-ice-blue.webp?v=daa0d3da",
+       "small": "assets/designs/vintage-athletic/billys-bowling-ice-blue-sm.webp?v=575272a3",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/billys-bowling-midnight.webp",
-       "small": "assets/designs/vintage-athletic/billys-bowling-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/billys-bowling-midnight.webp?v=aa0159bc",
+       "small": "assets/designs/vintage-athletic/billys-bowling-midnight-sm.webp?v=33d19619",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/billys-bowling.png",
+     "art": "designs-isolated/vintage-athletic/billys-bowling.png?v=d09a989c",
      "ratio": 0.9831,
      "palette": [
       "#0873b6",
@@ -1842,20 +1842,20 @@ window.BELIEF_DESIGNS = {
      "id": "slow-sundays",
      "title": "Slow Sundays",
      "source": "slow-sundays.png",
-     "thumb": "assets/designs/vintage-athletic/slow-sundays-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/slow-sundays-thumb.webp?v=6a819fc3",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/slow-sundays-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/slow-sundays-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/slow-sundays-ice-blue.webp?v=54aea0fb",
+       "small": "assets/designs/vintage-athletic/slow-sundays-ice-blue-sm.webp?v=6230f782",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/slow-sundays-midnight.webp",
-       "small": "assets/designs/vintage-athletic/slow-sundays-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/slow-sundays-midnight.webp?v=5a30771a",
+       "small": "assets/designs/vintage-athletic/slow-sundays-midnight-sm.webp?v=27d04971",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/slow-sundays.png",
+     "art": "designs-isolated/vintage-athletic/slow-sundays.png?v=6742da36",
      "ratio": 1.0569,
      "faint": [
       "ice-blue"
@@ -1870,20 +1870,20 @@ window.BELIEF_DESIGNS = {
      "id": "nice-day",
      "title": "It’s a Nice Day",
      "source": "nice-day.jpg",
-     "thumb": "assets/designs/vintage-athletic/nice-day-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/nice-day-thumb.webp?v=14e0aa09",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/nice-day-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/nice-day-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/nice-day-ice-blue.webp?v=b87b524e",
+       "small": "assets/designs/vintage-athletic/nice-day-ice-blue-sm.webp?v=75ad79f5",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/nice-day-midnight.webp",
-       "small": "assets/designs/vintage-athletic/nice-day-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/nice-day-midnight.webp?v=1326dacf",
+       "small": "assets/designs/vintage-athletic/nice-day-midnight-sm.webp?v=b3118436",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/nice-day.png",
+     "art": "designs-isolated/vintage-athletic/nice-day.png?v=68d53a24",
      "ratio": 0.7812,
      "palette": [
       "#1669ea",
@@ -1894,20 +1894,20 @@ window.BELIEF_DESIGNS = {
      "id": "sunday-running-club",
      "title": "Sunday Running Club",
      "source": "sunday-running-club.jpg",
-     "thumb": "assets/designs/vintage-athletic/sunday-running-club-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/sunday-running-club-thumb.webp?v=1240a6fd",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/sunday-running-club-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/sunday-running-club-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/sunday-running-club-ice-blue.webp?v=193c767d",
+       "small": "assets/designs/vintage-athletic/sunday-running-club-ice-blue-sm.webp?v=0fe79d78",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/sunday-running-club-midnight.webp",
-       "small": "assets/designs/vintage-athletic/sunday-running-club-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/sunday-running-club-midnight.webp?v=f72668ed",
+       "small": "assets/designs/vintage-athletic/sunday-running-club-midnight-sm.webp?v=3999b638",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/sunday-running-club.png",
+     "art": "designs-isolated/vintage-athletic/sunday-running-club.png?v=0fdb6839",
      "ratio": 0.6224,
      "palette": [
       "#e53245",
@@ -1918,20 +1918,20 @@ window.BELIEF_DESIGNS = {
      "id": "tennis-club",
      "title": "Tennis Club",
      "source": "tennis-club.jpg",
-     "thumb": "assets/designs/vintage-athletic/tennis-club-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/tennis-club-thumb.webp?v=a3997201",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/tennis-club-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/tennis-club-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/tennis-club-ice-blue.webp?v=59a5a59a",
+       "small": "assets/designs/vintage-athletic/tennis-club-ice-blue-sm.webp?v=6fa61f39",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/tennis-club-midnight.webp",
-       "small": "assets/designs/vintage-athletic/tennis-club-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/tennis-club-midnight.webp?v=104384ab",
+       "small": "assets/designs/vintage-athletic/tennis-club-midnight-sm.webp?v=09f00cf5",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/tennis-club.png",
+     "art": "designs-isolated/vintage-athletic/tennis-club.png?v=a74748c4",
      "ratio": 0.6099,
      "palette": [
       "#8bc558",
@@ -1942,20 +1942,20 @@ window.BELIEF_DESIGNS = {
      "id": "tennis-club-bubble",
      "title": "Tennis Club, Bubble",
      "source": "tennis-club-bubble.jpg",
-     "thumb": "assets/designs/vintage-athletic/tennis-club-bubble-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/tennis-club-bubble-thumb.webp?v=b1760b82",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/tennis-club-bubble-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/tennis-club-bubble-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/tennis-club-bubble-ice-blue.webp?v=67b99dde",
+       "small": "assets/designs/vintage-athletic/tennis-club-bubble-ice-blue-sm.webp?v=aa52e53b",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/tennis-club-bubble-midnight.webp",
-       "small": "assets/designs/vintage-athletic/tennis-club-bubble-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/tennis-club-bubble-midnight.webp?v=f0166628",
+       "small": "assets/designs/vintage-athletic/tennis-club-bubble-midnight-sm.webp?v=aa915656",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/tennis-club-bubble.png",
+     "art": "designs-isolated/vintage-athletic/tennis-club-bubble.png?v=7b16df29",
      "ratio": 0.8595,
      "faint": [
       "ice-blue"
@@ -1969,20 +1969,20 @@ window.BELIEF_DESIGNS = {
      "id": "run-the-race",
      "title": "Run the Race",
      "source": "run-the-race.jpg",
-     "thumb": "assets/designs/vintage-athletic/run-the-race-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/run-the-race-thumb.webp?v=9286fb87",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/run-the-race-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/run-the-race-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/run-the-race-ice-blue.webp?v=76b844d6",
+       "small": "assets/designs/vintage-athletic/run-the-race-ice-blue-sm.webp?v=c8735703",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/run-the-race-midnight.webp",
-       "small": "assets/designs/vintage-athletic/run-the-race-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/run-the-race-midnight.webp?v=1d226570",
+       "small": "assets/designs/vintage-athletic/run-the-race-midnight-sm.webp?v=e668c6f0",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/run-the-race.png",
+     "art": "designs-isolated/vintage-athletic/run-the-race.png?v=e3dbc5bf",
      "ratio": 1.3016,
      "palette": [
       "#4978c6",
@@ -1993,20 +1993,20 @@ window.BELIEF_DESIGNS = {
      "id": "keep-moving-forward",
      "title": "Keep Moving Forward",
      "source": "keep-moving-forward.jpg",
-     "thumb": "assets/designs/vintage-athletic/keep-moving-forward-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/keep-moving-forward-thumb.webp?v=b23541ef",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/keep-moving-forward-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/keep-moving-forward-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/keep-moving-forward-ice-blue.webp?v=06306745",
+       "small": "assets/designs/vintage-athletic/keep-moving-forward-ice-blue-sm.webp?v=754acece",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/keep-moving-forward-midnight.webp",
-       "small": "assets/designs/vintage-athletic/keep-moving-forward-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/keep-moving-forward-midnight.webp?v=5e5e54e7",
+       "small": "assets/designs/vintage-athletic/keep-moving-forward-midnight-sm.webp?v=f1216df3",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/keep-moving-forward.png",
+     "art": "designs-isolated/vintage-athletic/keep-moving-forward.png?v=9c7abc69",
      "ratio": 1.0411,
      "faint": [
       "midnight"
@@ -2020,20 +2020,20 @@ window.BELIEF_DESIGNS = {
      "id": "keep-moving",
      "title": "Keep Moving",
      "source": "keep-moving.jpg",
-     "thumb": "assets/designs/vintage-athletic/keep-moving-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/keep-moving-thumb.webp?v=93381861",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/keep-moving-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/keep-moving-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/keep-moving-ice-blue.webp?v=33b2d02e",
+       "small": "assets/designs/vintage-athletic/keep-moving-ice-blue-sm.webp?v=075d4461",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/keep-moving-midnight.webp",
-       "small": "assets/designs/vintage-athletic/keep-moving-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/keep-moving-midnight.webp?v=7afd68cd",
+       "small": "assets/designs/vintage-athletic/keep-moving-midnight-sm.webp?v=937c3200",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/keep-moving.png",
+     "art": "designs-isolated/vintage-athletic/keep-moving.png?v=39046019",
      "ratio": 0.7987,
      "palette": [
       "#fd6b02",
@@ -2044,20 +2044,20 @@ window.BELIEF_DESIGNS = {
      "id": "run-club",
      "title": "Run Club",
      "source": "run-club.jpg",
-     "thumb": "assets/designs/vintage-athletic/run-club-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/run-club-thumb.webp?v=0a1b4e17",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/run-club-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/run-club-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/run-club-ice-blue.webp?v=b8ab5b81",
+       "small": "assets/designs/vintage-athletic/run-club-ice-blue-sm.webp?v=ba49a644",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/run-club-midnight.webp",
-       "small": "assets/designs/vintage-athletic/run-club-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/run-club-midnight.webp?v=8aa73931",
+       "small": "assets/designs/vintage-athletic/run-club-midnight-sm.webp?v=e46585b0",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/run-club.png",
+     "art": "designs-isolated/vintage-athletic/run-club.png?v=fd18cc1d",
      "ratio": 1.4707,
      "palette": [
       "#274978",
@@ -2068,20 +2068,20 @@ window.BELIEF_DESIGNS = {
      "id": "run-like-never-before",
      "title": "Run Like Never Before",
      "source": "run-like-never-before.jpg",
-     "thumb": "assets/designs/vintage-athletic/run-like-never-before-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/run-like-never-before-thumb.webp?v=3d5bcbe9",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/run-like-never-before-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/run-like-never-before-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/run-like-never-before-ice-blue.webp?v=5e86406a",
+       "small": "assets/designs/vintage-athletic/run-like-never-before-ice-blue-sm.webp?v=658d310e",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/run-like-never-before-midnight.webp",
-       "small": "assets/designs/vintage-athletic/run-like-never-before-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/run-like-never-before-midnight.webp?v=6ea3c654",
+       "small": "assets/designs/vintage-athletic/run-like-never-before-midnight-sm.webp?v=e60b38b1",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/run-like-never-before.png",
+     "art": "designs-isolated/vintage-athletic/run-like-never-before.png?v=af8244d9",
      "ratio": 1.1207,
      "faint": [
       "midnight"
@@ -2095,20 +2095,20 @@ window.BELIEF_DESIGNS = {
      "id": "lazy-morning",
      "title": "Lazy Morning Running Club",
      "source": "lazy-morning.jpg",
-     "thumb": "assets/designs/vintage-athletic/lazy-morning-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/lazy-morning-thumb.webp?v=01f6eca2",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/lazy-morning-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/lazy-morning-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/lazy-morning-ice-blue.webp?v=8f178d83",
+       "small": "assets/designs/vintage-athletic/lazy-morning-ice-blue-sm.webp?v=237cdddd",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/lazy-morning-midnight.webp",
-       "small": "assets/designs/vintage-athletic/lazy-morning-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/lazy-morning-midnight.webp?v=3b591ed8",
+       "small": "assets/designs/vintage-athletic/lazy-morning-midnight-sm.webp?v=977dad48",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/lazy-morning.png",
+     "art": "designs-isolated/vintage-athletic/lazy-morning.png?v=dd1086bd",
      "ratio": 1.0551,
      "faint": [
       "midnight"
@@ -2123,20 +2123,20 @@ window.BELIEF_DESIGNS = {
      "id": "live-like-an-athlete",
      "title": "Live Like an Athlete",
      "source": "live-like-an-athlete.jpg",
-     "thumb": "assets/designs/vintage-athletic/live-like-an-athlete-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/live-like-an-athlete-thumb.webp?v=93e02989",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/live-like-an-athlete-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/live-like-an-athlete-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/live-like-an-athlete-ice-blue.webp?v=5b002dd1",
+       "small": "assets/designs/vintage-athletic/live-like-an-athlete-ice-blue-sm.webp?v=b70e8068",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/live-like-an-athlete-midnight.webp",
-       "small": "assets/designs/vintage-athletic/live-like-an-athlete-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/live-like-an-athlete-midnight.webp?v=49149df9",
+       "small": "assets/designs/vintage-athletic/live-like-an-athlete-midnight-sm.webp?v=a695efef",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/live-like-an-athlete.png",
+     "art": "designs-isolated/vintage-athletic/live-like-an-athlete.png?v=4f6094da",
      "ratio": 0.8657,
      "faint": [
       "midnight"
@@ -2150,20 +2150,20 @@ window.BELIEF_DESIGNS = {
      "id": "court-crew",
      "title": "Court Crew",
      "source": "court-crew.jpg",
-     "thumb": "assets/designs/vintage-athletic/court-crew-thumb.webp",
+     "thumb": "assets/designs/vintage-athletic/court-crew-thumb.webp?v=ec1153e0",
      "prints": {
       "ice-blue": {
-       "src": "assets/designs/vintage-athletic/court-crew-ice-blue.webp",
-       "small": "assets/designs/vintage-athletic/court-crew-ice-blue-sm.webp",
+       "src": "assets/designs/vintage-athletic/court-crew-ice-blue.webp?v=c697904f",
+       "small": "assets/designs/vintage-athletic/court-crew-ice-blue-sm.webp?v=ca43e288",
        "width": 642
       },
       "midnight": {
-       "src": "assets/designs/vintage-athletic/court-crew-midnight.webp",
-       "small": "assets/designs/vintage-athletic/court-crew-midnight-sm.webp",
+       "src": "assets/designs/vintage-athletic/court-crew-midnight.webp?v=fbc7468b",
+       "small": "assets/designs/vintage-athletic/court-crew-midnight-sm.webp?v=08d947bf",
        "width": 870
       }
      },
-     "art": "designs-isolated/vintage-athletic/court-crew.png",
+     "art": "designs-isolated/vintage-athletic/court-crew.png?v=5ecd9e70",
      "ratio": 1.164,
      "faint": [
       "midnight"
