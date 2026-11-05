@@ -107,20 +107,31 @@ window.BELIEF = {
     ],
   },
 
-  // Sizes. One recommendation, used by the Size Guide window on the homepage and by the Find Your Fit page.
-  // Weight decides: each rule names a size and the weights (kg) it fits, both ends included; an empty upper end
-  // (null) means "and above". A weight that no rule covers gets no size: the customer is asked to contact us.
+  // Sizes. One recommendation, used by the Size Guide window and by the Find Your Fit page.
+  // Each rule names a size and the weights (kg) it fits, both ends included; an empty upper end (null) means
+  // "and above". A weight that no rule covers gets no size: the customer is invited to ask us.
+  // The recommendation only informs: on the Find Your Fit page the weight is optional, the recommended size is marked
+  // but never chosen for the customer, and any size in `sizes` can be ordered whatever the weight.
   // Height is asked for and kept with the order, but never changes the recommendation.
   size: {
     eyebrow: "Your fit",
     title: "Find your",     // shown as FIND YOUR FIT
     titleSerif: "fit",
-    intro: "Enter your weight, and your height if you like: we will recommend the size that suits you.",
+    intro: "Choose the size you want. Not sure? Enter your weight and we will recommend one. The choice is always yours.",
     heightLabel: "Height",
     weightLabel: "Weight",
     optional: "Optional",
-    button: "Find my size",
-    resultLabel: "Recommended size",
+    resultLabel: "Recommended size",   // in the Size Guide window
+    // under the weight, on the Find Your Fit page
+    recoHint: "Enter your weight and we will recommend a size.",
+    recoLabel: "Recommended for you",
+    recoNote: "Based on {weight} kg. You are free to choose any size.",   // {weight}: the weight entered
+    recoTag: "Recommended",            // on the recommended size, among the sizes to choose from
+    // the sizes to choose from
+    pickLabel: "Choose your size",
+    pickNote: "Choose a size to continue.",
+    pickedNote: "Size {size} chosen. You can change it at any time.",     // {size}: the size chosen
+    guideLink: "Size guide",
     continueLabel: "Continue",
     next: "packaging.html", // the packaging page
     sizes: ["M", "L", "XL"],
@@ -135,7 +146,7 @@ window.BELIEF = {
     // what the fields accept; anything outside is taken as a typing mistake
     limits: { height: [120, 230], weight: [30, 250] },
     guideTitle: "Size guide",
-    guideIntro: "Your weight decides the size. Enter it below for an instant recommendation.",
+    guideIntro: "Enter your weight below for an instant recommendation. It is only a guide: you choose your size.",
     table: "Weight → size",
   },
 

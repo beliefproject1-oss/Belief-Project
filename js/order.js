@@ -107,7 +107,7 @@
   function missing() {
     const out = [];
     if (!d.color) out.push(['Choose your colour', 'shop.html']);
-    if (!d.size) out.push(['Find your size', Flow.nextHref('size.html', d)]);
+    if (!d.size) out.push(['Choose your size', Flow.nextHref('size.html', d)]);
     if (!packaging) out.push(['Choose your packaging', Flow.nextHref('packaging.html', d)]);
     return out;
   }

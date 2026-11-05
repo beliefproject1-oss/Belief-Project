@@ -117,10 +117,12 @@ window.BeliefPanels = (() => {
     (Z?.table() || []).forEach(r => { table.append(el('dt', '', r.range), el('dd', '', r.size)); });
     const tableBox = el('div', 'guide-rules');
     tableBox.append(el('p', 'guide-rules-label', S.table || 'Weight → size'), table);
-    // the same answer, on its own page
-    const fit = el('a', 'guide-fit', 'Open Find Your Fit →');
-    fit.href = 'size.html';
-    tableBox.append(fit);
+    // the same answer, on its own page (not offered when the window is opened from that page)
+    if (!document.body.classList.contains('fit-page')) {
+      const fit = el('a', 'guide-fit', 'Open Find Your Fit →');
+      fit.href = 'size.html';
+      tableBox.append(fit);
+    }
     wrap.append(form, result, tableBox);
 
     function update({ quiet = true } = {}) {
